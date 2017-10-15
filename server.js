@@ -8,7 +8,7 @@ const
   flash = require('connect-flash'),
   session = require('express-session'),
   mongoDbStore = require('connect-mongodb-session')(session),
-  passport = require('passport'),
+  passport = require('passport')
 //
 
 // enviroment port
@@ -28,6 +28,7 @@ const store  = new mongoDbStore({
     collection: 'sessions'
 })
 
+
 app.use(logger('dev'))
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -35,15 +36,17 @@ app.use(bodyParser.json())
 app.use(flash())
 
 // config cookies 
-app.use({
+app.use(session({
     secret: 'generalAssembly',
     cookie: {maxAge: 60000},
     resave: true,
     saveUninitialize: false,
     store: store
-})
+}))
 
 app.use(passport.initialize())
+
+app.set('view engine', 'ejs')
 app.use(ejsLayout)
 
 app.use((req, res, next) => {
