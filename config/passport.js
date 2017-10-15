@@ -22,7 +22,7 @@ passport.use('local-signup', new LocalStrategy({
 }, (req, email, password, done) => {
     User.findOne({email: email}, (err, user) => {
         if(err) return done(err)
-        if(user) return done(null, false, flash('email-message', 'Sorry that email is taken!'))
+        if(user) return done(null, false, req.flash('email-message', 'Sorry that email is taken!'))
         var newUser = new User(req.body)
         newUser.password = newUser.generateHash(password)
         newUser.save((err) => {
