@@ -1,14 +1,16 @@
 const
   app = require('express')(),
+  ejsLayout = require('express-ejs-layouts'),
+  mongoose = require('mongoose'),
+  flash = require('connect-flash'),
   logger = require('morgan'),
   bodyParser = require('body-parser'),
   cookieParser = require('cookie-parser'),
-  mongoose = require('mongoose'),
-  ejsLayout = require('express-ejs-layouts'),
-  flash = require('connect-flash'),
   session = require('express-session'),
   mongoDbStore = require('connect-mongodb-session')(session),
-  passport = require('passport')
+  passport = require('passport'),
+  passportConfig = require('./config/passport.js'),
+  userRoutes = require('./routes/user.js')
 //
 
 // enviroment port
@@ -37,14 +39,15 @@ app.use(flash())
 
 // config cookies 
 app.use(session({
-    secret: 'generalAssembly',
-    cookie: {maxAge: 60000},
+    secret: 'elfuegoisreal',
+    cookie: {maxAge: 600000},
     resave: true,
     saveUninitialize: false,
     store: store
 }))
 
 app.use(passport.initialize())
+app.use(passport.session())
 
 app.set('view engine', 'ejs')
 app.use(ejsLayout)
@@ -58,6 +61,8 @@ app.use((req, res, next) => {
 app.get('/', (req, res) => {
     res.render('home')
 })
+
+app.use('/', userRoutes)
 
 
 app.listen(PORT, (err) => {
