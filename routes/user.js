@@ -6,10 +6,10 @@ const
 
 userRouter.route('/signup')
   .get((req, res) => {
-    res.render('signUp', {message: req.flash('signup-message')})
+    res.render('new', {message: req.flash('signup-message')})
   })
   .post(passport.authenticate('local-signup', {
-    successRedirect: '/profile',
+    successRedirect: '/dashboard',
     failureRedirect: '/signup',
     failureFlash: true
   }))
@@ -28,8 +28,18 @@ userRouter.route('/login')
 
 userRouter.route('/dashboard')
   .get((req, res) => {
-    res.render('user/dashboard')
+    res.render('user/dashboard', {
+      user: req.user
+    })
   })
+//
+
+userRouter.get('/logout', (req, res) => {
+  req.logout()
+  res.redirect('/')
+})
+
+
 
 
 module.exports = userRouter
