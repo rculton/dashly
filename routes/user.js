@@ -32,6 +32,14 @@ userRouter.route('/dashboard')
       user: req.user
     })
   })
+//
+
+userRouter.get('/logout', (req, res) => {
+  req.logout()
+  res.redirect('/')
+})
+
+
 
 
 module.exports = userRouter
