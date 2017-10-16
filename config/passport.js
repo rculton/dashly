@@ -38,12 +38,14 @@ passport.use('local-login', new LocalStrategy({
     passwordField: 'password',
     passReqToCallback: true
 }, (req, email, password, done) => {
-    if(err) return done(err)
-    if(!user || !user.validPassword(password)) {
-        return done(null, false, req.flash('login-message', 'Sorry incorrect email or password'))
-    }
-
-    return done(null, user)
+    User.findOne({email: email}, (err, user) => {
+        if(err) return done(err)
+        if(!user || !user.validPassword(password)) {
+            return done(null, false, req.flash('login-message', 'Sorry incorrect email or password'))
+        }
+    
+        return done(null, user)
+    })
 }))
 
 module.exports = passport

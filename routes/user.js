@@ -20,7 +20,7 @@ userRouter.route('/login')
     res.render('login', {message: req.flash('login-message')})
   })
   .post(passport.authenticate('local-login', {
-    successRedirect: '/profile',
+    successRedirect: '/dashboard',
     failureRedirect: '/login',
     failureFlash: true
   }))
