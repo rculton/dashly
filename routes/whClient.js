@@ -8,11 +8,13 @@ const
 
 whRouter.get('/:query', (req, res)=>{
     var queryParams = {
-        "q": `site_type:news ${req.params.query} language:english`,
-        "sort":"crawled"
+        "q": `${req.params.query} language:english domain_rank:>5000 site_category:movies performance_score:>3`,
+        "ts": "1505600867612",
+        "sort":"relevancy"
     }
     client.query('filterWebContent', queryParams)
     .then(output =>{
+        console.log(output.posts[0].title)
         res.json(output)
     })
 

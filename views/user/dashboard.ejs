@@ -1,4 +1,148 @@
-<h1>dashboard</h1>
-<pre>
-    <%= user %>
-</pre>
+<div id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="card">
+      <div class="card-header" role="tab" id="headingOne">
+        <h5 class="mb-0">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Music
+          </a>
+        </h5>
+      </div>
+  
+      <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+        <div class="card-block">
+          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" role="tab" id="headingTwo">
+        <h5 class="mb-0">
+          <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            Sports
+          </a>
+        </h5>
+      </div>
+      <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+        <div class="card-block">
+          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" role="tab" id="headingThree">
+        <h5 class="mb-0">
+          <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            Movies
+          </a>
+        </h5>
+      </div>
+      <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
+        <div class="card-block">
+            <form id="wh-query-form">
+                <input id="wh-query-text" type="text">
+                <input type="submit">
+            </form>     
+            <ul id="wh-movies">
+
+                <li>Loading Content - Please Wait...</li>
+            </ul>      
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <script>
+      var $whQueryForm = $('#wh-query-form')
+      var $whQueryText = $('#wh-query-text')
+      var $whUl = $('#wh-movies')
+      //pre-query for movies
+      function populateMovies(movies){
+            $whUl.html('')
+            $whQueryText.val('')
+            movies.posts.forEach((post, i)=>{
+              /*  
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="big-box">image</div>
+    </div>
+    <div class="col">
+      <div class="row">
+        <div class="col-xs-6">
+          <div class="mini-box">Movie Title</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          */
+              console.log('movie git!')
+              var $theLi = $('<li>')
+              $theLi.html(`
+              <div class="container">
+                  <div class="row">
+                    <div class="col">
+                      <div class="big-box">image</div>
+                    </div>
+                    <div class="col">
+                      <div class="row">
+                        <div class="col-xs-6">
+                          <div class="mini-box" >
+                            <a href="${post.url}">${post.title}</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>`)
+              //var $theLink = $(`<a>`)
+              //$theLink.text(post.title)
+              //$theLink.attr("href", post.url)
+              //$theLi.append($theLink)
+              $whUl.append($theLi)
+              if (i >= 10){
+                console.log("Ended at", i)
+                return
+              }
+            }
+          )
+        }
+      $.ajax({url:`/webhose/donald duck`, method: 'get'})
+      .done((res)=>{
+          populateMovies(res)
+        }
+      )
+    /*
+     function populateItemsList(items) {
+            $itemsList.html('')
+            items.forEach((item) => { //previously had an index item (i)
+                var $deleteBtn = $(`<button>`).text('X').addClass('delete') //previously had id="${i}"
+                //$btn.on('click', deleteItem)
+                var $completeBtn = $(`<button>`).text('✔️').addClass('toggle')
+
+                $theLi = $('<li>').text(`${item.task}  `).attr('id', item._id)
+                        if (item.completed){
+                            $theLi.addClass('completed')    
+                        }
+                $theLi.append($completeBtn)
+                $theLi.append($deleteBtn)
+                $itemsList.append($theLi)
+            })
+        }
+         */
+
+
+      $whQueryForm.on('submit', (evt)=>{
+          evt.preventDefault()
+          $whUl.html('')
+          var newQuery = $whQueryText.val()
+          $whUl.append($('<li>').text('Searching... Please Wait....'))
+          $.ajax({url:`/webhose/${newQuery}`, method: 'get'})
+            .done((res)=>{
+                populateMovies(res)
+              }
+          )
+      })
+  </script>
