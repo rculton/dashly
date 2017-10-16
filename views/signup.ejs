@@ -1,6 +1,6 @@
 <form action="/signup" method="POST">
-  <% if(message) { %>
-    <%= message %>
+  <% if(message.length > 0) { %>
+    <div class="alert alert-danger"><%= message %></div>
   <% } %>
     <div class="form-group">
         <label for="exampleInputEmail1">Name</label>
