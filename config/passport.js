@@ -20,6 +20,7 @@ passport.use('local-signup', new LocalStrategy({
     passwordField: 'password',
     passReqToCallback: true
 }, (req, email, password, done) => {
+    console.log(req)
     User.findOne({email: email}, (err, user) => {
         if(err) return done(err)
         if(user) return done(null, false, req.flash('signup-message', 'Sorry that email is taken!'))
