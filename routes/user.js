@@ -6,7 +6,7 @@ const
 
 userRouter.route('/signup')
   .get((req, res) => {
-    res.render('new', {message: req.flash('signup-message')})
+    res.render('signup', {message: req.flash('signup-message')})
   })
   .post(passport.authenticate('local-signup', {
     successRedirect: '/dashboard',
