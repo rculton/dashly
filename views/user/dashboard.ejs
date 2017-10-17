@@ -50,9 +50,13 @@
 
       $.ajax({url: '/sports', method: 'get'})
       .done(function(res){
-      console.log(res.week.games[2].home.alias)
+      // console.log(res.week.games[2].home.alias) test
+       // console.log("server says:", res) test
+          var theLi = $('<p>').text(res.week.games[2].home.alias)
+          $sports.append(theLi)
+    })
 
-      })
+      
   </script>
 
 
