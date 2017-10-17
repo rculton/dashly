@@ -25,8 +25,9 @@
       <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
         <div class="card-block">
           <!-- sports content -->
-          <img src="../public/seahawkspic.jpeg"> <!-- favorite team image -->
-          Latest news for your favorite NFL team the Atlanta Falcons
+           <!-- favorite team image -->
+          Your favorite NFL team the Atlanta Falcons
+          <img src="CBS.jpeg" alt="">
           <div id="sports"></div> <!-- API response - next game -->
           <ul id="gameInfo">
           </ul> <!-- API response - game info -->
@@ -67,6 +68,9 @@
           //channel game will be on 
           var channel = $('<li>').text(`Watch on channel: ${res.week.games[0].broadcast.network}`)
           $gameInfo.append(channel)
+          //ADD dropdown of favorite team 
+            //ADD logic to determine opponent, gametime, & channel of favorite team's game based off drop down menu selection
+          
     })
 
       
