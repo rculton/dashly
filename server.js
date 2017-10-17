@@ -1,5 +1,6 @@
 const
-  app = require('express')(),
+  express = require('express'),
+  app = express(),
   ejsLayout = require('express-ejs-layouts'),
   mongoose = require('mongoose'),
   flash = require('connect-flash'),
@@ -31,6 +32,7 @@ const store  = new mongoDbStore({
 })
 
 
+app.use(express.static(__dirname + '/public'))
 app.use(logger('dev'))
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: true }))
