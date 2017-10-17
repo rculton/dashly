@@ -14,7 +14,7 @@ whRouter.get('/:query', (req, res)=>{
     }
     client.query('filterWebContent', queryParams)
     .then(output =>{
-        console.log(output.posts[0].title)
+        console.log(output)
         res.json(output)
     })
 

@@ -42,7 +42,7 @@
                 <input id="wh-query-text" type="text">
                 <input type="submit">
             </form>     
-            <ul id="wh-movies">
+            <ul id="wh-movies" style="list-style: none;">
 
                 <li>Loading Content - Please Wait...</li>
             </ul>      
@@ -62,45 +62,29 @@
             $whUl.html('')
             $whQueryText.val('')
             movies.posts.forEach((post, i)=>{
-              /*  
-<div class="container">
-  <div class="row">
-    <div class="col">
-      <div class="big-box">image</div>
-    </div>
-    <div class="col">
-      <div class="row">
-        <div class="col-xs-6">
-          <div class="mini-box">Movie Title</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-          */
+              thispost = post.thread
+              console.log(thispost)
               console.log('movie git!')
               var $theLi = $('<li>')
               $theLi.html(`
               <div class="container">
                   <div class="row">
                     <div class="col">
-                      <div class="big-box">image</div>
+                      <div class="small-box">
+                          <img class="img img-fluid visual-post-img" src=${thispost.main_image}>
+                      </div>
                     </div>
                     <div class="col">
                       <div class="row">
                         <div class="col-xs-6">
                           <div class="mini-box" >
-                            <a href="${post.url}">${post.title}</a>
+                            <a href="${thispost.url}">${thispost.title}</a>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>`)
-              //var $theLink = $(`<a>`)
-              //$theLink.text(post.title)
-              //$theLink.attr("href", post.url)
-              //$theLi.append($theLink)
               $whUl.append($theLi)
               if (i >= 10){
                 console.log("Ended at", i)
@@ -109,9 +93,9 @@
             }
           )
         }
-      $.ajax({url:`/webhose/donald duck`, method: 'get'})
-      .done((res)=>{
-          populateMovies(res)
+      $.ajax({url:'/webhose/donald duck', method: 'get', dataType: 'json'})
+      .done((res)=> {
+        populateMovies(res)
         }
       )
     /*
