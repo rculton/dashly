@@ -65,8 +65,8 @@
           var gameDay = $('<li>').text(`Game is at: ${res.week.games[0].scheduled}`)
           $gameInfo.append(gameDay)
           //channel game will be on 
-          
-
+          var channel = $('<li>').text(`Watch on channel: ${res.week.games[0].broadcast.network}`)
+          $gameInfo.append(channel)
     })
 
       
