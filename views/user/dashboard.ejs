@@ -25,10 +25,12 @@
       <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
         <div class="card-block">
           <!-- sports content -->
-          <div id="favImage"></div> <!-- favorite team image -->
-          Next game for: Seattle Seahawks
+          <img src="../public/seahawkspic.jpeg"> <!-- favorite team image -->
+          Latest news for your favorite NFL team the Seattle Seahawks
           <div id="sports"></div> <!-- API response - next game -->
-          <div id="gameInfo"></div> <!-- API response - game info -->
+          <ul id="gameInfo">
+            <li></li>
+          </ul> <!-- API response - game info -->
           <div id="sportsSearch"></div>
         </div>
       </div>
@@ -56,8 +58,9 @@
       .done(function(res){
       // console.log(res.week.games[2].home.alias) test
        // console.log("server says:", res) test
-          var theLi = $('<p>').text(res.week.games[2].home.alias)
+          var theLi = $('<p>').text(`Their next game is against: ${res.week.games[2].home.name}`)
           $sports.append(theLi)
+
     })
 
       
