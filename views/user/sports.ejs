@@ -1,6 +1,6 @@
 
 Your favorite NFL team the Atlanta Falcons
-<img src="CBS.jpeg" alt="">
+
 <div id="sports"></div> <!-- API response - next game -->
 <ul id="gameInfo">
 </ul> <!-- API response - game info -->
@@ -25,8 +25,15 @@ Your favorite NFL team the Atlanta Falcons
           //channel game will be on 
           var channel = $('<li>').text(`Watch on channel: ${res.week.games[0].broadcast.network}`)
           $gameInfo.append(channel)
+
+          if(res.week.games[0].broadcast.network === 'CBS'){
+            var pic = $('<li>').text(`it works`)
+            $gameInfo.append(pic);
+          }
+          
           //ADD dropdown of favorite team 
             //ADD logic to determine opponent, gametime, & channel of favorite team's game based off drop down menu selection
+
           
     })
 
