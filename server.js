@@ -11,11 +11,11 @@ const
   mongoDbStore = require('connect-mongodb-session')(session),
   passport = require('passport'),
   passportConfig = require('./config/passport.js'),
-  userRoutes = require('./routes/user.js')
-  httpClient = require('request')
-  sportsRoutes = require('./routes/sports.js')
-  whRoutes = require('./routes/whClient.js')
-  require('dotenv').load();
+  userRoutes = require('./routes/user.js'),
+  httpClient = require('request'),
+  sportsRoutes = require('./routes/sports.js'),
+  whRoutes = require('./routes/whClient.js'),
+  dotenv = require('dotenv').load();
 //
 
 // enviroment port
