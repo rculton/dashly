@@ -39,13 +39,21 @@
       </div>
       <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
         <div class="card-block">
-          <!-- insert ryan -->
+            <form id="wh-query-form">
+                <input id="wh-query-text" type="text">
+                <input type="submit">
+            </form>     
+            <ul id="wh-movies" style="list-style: none;">
+
+                <li>Loading Content - Please Wait...</li>
+            </ul>      
         </div>
       </div>
     </div>
   </div>
 
   <script>
+//Andrew's   vvvvvvvvv
       var $sports = $('#sports')
 
       $.ajax({url: '/sports', method: 'get'})
@@ -56,8 +64,81 @@
           $sports.append(theLi)
     })
 
-      
+//RYAN's vvvvvvvvv
+
+      var $whQueryForm = $('#wh-query-form')
+      var $whQueryText = $('#wh-query-text')
+      var $whUl = $('#wh-movies')
+      //pre-query for movies
+      function populateMovies(movies){
+            $whUl.html('')
+            $whQueryText.val('')
+            movies.posts.forEach((post, i)=>{
+              thispost = post.thread
+              console.log(thispost)
+              console.log('movie git!')
+              var $theLi = $('<li>')
+              $theLi.html(`
+              <div class="container">
+                  <div class="row">
+                    <div class="col">
+                      <div class="small-box">
+                          <img class="img img-fluid visual-post-img" src=${thispost.main_image}>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="row">
+                        <div class="col-xs-6">
+                          <div class="mini-box" >
+                            <a href="${thispost.url}">${thispost.title}</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>`)
+              $whUl.append($theLi)
+              if (i >= 10){
+                console.log("Ended at", i)
+                return
+              }
+            }
+          )
+        }
+      $.ajax({url:'/webhose/donald duck', method: 'get', dataType: 'json'})
+      .done((res)=> {
+        populateMovies(res)
+        }
+      )
+    /*
+     function populateItemsList(items) {
+            $itemsList.html('')
+            items.forEach((item) => { //previously had an index item (i)
+                var $deleteBtn = $(`<button>`).text('X').addClass('delete') //previously had id="${i}"
+                //$btn.on('click', deleteItem)
+                var $completeBtn = $(`<button>`).text('✔️').addClass('toggle')
+
+                $theLi = $('<li>').text(`${item.task}  `).attr('id', item._id)
+                        if (item.completed){
+                            $theLi.addClass('completed')    
+                        }
+                $theLi.append($completeBtn)
+                $theLi.append($deleteBtn)
+                $itemsList.append($theLi)
+            })
+        }
+         */
+
+
+      $whQueryForm.on('submit', (evt)=>{
+          evt.preventDefault()
+          $whUl.html('')
+          var newQuery = $whQueryText.val()
+          $whUl.append($('<li>').text('Searching... Please Wait....'))
+          $.ajax({url:`/webhose/${newQuery}`, method: 'get'})
+            .done((res)=>{
+                populateMovies(res)
+              }
+          )
+      })
   </script>
-
-
-  
