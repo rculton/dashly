@@ -13,6 +13,8 @@ const
   userRoutes = require('./routes/user.js')
   httpClient = require('request')
   sportsRoutes = require('./routes/sports.js')
+  whRoutes = require('./routes/whClient.js')
+  require('dotenv').load();
 //
 
 // enviroment port
@@ -31,6 +33,9 @@ const store  = new mongoDbStore({
     uri: mongoConnectionString,
     collection: 'sessions'
 })
+
+//webhose API
+
 
 
 app.use(logger('dev'))
@@ -66,6 +71,8 @@ app.get('/', (req, res) => {
 
 app.use('/', userRoutes)
 app.use('/sports', sportsRoutes)
+
+app.use('/webhose', whRoutes)
 
 
 app.listen(PORT, (err) => {
