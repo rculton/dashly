@@ -1,3 +1,4 @@
+console.log('hello')
       /*let user = <%- JSON.stringify(user) %>
         console.log(user._id); */
 var musicApi = 'https://itunes.apple.com/search?media=music&limit=10&entity=musicTrack&term=john+legend'
@@ -25,7 +26,7 @@ $.ajax({
         var $div = $('<div class="container">')
         var $h3 = $(`<h3>${music.trackName}</h3>`)
         var $audioPlayer = $(`<audio src="${music}" controls>Your browser doesn't support the audio element</audio>`)
-        
+
         $('#music-info').empty().append($h2, $h3,`<audio src="${music.previewUrl}" controls>
             Your browser does not support the audio element.
             </audio>`, `<button id="next">Next</button> `)
