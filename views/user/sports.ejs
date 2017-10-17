@@ -1,0 +1,16 @@
+<html>
+    <body>
+            Sports from your favorite team: 
+            <!-- make team be auto populated by user's choice -->
+
+
+            <!-- put this into dashboard.ejs -->
+            <% include ../user/sports %>
+    </body>
+</html>
+
+<script>  
+    $.ajax({url: '/sports', method: 'get'})
+    console.log("server says:", res)
+
+</script>

@@ -24,7 +24,8 @@
       </div>
       <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
         <div class="card-block">
-          <!-- Insert AA -->
+          <!-- sports content -->
+          <div id="sports"></div>
         </div>
       </div>
     </div>
@@ -43,3 +44,16 @@
       </div>
     </div>
   </div>
+
+  <script>
+      var $sports = $('#sports')
+
+      $.ajax({url: '/sports', method: 'get'})
+      .done(function(res){
+      console.log(res.week.games[2].home.alias)
+
+      })
+  </script>
+
+
+  

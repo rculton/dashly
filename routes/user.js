@@ -2,7 +2,7 @@ const
   express = require('express'),
   userRouter = new express.Router(),
   passport = require('passport')
-  
+  httpClient = require('request')
 //
 
 userRouter.route('/signup')
@@ -31,15 +31,7 @@ userRouter.route('/dashboard')
   .get((req, res) => {
     res.render('user/dashboard', {
       user: req.user
-    })
-    var apiUrl = 'http://api.sportradar.us/nfl-ot2/games/2017/REG/7/schedule.json?api_key=ptr58dz7pn2z8mdxbqrcsqdj'
-    httpClient.get(apiUrl, (err, response, body) => {
-        var data = JSON.parse(body)
-    //   console.log(data)   // test
-        console.log(data.week.games[2].home.alias)
-  
-    })
-  })
+    })}),
 //
 
 userRouter.get('/logout', (req, res) => {

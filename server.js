@@ -12,6 +12,7 @@ const
   passportConfig = require('./config/passport.js'),
   userRoutes = require('./routes/user.js')
   httpClient = require('request')
+  sportsRoutes = require('./routes/sports.js')
 //
 
 // enviroment port
@@ -64,6 +65,8 @@ app.get('/', (req, res) => {
 })
 
 app.use('/', userRoutes)
+app.use('/sports', sportsRoutes)
+
 
 app.listen(PORT, (err) => {
     console.log(err || `Listening to port 🤖  ${PORT} 🤖`)
