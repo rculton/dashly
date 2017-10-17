@@ -1,3 +1,4 @@
+<h1><%= user.name %></h1>
 <div id="accordion" role="tablist" aria-multiselectable="true">
     <div class="card">
       <div class="card-header" role="tab" id="headingOne">
@@ -10,7 +11,7 @@
   
       <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
         <div class="card-block">
-          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+          <!-- insert charles part -->
         </div>
       </div>
     </div>
@@ -24,7 +25,14 @@
       </div>
       <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
         <div class="card-block">
-          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+          <!-- sports content -->
+           <!-- favorite team image -->
+          Your favorite NFL team the Atlanta Falcons
+          <img src="CBS.jpeg" alt="">
+          <div id="sports"></div> <!-- API response - next game -->
+          <ul id="gameInfo">
+          </ul> <!-- API response - game info -->
+          <div id="sportsSearch"></div>
         </div>
       </div>
     </div>
@@ -52,8 +60,31 @@
   </div>
 
 
-
   <script>
+    console.log('hello')
+      var $sports = $('#sports')
+      var $gameInfo = $('#gameInfo')
+
+      $.ajax({url: '/sports', method: 'get'})
+      .done(function(res){
+      // console.log(res.week.games[2].home.alias) test
+       // console.log("server says:", res) test
+          //who the game is against
+          var theLi = $('<p>').text(`Their next game is against: ${res.week.games[0].home.name}`)
+          $sports.append(theLi)
+          //when's the game
+          var gameDay = $('<li>').text(`Game is at: ${res.week.games[0].scheduled}`)
+          $gameInfo.append(gameDay)
+          //channel game will be on 
+          var channel = $('<li>').text(`Watch on channel: ${res.week.games[0].broadcast.network}`)
+          $gameInfo.append(channel)
+          //ADD dropdown of favorite team 
+            //ADD logic to determine opponent, gametime, & channel of favorite team's game based off drop down menu selection
+          
+    })
+
+      
+
       var $whQueryForm = $('#wh-query-form')
       var $whQueryText = $('#wh-query-text')
       var $whUl = $('#wh-movies')
@@ -98,24 +129,7 @@
         populateMovies(res)
         }
       )
-    /*
-     function populateItemsList(items) {
-            $itemsList.html('')
-            items.forEach((item) => { //previously had an index item (i)
-                var $deleteBtn = $(`<button>`).text('X').addClass('delete') //previously had id="${i}"
-                //$btn.on('click', deleteItem)
-                var $completeBtn = $(`<button>`).text('✔️').addClass('toggle')
-
-                $theLi = $('<li>').text(`${item.task}  `).attr('id', item._id)
-                        if (item.completed){
-                            $theLi.addClass('completed')    
-                        }
-                $theLi.append($completeBtn)
-                $theLi.append($deleteBtn)
-                $itemsList.append($theLi)
-            })
-        }
-         */
+  
 
 
       $whQueryForm.on('submit', (evt)=>{
@@ -130,3 +144,4 @@
           )
       })
   </script>
+
