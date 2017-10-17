@@ -2,6 +2,7 @@ const
   express = require('express'),
   userRouter = new express.Router(),
   passport = require('passport')
+  httpClient = require('request')
 //
 
 userRouter.route('/signup')
@@ -30,8 +31,7 @@ userRouter.route('/dashboard')
   .get((req, res) => {
     res.render('user/dashboard', {
       user: req.user
-    })
-  })
+    })}),
 //
 
 
@@ -40,8 +40,6 @@ userRouter.get('/logout', (req, res) => {
   req.logout()
   res.redirect('/')
 })
-
-
 
 
 module.exports = userRouter

@@ -12,6 +12,10 @@ const
   passport = require('passport'),
   passportConfig = require('./config/passport.js'),
   userRoutes = require('./routes/user.js')
+  httpClient = require('request')
+  sportsRoutes = require('./routes/sports.js')
+  whRoutes = require('./routes/whClient.js')
+  require('dotenv').load();
 //
 
 // enviroment port
@@ -30,6 +34,9 @@ const store  = new mongoDbStore({
     uri: mongoConnectionString,
     collection: 'sessions'
 })
+
+//webhose API
+
 
 
 app.use(express.static(__dirname + '/public'))
@@ -65,6 +72,9 @@ app.get('/', (req, res) => {
 })
 
 app.use('/', userRoutes)
+app.use('/sports', sportsRoutes)
+
+app.use('/webhose', whRoutes)
 
 
 app.listen(PORT, (err) => {
