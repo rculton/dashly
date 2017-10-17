@@ -26,10 +26,9 @@
         <div class="card-block">
           <!-- sports content -->
           <img src="../public/seahawkspic.jpeg"> <!-- favorite team image -->
-          Latest news for your favorite NFL team the Seattle Seahawks
+          Latest news for your favorite NFL team the Atlanta Falcons
           <div id="sports"></div> <!-- API response - next game -->
           <ul id="gameInfo">
-            <li></li>
           </ul> <!-- API response - game info -->
           <div id="sportsSearch"></div>
         </div>
@@ -53,13 +52,20 @@
 
   <script>
       var $sports = $('#sports')
+      var $gameInfo = $('#gameInfo')
 
       $.ajax({url: '/sports', method: 'get'})
       .done(function(res){
       // console.log(res.week.games[2].home.alias) test
        // console.log("server says:", res) test
-          var theLi = $('<p>').text(`Their next game is against: ${res.week.games[2].home.name}`)
+          //who the game is against
+          var theLi = $('<p>').text(`Their next game is against: ${res.week.games[0].home.name}`)
           $sports.append(theLi)
+          //when's the game
+          var gameDay = $('<li>').text(`Game is at: ${res.week.games[0].scheduled}`)
+          $gameInfo.append(gameDay)
+          //channel game will be on 
+          
 
     })
 
