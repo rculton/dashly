@@ -16,8 +16,8 @@ function populateMovies(movies){
     $whQueryText.val('')
     movies.posts.forEach((post, i)=>{
         thispost = post.thread
-        console.log(thispost)
-        console.log('movie git!')
+        //console.log(thispost)
+        //console.log('movie git!')
         var $theLi = $('<li>')
         $theLi.html(`
         <div class="container" style="margin-top: 5px; margin-bottom: 5px">
@@ -40,7 +40,7 @@ function populateMovies(movies){
         </div>`)
         $whUl.append($theLi)
         if (i >= 10){
-        console.log("Ended at", i)
+        //console.log("Ended at", i)
         return
         }
     }

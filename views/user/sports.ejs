@@ -1,21 +1,34 @@
 
 Your favorite NFL team the Atlanta Falcons
+<div id="teamLogo"></div>
 
 <div id="sports"></div> <!-- API response - next game -->
 <ul id="gameInfo">
 </ul> <!-- API response - game info -->
 <div id="sportsSearch"></div>
 
-
 <script>
     console.log('sports script connected')
+      var $favTeam = "ATL"
+      var $teamLogo = $('#teamLogo')
       var $sports = $('#sports')
       var $gameInfo = $('#gameInfo')
+
 
       $.ajax({url: '/sports', method: 'get'})
       .done(function(res){
       // console.log(res.week.games[2].home.alias) test
        // console.log("server says:", res) test
+          //favorite team logo
+          if ($favTeam === "ARI"){
+            var logo1 = $('<img src="../pictures/teams/ARI.jpeg">')
+            $teamLogo.append(logo1)
+          } else {}
+
+
+
+
+
           //who the game is against
           var theLi = $('<p>').text(`Their next game is against: ${res.week.games[0].home.name}`)
           $sports.append(theLi)
@@ -25,8 +38,8 @@ Your favorite NFL team the Atlanta Falcons
           //channel game will be on 
           var channel = $('<li>').text(`Watch on channel: ${res.week.games[0].broadcast.network}`)
           $gameInfo.append(channel)
-
-    //network logos
+          })
+  /*  //network logos
       var $cbs = <
     
     if(res.week.games[0].broadcast.network === 'CBS'){
@@ -45,6 +58,6 @@ Your favorite NFL team the Atlanta Falcons
             //ADD logic to determine opponent, gametime, & channel of favorite team's game based off drop down menu selection
 
           
-    })
+    }) */
 
   </script>
