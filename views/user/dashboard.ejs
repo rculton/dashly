@@ -1,3 +1,4 @@
+<h1><%= user.name %></h1>
 <div id="accordion" role="tablist" aria-multiselectable="true">
     <div class="card">
       <div class="card-header" role="tab" id="headingOne">
@@ -10,7 +11,7 @@
   
       <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
         <div class="card-block">
-          <!-- insert charles part -->
+            <% include ../user/music %>
         </div>
       </div>
     </div>
@@ -18,14 +19,20 @@
       <div class="card-header" role="tab" id="headingTwo">
         <h5 class="mb-0">
           <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-            Sports
+              Sports
           </a>
         </h5>
       </div>
       <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
         <div class="card-block">
           <!-- sports content -->
-          <div id="sports"></div>
+           <!-- favorite team image -->
+          Your favorite NFL team the Atlanta Falcons
+          <img src="CBS.jpeg" alt="">
+          <div id="sports"></div> <!-- API response - next game -->
+          <ul id="gameInfo">
+          </ul> <!-- API response - game info -->
+          <div id="sportsSearch"></div>
         </div>
       </div>
     </div>
@@ -52,19 +59,32 @@
     </div>
   </div>
 
+
+  
   <script>
-//Andrew's   vvvvvvvvv
+    console.log('hello')
       var $sports = $('#sports')
+      var $gameInfo = $('#gameInfo')
 
       $.ajax({url: '/sports', method: 'get'})
       .done(function(res){
       // console.log(res.week.games[2].home.alias) test
        // console.log("server says:", res) test
-          var theLi = $('<p>').text(res.week.games[2].home.alias)
+          //who the game is against
+          var theLi = $('<p>').text(`Their next game is against: ${res.week.games[0].home.name}`)
           $sports.append(theLi)
+          //when's the game
+          var gameDay = $('<li>').text(`Game is at: ${res.week.games[0].scheduled}`)
+          $gameInfo.append(gameDay)
+          //channel game will be on 
+          var channel = $('<li>').text(`Watch on channel: ${res.week.games[0].broadcast.network}`)
+          $gameInfo.append(channel)
+          //ADD dropdown of favorite team 
+            //ADD logic to determine opponent, gametime, & channel of favorite team's game based off drop down menu selection
+          
     })
 
-//RYAN's vvvvvvvvv
+      
 
       var $whQueryForm = $('#wh-query-form')
       var $whQueryText = $('#wh-query-text')
@@ -110,24 +130,7 @@
         populateMovies(res)
         }
       )
-    /*
-     function populateItemsList(items) {
-            $itemsList.html('')
-            items.forEach((item) => { //previously had an index item (i)
-                var $deleteBtn = $(`<button>`).text('X').addClass('delete') //previously had id="${i}"
-                //$btn.on('click', deleteItem)
-                var $completeBtn = $(`<button>`).text('✔️').addClass('toggle')
-
-                $theLi = $('<li>').text(`${item.task}  `).attr('id', item._id)
-                        if (item.completed){
-                            $theLi.addClass('completed')    
-                        }
-                $theLi.append($completeBtn)
-                $theLi.append($deleteBtn)
-                $itemsList.append($theLi)
-            })
-        }
-         */
+  
 
 
       $whQueryForm.on('submit', (evt)=>{

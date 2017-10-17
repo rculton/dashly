@@ -34,6 +34,8 @@ userRouter.route('/dashboard')
     })}),
 //
 
+
+
 userRouter.get('/logout', (req, res) => {
   req.logout()
   res.redirect('/')
