@@ -26,11 +26,21 @@ Your favorite NFL team the Atlanta Falcons
           var channel = $('<li>').text(`Watch on channel: ${res.week.games[0].broadcast.network}`)
           $gameInfo.append(channel)
 
-          if(res.week.games[0].broadcast.network === 'CBS'){
+    //network logos
+      var $cbs = <
+    
+    if(res.week.games[0].broadcast.network === 'CBS'){
             var pic = $('<li>').text(`it works`)
             $gameInfo.append(pic);
           }
+
+          //if the network name matches the ${file name}.jpeg, then display that networks logo. Else, don't show any logo.
+          var $gameNetwork = res.week.games[0].broadcast.network
+          if ($gameNetwork === 'CBS')
+
           
+
+
           //ADD dropdown of favorite team 
             //ADD logic to determine opponent, gametime, & channel of favorite team's game based off drop down menu selection
 
