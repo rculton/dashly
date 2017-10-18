@@ -15,7 +15,7 @@
             <div class="video-container col-md-8 text-center">
                 <h3 class="text-info">Videos</h3>
                 <div id="video-info"></div>
-                <div id="video-holder"></div>
+                <div id="video-holder" class="container"></div>
             </div>
         </div>
         <div class="row">
@@ -68,7 +68,7 @@
                     $('#video-info').empty().append($h4, $h5);
 
                     // video
-                    var $videoPlayer = $(`<video width="640" height="345" controls>
+                    var $videoPlayer = $(`<video class="videoInsert" controls>
                             <source src="${video.previewUrl}" type="video/mp4">
                             <source src="${video.artistViewUrl}" type="video/ogg">
                         Your browser does not support the video tag.
@@ -131,7 +131,7 @@
                         // for music info
                         var $songHolder = $('#song-holder')
                         var $trackName = $(`<p class="lead">${music.trackName}</p>`)
-                        var $audioPlayer = $(`<audio src="${music.previewUrl}" controls>Your browser doesn't support the audio element</audio>`)
+                        var $audioPlayer = $(`<audio class="videoInsert" src="${music.previewUrl}" controls>Your browser doesn't support the audio element</audio>`)
                         var $nextBtn = $('<button id="next" class="btn btn-sm btn-secondary float-right">Next</button>')
                         var $prevBtn = $('<buttton id="prev" class="btn btn-sm btn-secondary float-left">Prev</button>')
                         var $btnHolder = $(`<div class="fluid-container">`).append($nextBtn, $prevBtn)
