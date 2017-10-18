@@ -1,6 +1,3 @@
-console.log(<%- user %>)
-
-
 var musicApi = 'https://itunes.apple.com/search?media=music&limit=10&entity=musicTrack&term=john+legend'
 var music
 var i = 0

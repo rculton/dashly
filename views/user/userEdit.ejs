@@ -71,6 +71,7 @@
 
 <script>
     let user = <%- JSON.stringify(user) %>;
+    console.log(user)
     $('form').on('submit', function(e) {
         e.preventDefault()
         var values = {};
@@ -86,6 +87,8 @@
                 actorName: values['actorName'] || user.topics[0].actorName
             }]
         }
+        console.log(data)
+        console.log(user)
         $.ajax({
             url: '/editUser',
             method: 'patch',
@@ -95,6 +98,7 @@
         .done(function (res) {
             window.location.href = '/dashboard'
             
-        }) 
+        })
+
     })  
 </script>

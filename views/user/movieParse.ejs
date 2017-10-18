@@ -1,66 +1,70 @@
 <form id="wh-query-form">
-        <input id="wh-query-text" type="text">
-        <input type="submit">
+    <input id="wh-query-text" type="text">
+    <input type="submit">
 </form>     
 <ul id="wh-movies" style="list-style: none;">
-    <li>Loading Content - Please Wait...</li>
+<li>Loading Content - Please Wait...</li>
 </ul>    
-
 <script>
 var $whQueryForm = $('#wh-query-form')
 var $whQueryText = $('#wh-query-text')
 var $whUl = $('#wh-movies')
 //pre-query for movies
 function populateMovies(movies){
-    $whUl.html('')
-    $whQueryText.val('')
-    movies.posts.forEach((post, i)=>{
-        thispost = post.thread
-        //console.log(thispost)
-        //console.log('movie git!')
-        var $theLi = $('<li>')
-        $theLi.html(`
-        <div class="container" style="margin-top: 5px; margin-bottom: 5px">
+$whUl.html('')
+$whQueryText.val('')
+movies.posts.filter((post, i)=>{
+    if(i < 10){
+    thispost = post.thread
+    var $theLi = $('<li>')
+    $theLi.html(`
+    <div class="container" style="margin-top: 5px; margin-bottom: 5px">
+        <div class="row">
+        <div class="col" style="height: 75%; width: auto">
+            <div class="small-box">                  
+            </div>
+        </div>
+        <div class="col">
             <div class="row">
-            <div class="col" style="height: 75%; width: auto">
-                <div class="small-box">
-                    <img class="img img-fluid visual-post-img" src=${thispost.main_image}>
-                </div>
-            </div>
-            <div class="col">
-                <div class="row">
-                <div class="col-xs-6">
-                    <div class="mini-box" >
-                    <a href="${thispost.url}">${thispost.title}</a>
-                    </div>
-                </div>
+            <div class="col-xs-6">
+                <div class="mini-box" >
+                <a href="${thispost.url}">${thispost.title}</a>
                 </div>
             </div>
             </div>
-        </div>`)
-        $whUl.append($theLi)
-        if (i >= 10){
-        //console.log("Ended at", i)
-        return
-        }
+        </div>
+        </div>
+    </div>
+    <hr/>`)
+    if(thispost.main_image != null){
+        $theLi.find('.small-box').html(`<img class="img img-fluid visual-post-img" src=${thispost.main_image} alt="Image Not Found"/>`)
     }
-    )
+    else{
+        $theLi.find('.small-box').html(`<img class="img img-fluid visual-post-img" src="pictures/default.png"/>`)
+    }
+    $whUl.append($theLi)
 }
-$.ajax({url:'/webhose/donald duck', method: 'get', dataType: 'json'})
+}
+)
+}
+function preloadMovies(){
+let user = <%- JSON.stringify(user) %>
+$.ajax({url:`/webhose/${user.topics[0].actorName}`, method: 'get', dataType: 'json'})
 .done((res)=> {
 populateMovies(res)
 }
 )
-
+}
+preloadMovies()
 $whQueryForm.on('submit', (evt)=>{
-    evt.preventDefault()
-    $whUl.html('')
-    var newQuery = $whQueryText.val()
-    $whUl.append($('<li>').text('Searching... Please Wait....'))
-    $.ajax({url:`/webhose/${newQuery}`, method: 'get'})
-    .done((res)=>{
-        populateMovies(res)
-        }
-    )
+evt.preventDefault()
+$whUl.html('')
+var newQuery = $whQueryText.val()
+$whUl.append($('<li>').text('Searching... Please Wait....'))
+$.ajax({url:`/webhose/${newQuery}`, method: 'get'})
+.done((res)=>{
+    populateMovies(res)
+    }
+)
 })
 </script>

@@ -1,7 +1,6 @@
-<h1><%= user.name %></h1>
 <div id="accordion" role="tablist" aria-multiselectable="true">
-    <div class="card bg-dark text-white">
-      <div class="card-header" role="tab" id="headingOne">
+    <div class="card text-white">
+      <div class="card-header bg-dark" role="tab" id="headingOne">
         <h5 class="mb-0">
           <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
             Music
@@ -15,8 +14,8 @@
         </div>
       </div>
     </div>
-    <div class="card bg-dark text-white">
-      <div class="card-header" role="tab" id="headingTwo">
+    <div class="card text-white">
+      <div class="card-header bg-dark" role="tab" id="headingTwo">
         <h5 class="mb-0">
           <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
               Sports
@@ -28,9 +27,10 @@
         <% include ../user/sports %>
         </div>
       </div>
+<<<<<<< HEAD
     </div>
-    <div class="card bg-dark text-white">
-      <div class="card-header" role="tab" id="headingThree">
+    <div class="card text-white">
+      <div class="card-header bg-dark" role="tab" id="headingThree">
         <h5 class="mb-0">
           <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
             Movies
@@ -40,6 +40,20 @@
       <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
         <div class="card-block">
           <% include ../user/movieParse %>
+=======
+      <div class="card bg-dark text-white">
+        <div class="card-header" role="tab" id="headingThree">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              Movies
+            </a>
+          </h5>
+        </div>
+        <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="card-block">
+            <% include ../user/movieParse %>
+          </div>
+>>>>>>> 45713934eae476d3296e0a64e384f44af6ff66cb
         </div>
       </div>
     </div>
