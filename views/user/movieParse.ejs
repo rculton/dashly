@@ -54,7 +54,9 @@ function populateMovies(movies){
     }
     )
 }
-$.ajax({url:'/webhose/drama', method: 'get', dataType: 'json'})
+let user = <%- JSON.stringify(user) %>
+console.log(user)
+$.ajax({url:`/webhose/${user.topics[0].actorName}`, method: 'get', dataType: 'json'})
 .done((res)=> {
 populateMovies(res)
 }
