@@ -253,6 +253,8 @@ function preloadSports(){
           // TIME game is at
             var timeAt = $('<div>').text(`Time of game: ${scheduled}`)
             $time.append(timeAt)
+
+            
           return
           //end of first IF
         } else if (favTeam === homeTeams){
@@ -362,6 +364,10 @@ function preloadSports(){
           // TIME game is at
             var timeAt = $('<div>').text(`Time of game: ${scheduled}`)
                 $time.append(timeAt)
+
+            var d = scheduled
+            var n = d.toString()  
+            console.log(n)
           return
         } else if (i == 14){
           var opponent = null
