@@ -31,21 +31,48 @@ movies.posts.filter((post, i)=>{
                 <a href="${thispost.url}">${thispost.title}</a>
                 </div>
             </div>
+            <div class="col">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="mini-box" >
+                        <a href="${thispost.url}">${thispost.title}</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="mini-box author-box" >
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        </div>
-    </div>
-    <hr/>`)
-    if(thispost.main_image != null){
-        $theLi.find('.small-box').html(`<img class="img img-fluid visual-post-img" src=${thispost.main_image} alt="Image Not Found"/>`)
+            <hr/>`)
+
+            if(thispost.main_image != null){
+                $theLi.find('.small-box').html(`<img class="img img-fluid visual-post-img" src=${thispost.main_image} alt="Image Not Found"/>`)
+            }
+            else{
+                $theLi.find('.small-box').html(`<img class="img img-fluid visual-post-img" src="pictures/default.png"/>`)
+            }
+
+            $whUl.append($theLi)
+        
+        }
+        if (thispost.author != undefined && thispost.site != undefined){
+            $theLi.find('author-box').html(`<small>${thispost.author} || ${thispost.site}</small>`)
+        }
+        else if(thispost.author != undefined){
+            $theLi.find('author-box').html(`<small>${thispost.author}</small>`)
+        }
+        else if(thispost.author != undefined && thispost.site != undefined){
+            $theLi.find('author-box').html(`<small>${thispost.author} || ${thispost.site}</small>`)
+        }
+        else{
+            $theLi.find('.small-box').html(`<img class="img img-fluid visual-post-img" src="pictures/default.png"/>`)
+        }
+        $whUl.append($theLi)
     }
-    else{
-        $theLi.find('.small-box').html(`<img class="img img-fluid visual-post-img" src="pictures/default.png"/>`)
-    }
-    $whUl.append($theLi)
-}
-}
-)
+    )
 }
 function preloadMovies(){
 let user = <%- JSON.stringify(user) %>
