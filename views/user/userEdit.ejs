@@ -1,0 +1,65 @@
+<div class="jumbotron text-white">
+    <h3 class="">Edit Profile</h3>
+    <span id="error"></span>
+    <form id="form" action="/editUser" method="POST">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Name</label>
+            <input type="text" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="name">
+            <small id="emailHelp" class="form-text">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+        <label for="exampleInputPassword1">New Password</label>
+        <input type="password" name="newPassword" class="form-control" id="exampleInputPassword1" placeholder="New Password">
+        </div>
+        <hr class="hr-2 bg-dark">
+        <div class="form-group">
+        <label for="">Favorite Music Artist</label>
+        <input type="text" class="form-control" name="artistName" placeholder="artistName">
+        </div>
+        <div class="form-group">
+        <label for="">Favorite Football Team</label>
+        <input type="text" class="form-control" name="footballTeam" placeholder="football team">
+        </div>
+        <div class="form-group">
+        <label for="">Favorite Actor</label>
+        <input type="text" class="form-control" name="actorName" placeholder="actor name">
+        </div>
+
+        <div class="form-group">
+            <label for="">Verify Password</label>
+            <input type="password" name="password" class="form-control">
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<script>
+    let user = <%- JSON.stringify(user) %>;
+    console.log(user)
+    $('form').on('submit', function(e) {
+        e.preventDefault()
+        var values = {};
+        $.each($(this).serializeArray(), function(){ values[this.name] = this.value; })
+        var data = {
+            name: values['name'] || user.name,
+            password: values['newPassword'] || values['password'],
+            verifyPassword: values['password'],
+            topics: [
+            {
+                artistName: values['artistName'] || user.topics[0].artistName,
+                footballTeam: values['footballTeam'] || user.topics[0].footballTeam,
+                actorName: values['actorName'] || user.topics[0].actorName
+            }]
+        }
+        $.ajax({
+            url: '/editUser',
+            method: 'patch',
+            data: JSON.stringify(data),
+            contentType: 'application/json'
+        })
+        .done(function (res) {
+            window.location.href = '/dashboard'
+        }) 
+    })  
+</script>

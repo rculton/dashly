@@ -1,6 +1,6 @@
 <h1><%= user.name %></h1>
 <div id="accordion" role="tablist" aria-multiselectable="true">
-    <div class="card">
+    <div class="card bg-dark text-white">
       <div class="card-header" role="tab" id="headingOne">
         <h5 class="mb-0">
           <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -15,7 +15,7 @@
         </div>
       </div>
     </div>
-    <div class="card">
+    <div class="card bg-dark text-white">
       <div class="card-header" role="tab" id="headingTwo">
         <h5 class="mb-0">
           <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
@@ -24,19 +24,12 @@
         </h5>
       </div>
       <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
-        <div class="card-block">
-          <!-- sports content -->
-           <!-- favorite team image -->
-          Your favorite NFL team the Atlanta Falcons
-          <img src="CBS.jpeg" alt="">
-          <div id="sports"></div> <!-- API response - next game -->
-          <ul id="gameInfo">
-          </ul> <!-- API response - game info -->
-          <div id="sportsSearch"></div>
+        <div class="card-block"></div>
+        <% include ../user/sports %>
         </div>
       </div>
     </div>
-    <div class="card">
+    <div class="card bg-dark text-white">
       <div class="card-header" role="tab" id="headingThree">
         <h5 class="mb-0">
           <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
@@ -46,103 +39,8 @@
       </div>
       <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
         <div class="card-block">
-            <form id="wh-query-form">
-                <input id="wh-query-text" type="text">
-                <input type="submit">
-            </form>     
-            <ul id="wh-movies" style="list-style: none;">
-
-                <li>Loading Content - Please Wait...</li>
-            </ul>      
+          <% include ../user/movieParse %>
         </div>
       </div>
     </div>
   </div>
-
-
-  
-  <script>
-    console.log('hello')
-      var $sports = $('#sports')
-      var $gameInfo = $('#gameInfo')
-
-      $.ajax({url: '/sports', method: 'get'})
-      .done(function(res){
-      // console.log(res.week.games[2].home.alias) test
-       // console.log("server says:", res) test
-          //who the game is against
-          var theLi = $('<p>').text(`Their next game is against: ${res.week.games[0].home.name}`)
-          $sports.append(theLi)
-          //when's the game
-          var gameDay = $('<li>').text(`Game is at: ${res.week.games[0].scheduled}`)
-          $gameInfo.append(gameDay)
-          //channel game will be on 
-          var channel = $('<li>').text(`Watch on channel: ${res.week.games[0].broadcast.network}`)
-          $gameInfo.append(channel)
-          //ADD dropdown of favorite team 
-            //ADD logic to determine opponent, gametime, & channel of favorite team's game based off drop down menu selection
-          
-    })
-
-      
-
-      var $whQueryForm = $('#wh-query-form')
-      var $whQueryText = $('#wh-query-text')
-      var $whUl = $('#wh-movies')
-      //pre-query for movies
-      function populateMovies(movies){
-            $whUl.html('')
-            $whQueryText.val('')
-            movies.posts.forEach((post, i)=>{
-              thispost = post.thread
-              console.log(thispost)
-              console.log('movie git!')
-              var $theLi = $('<li>')
-              $theLi.html(`
-              <div class="container">
-                  <div class="row">
-                    <div class="col">
-                      <div class="small-box">
-                          <img class="img img-fluid visual-post-img" src=${thispost.main_image}>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="row">
-                        <div class="col-xs-6">
-                          <div class="mini-box" >
-                            <a href="${thispost.url}">${thispost.title}</a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>`)
-              $whUl.append($theLi)
-              if (i >= 10){
-                console.log("Ended at", i)
-                return
-              }
-            }
-          )
-        }
-      $.ajax({url:'/webhose/donald duck', method: 'get', dataType: 'json'})
-      .done((res)=> {
-        populateMovies(res)
-        }
-      )
-  
-
-
-      $whQueryForm.on('submit', (evt)=>{
-          evt.preventDefault()
-          $whUl.html('')
-          var newQuery = $whQueryText.val()
-          $whUl.append($('<li>').text('Searching... Please Wait....'))
-          $.ajax({url:`/webhose/${newQuery}`, method: 'get'})
-            .done((res)=>{
-                populateMovies(res)
-              }
-          )
-      })
-  </script>
-

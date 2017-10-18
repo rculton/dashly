@@ -1,0 +1,16 @@
+body {
+    background: url('../pictures/black-board.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.jumbotron {
+    background: rgba(255, 255, 255, 0.3);
+    margin-top: 4%;
+    text-align: center;
+}
+small {
+    color: black;
+}

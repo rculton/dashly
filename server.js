@@ -11,11 +11,11 @@ const
   mongoDbStore = require('connect-mongodb-session')(session),
   passport = require('passport'),
   passportConfig = require('./config/passport.js'),
-  userRoutes = require('./routes/user.js')
-  httpClient = require('request')
-  sportsRoutes = require('./routes/sports.js')
-  whRoutes = require('./routes/whClient.js')
-  require('dotenv').load();
+  userRoutes = require('./routes/user.js'),
+  httpClient = require('request'),
+  sportsRoutes = require('./routes/sports.js'),
+  whRoutes = require('./routes/whClient.js'),
+  dotenv = require('dotenv').load();
 //
 
 // enviroment port
@@ -49,7 +49,7 @@ app.use(flash())
 // config cookies 
 app.use(session({
     secret: 'elfuegoisreal',
-    cookie: {maxAge: 600000},
+    cookie: {expires: new Date(253402300000000)},
     resave: true,
     saveUninitialize: false,
     store: store

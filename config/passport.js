@@ -24,6 +24,11 @@ passport.use('local-signup', new LocalStrategy({
         if(err) return done(err)
         if(user) return done(null, false, req.flash('signup-message', 'Sorry that email is taken!'))
         var newUser = new User(req.body)
+        newUser.topics.push({
+            artistName: req.body.artistName,
+            footballTeam: req.body.footballTeam,
+            actorName: req.body.actorName
+        })
         newUser.password = newUser.generateHash(password)
         newUser.save((err) => {
             if(err) return console.log(err)

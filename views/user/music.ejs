@@ -17,21 +17,30 @@
     function musicSetup() {
         var user = <%- JSON.stringify(user) %>;
         var userArtist = user.topics[0].artistName;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 41686392ff087f2e4d598f9d03ecf0ec6dd8c6cd
         function parseArtist (str) {
             str = str.toLowerCase();
             str = str.replace(/\s{2,}/g,' ').trim();
             str = str.replace(/\s/g, '+')
             return str 
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 41686392ff087f2e4d598f9d03ecf0ec6dd8c6cd
         userArtist = parseArtist(userArtist)
         var musicApi = `https://itunes.apple.com/search?media=music&limit=10&entity=musicTrack&term=${userArtist}`
         var videoApi = `https://itunes.apple.com/search?media=music&limit=10&entity=musicVideo&term=${userArtist}`
         var music
         var i = 0
+<<<<<<< HEAD
 
         // for music tracks
+=======
+>>>>>>> 41686392ff087f2e4d598f9d03ecf0ec6dd8c6cd
         $.ajax({
             url: musicApi,
             method: 'get',
