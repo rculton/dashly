@@ -36,6 +36,7 @@
 
 <script>
     let user = <%- JSON.stringify(user) %>;
+    console.log(user)
     $('form').on('submit', function(e) {
         e.preventDefault()
         var values = {};
