@@ -21,7 +21,7 @@ const
 // enviroment port
 const
   PORT = process.env.PORT || 3000,
-  mongoConnectionString = process.env.MONGODB_URL || 'mongodb://localhost/my-dashboard'
+  mongoConnectionString = process.env.MONGODB_URI || 'mongodb://localhost/my-dashboard'
   
 // mongoose database
 mongoose.connect(mongoConnectionString, (err) => {
