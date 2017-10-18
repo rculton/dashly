@@ -1,6 +1,8 @@
+<!-- 1st item - show favorite team name -->
 <div id="favoriteTeam"></div>
 
-<div id="teamLogo"></div>
+<!-- 2nd item - show favorite team logo -->
+<div id="favTeamLogo"></div>
 
 <div id="sports"></div> <!-- API response - next game -->
 <ul id="gameInfo">
@@ -17,18 +19,54 @@
     
   //Global variables for sports section
   var $favoriteTeam = $('#favoriteTeam')
+  var $favTeamLogo = $('#favTeamLogo')
+  var $sports = $('#sports')
+  var $gameInfo = $('#gameInfo')
 
-  //1st item - show favorite team
+  //1st item - show favorite team name
   var favoriteTeam = $('<div>').text(`Favorite Team: ${user.topics[0].footballTeam}`)
-   $favoriteTeam.append(favoriteTeam)
+  $favoriteTeam.append(favoriteTeam)
 
-
+  //2nd item - show favorite team logo
+    //need to be able to loop through and/or search for team logo in saved team pics. 
+    var teamLogos = [
+    'pictures/teams/ARI.jpeg',
+    'pictures/teams/ATL.jpeg',
+    'pictures/teams/BAL.jpeg',
+    'pictures/teams/BUF.jpeg',
+    'pictures/teams/CAR.jpeg',
+    'pictures/teams/CHI.jpeg',
+    'pictures/teams/CIN.jpeg',
+    'pictures/teams/CLE.jpeg',
+    'pictures/teams/DAL.jpeg',
+    'pictures/teams/DEN.jpeg',
+    'pictures/teams/DET.jpeg',
+    'pictures/teams/GB.jpeg',
+    'pictures/teams/HOU.jpeg',
+    'pictures/teams/IND.jpeg',
+    'pictures/teams/JAC.jpeg',
+    'pictures/teams/KC.jpeg',
+    'pictures/teams/LA.jpeg',
+    'pictures/teams/LAC.jpeg',
+    'pictures/teams/MIA.jpeg',
+    'pictures/teams/MIN.jpeg',
+    'pictures/teams/NE.jpeg',
+    'pictures/teams/NO.jpeg',
+    'pictures/teams/NYG.jpeg',
+    'pictures/teams/NYJ.jpeg',
+    'pictures/teams/OAK.jpeg',
+    'pictures/teams/PHI.jpeg',
+    'pictures/teams/PIT.jpeg',
+    'pictures/teams/SEA.jpeg',
+    'pictures/teams/SF.jpeg',
+    'pictures/teams/TB.jpeg',
+    'pictures/teams/TEN.jpeg',
+    'pictures/teams/WAS.jpeg'
+    ]
   
     
-     // var $favTeam = "ATL"
-      var $teamLogo = $('#teamLogo')
-      var $sports = $('#sports')
-      var $gameInfo = $('#gameInfo')
+     
+      
 
     //15 games this week (index 0 through 14)
     // try to loop through all week's games to find team name. IF found, embed another another IF statement that searches for if they're HOME team - if they are return away team and game details - ELSEIF they're AWAY team return home team and game details - ELSE return "bye week"
@@ -56,7 +94,7 @@
           //favorite team logo
           if (user.topics[0].footballTeam === "Dallas Cowboys"){
             var logo1 = $('<img src="pictures/teams/DAL.jpeg">')
-            $teamLogo.append(logo1)
+            $favTeamLogo.append(logo1)
           } else {}
 
 
