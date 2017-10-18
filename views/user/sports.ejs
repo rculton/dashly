@@ -1,33 +1,388 @@
+<!-- 1st item - show favorite team name -->
+<div id="favoriteTeam"></div>
 
-Your favorite NFL team the Atlanta Falcons
-<img src="CBS.jpeg" alt="">
-<div id="sports"></div> <!-- API response - next game -->
-<ul id="gameInfo">
-</ul> <!-- API response - game info -->
-<div id="sportsSearch"></div>
+<!-- 2nd item - show favorite team logo -->
+<div id="favTeamLogo"></div>
+
+<!-- 3rd item show opponent for this week (week 7) -->
+<div id="opponent"></div> 
+
+<!-- 4th Item - add opponent team logo based off who fav team is playing -->
+<div id="oppLogo"></div>
+
+<!-- 5th Item - add the date and time of game -->
+<div id="time"></div>
 
 
 <script>
-    console.log('hello')
-      var $sports = $('#sports')
-      var $gameInfo = $('#gameInfo')
+function preloadSports(){
+  //Test to make sure script is running
+  console.log('sports script connected') 
 
-      $.ajax({url: '/sports', method: 'get'})
-      .done(function(res){
-      // console.log(res.week.games[2].home.alias) test
-       // console.log("server says:", res) test
-          //who the game is against
-          var theLi = $('<p>').text(`Their next game is against: ${res.week.games[0].home.name}`)
-          $sports.append(theLi)
-          //when's the game
-          var gameDay = $('<li>').text(`Game is at: ${res.week.games[0].scheduled}`)
-          $gameInfo.append(gameDay)
-          //channel game will be on 
-          var channel = $('<li>').text(`Watch on channel: ${res.week.games[0].broadcast.network}`)
-          $gameInfo.append(channel)
-          //ADD dropdown of favorite team 
-            //ADD logic to determine opponent, gametime, & channel of favorite team's game based off drop down menu selection
+  //Connect current user's information
+  let user = <%- JSON.stringify(user) %>
+    console.log(`Favorite team from user model: ${user.topics[0].footballTeam}`) //Test if specific current user info is connected. User is current user > topics[0] is current user topic model. 
+    
+//Global variables for sports section
+  var favTeam = user.topics[0].footballTeam //current user's favorite football team
+  var $favoriteTeam = $('#favoriteTeam')
+  var $favTeamLogo = $('#favTeamLogo')
+  var $opponent = $('#opponent')
+  var $oppLogo = $('#oppLogo')
+  var $time = $('#time')
+
+ 
+
+//1st item - show favorite team name
+  var favoriteTeam = $('<div>').text(`Favorite Team: ${user.topics[0].footballTeam}`)
+  $favoriteTeam.append(favoriteTeam)
+
+//2nd item - show favorite team logo
+    //need to be able to loop through and/or search for team logo in saved team pics. 
+    if (favTeam === "Arizona Cardinals"){
+      var logo = $('<img src="pictures/teams/ARI.jpeg">')
+      $favTeamLogo.append(logo)
+    } else if (favTeam === "Atlanta Falcons"){
+      var logo = $('<img src="pictures/teams/ATL.jpeg">')
+      $favTeamLogo.append(logo)
+    } else if (favTeam === "Baltimore Ravens"){
+      var logo = $('<img src="pictures/teams/BAL.jpeg">')
+      $favTeamLogo.append(logo)
+    } else if (favTeam === "Buffalo Bills"){
+      var logo = $('<img src="pictures/teams/BUF.jpeg">')
+      $favTeamLogo.append(logo)
+    } else if (favTeam === "Carolina Panthers"){
+      var logo = $('<img src="pictures/teams/CAR.jpeg">')
+      $favTeamLogo.append(logo)
+    } else if (favTeam === "Chicago Bears"){
+      var logo = $('<img src="pictures/teams/CHI.jpeg">')
+      $favTeamLogo.append(logo)
+    } else if (favTeam === "Cincinnati Bengals"){
+      var logo = $('<img src="pictures/teams/CIN.jpeg">')
+      $favTeamLogo.append(logo)
+    } else if (favTeam === "Cleveland Browns"){
+      var logo = $('<img src="pictures/teams/CLE.jpeg">')
+      $favTeamLogo.append(logo)
+    } else if (favTeam === "Dallas Cowboys"){
+      var logo = $('<img src="pictures/teams/DAL.jpeg">')
+      $favTeamLogo.append(logo)
+    } else if (favTeam === "Denver Broncos"){
+      var logo = $('<img src="pictures/teams/DEN.jpeg">')
+      $favTeamLogo.append(logo)
+    } else if (favTeam === "Detroit Lions"){
+      var logo = $('<img src="pictures/teams/DET.jpeg">')
+      $favTeamLogo.append(logo)
+    } else if (favTeam === "Green Bay Packers"){
+      var logo = $('<img src="pictures/teams/GB.jpeg">')
+      $favTeamLogo.append(logo)
+    } else if (favTeam === "Houston Texans"){
+      var logo = $('<img src="pictures/teams/HOU.jpeg">')
+      $favTeamLogo.append(logo)
+    } else if (favTeam === "Indianapolis Colts"){
+      var logo = $('<img src="pictures/teams/IND.jpeg">')
+      $favTeamLogo.append(logo)
+    } else if (favTeam === "Jacksonville Jaguars"){
+      var logo = $('<img src="pictures/teams/JAC.jpeg">')
+      $favTeamLogo.append(logo)
+    } else if (favTeam === "Kansas City Chiefs"){
+      var logo = $('<img src="pictures/teams/KC.jpeg">')
+      $favTeamLogo.append(logo)
+    } else if (favTeam === "Los Angeles Chargers"){
+      var logo = $('<img src="pictures/teams/LAC.jpeg">')
+      $favTeamLogo.append(logo)
+    } else if (favTeam === "Los Angeles Rams"){
+      var logo = $('<img src="pictures/teams/LA.jpeg">')
+      $favTeamLogo.append(logo)
+    } else if (favTeam === "Miami Dolphins"){
+      var logo = $('<img src="pictures/teams/MIA.jpeg">')
+      $favTeamLogo.append(logo)
+    } else if (favTeam === "Minnesota Vikings"){
+      var logo = $('<img src="pictures/teams/MIN.jpeg">')
+      $favTeamLogo.append(logo)
+    } else if (favTeam === "New England Patriots"){
+      var logo = $('<img src="pictures/teams/NE.jpeg">')
+      $favTeamLogo.append(logo)
+    } else if (favTeam === "New Orleans Saints"){
+      var logo = $('<img src="pictures/teams/NO.jpeg">')
+      $favTeamLogo.append(logo)
+    } else if (favTeam === "New York Giants"){
+      var logo = $('<img src="pictures/teams/NYG.jpeg">')
+      $favTeamLogo.append(logo)
+    } else if (favTeam === "New York Jets"){
+      var logo = $('<img src="pictures/teams/NYJ.jpeg">')
+      $favTeamLogo.append(logo)
+    } else if (favTeam === "Oakland Raiders"){
+      var logo = $('<img src="pictures/teams/OAK.jpeg">')
+      $favTeamLogo.append(logo)
+    } else if (favTeam === "Philadelphia Eagles"){
+      var logo = $('<img src="pictures/teams/PHI.jpeg">')
+      $favTeamLogo.append(logo)
+    } else if (favTeam === "Pittsburgh Steelers"){
+      var logo = $('<img src="pictures/teams/PIT.jpeg">')
+      $favTeamLogo.append(logo)
+    } else if (favTeam === "San Francisco 49ers"){
+      var logo = $('<img src="pictures/teams/SF.jpeg">')
+      $favTeamLogo.append(logo)
+    } else if (favTeam === "Seattle Seahawks"){
+      var logo = $('<img src="pictures/teams/SEA.jpeg">')
+      $favTeamLogo.append(logo)
+    } else if (favTeam === "Tampa Bay Buccaneers"){
+      var logo = $('<img src="pictures/teams/TB.jpeg">')
+      $favTeamLogo.append(logo)
+    } else if (favTeam === "Tennessee Titans"){
+      var logo = $('<img src="pictures/teams/TEN.jpeg">')
+      $favTeamLogo.append(logo)
+    } else if (favTeam === "Washington Redskins"){
+      var logo = $('<img src="pictures/teams/WAS.jpeg">')
+      $favTeamLogo.append(logo)
+    } 
+    else {};
           
-    })
+//3rd item show opponent for this week (week 7)
+    //15 games this week (index 0 through 14)
+    // try to loop through all week's games to find team name. IF found, embed another IF statement that searches for if they're HOME team - if they are return away team and game details - ELSEIF they're AWAY team return home team and game details - ELSE return "bye week"
+   $.ajax({url: '/sports', method: 'get'})
+    .done(function(res){
+        for (var i = 0; i <= 15; i += 1){
+        var awayTeams = res.week.games[i].away.name
+        var homeTeams = res.week.games[i].home.name
+        var scheduled = res.week.games[i].scheduled
+        if (favTeam === awayTeams){
+          var opponent = homeTeams
+          otherTeam = $('<div>').text(`Opponent: ${opponent}`)
+          $opponent.append(otherTeam)
+            //logo
+            if (opponent === "Arizona Cardinals"){
+              var logo = $('<img src="pictures/teams/ARI.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Atlanta Falcons"){
+              var logo = $('<img src="pictures/teams/ATL.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Baltimore Ravens"){
+              var logo = $('<img src="pictures/teams/BAL.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Buffalo Bills"){
+              var logo = $('<img src="pictures/teams/BUF.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Carolina Panthers"){
+              var logo = $('<img src="pictures/teams/CAR.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Chicago Bears"){
+              var logo = $('<img src="pictures/teams/CHI.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Cincinnati Bengals"){
+              var logo = $('<img src="pictures/teams/CIN.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Cleveland Browns"){
+              var logo = $('<img src="pictures/teams/CLE.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Dallas Cowboys"){
+              var logo = $('<img src="pictures/teams/DAL.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Denver Broncos"){
+              var logo = $('<img src="pictures/teams/DEN.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Detroit Lions"){
+              var logo = $('<img src="pictures/teams/DET.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Green Bay Packers"){
+              var logo = $('<img src="pictures/teams/GB.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Houston Texans"){
+              var logo = $('<img src="pictures/teams/HOU.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Indianapolis Colts"){
+              var logo = $('<img src="pictures/teams/IND.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Jacksonville Jaguars"){
+              var logo = $('<img src="pictures/teams/JAC.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Kansas City Chiefs"){
+              var logo = $('<img src="pictures/teams/KC.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Los Angeles Chargers"){
+              var logo = $('<img src="pictures/teams/LAC.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Los Angeles Rams"){
+              var logo = $('<img src="pictures/teams/LA.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Miami Dolphins"){
+              var logo = $('<img src="pictures/teams/MIA.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Minnesota Vikings"){
+              var logo = $('<img src="pictures/teams/MIN.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "New England Patriots"){
+              var logo = $('<img src="pictures/teams/NE.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "New Orleans Saints"){
+              var logo = $('<img src="pictures/teams/NO.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "New York Giants"){
+              var logo = $('<img src="pictures/teams/NYG.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "New York Jets"){
+              var logo = $('<img src="pictures/teams/NYJ.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Oakland Raiders"){
+              var logo = $('<img src="pictures/teams/OAK.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Philadelphia Eagles"){
+              var logo = $('<img src="pictures/teams/PHI.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Pittsburgh Steelers"){
+              var logo = $('<img src="pictures/teams/PIT.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "San Francisco 49ers"){
+              var logo = $('<img src="pictures/teams/SF.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Seattle Seahawks"){
+              var logo = $('<img src="pictures/teams/SEA.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Tampa Bay Buccaneers"){
+              var logo = $('<img src="pictures/teams/TB.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Tennessee Titans"){
+              var logo = $('<img src="pictures/teams/TEN.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Washington Redskins"){
+              var logo = $('<img src="pictures/teams/WAS.jpeg">')
+              $oppLogo.append(logo)
+            } 
+            else {};
+          // TIME game is at
+            var timeAt = $('<div>').text(`Time of game: ${scheduled}`)
+            $time.append(timeAt)
 
+            
+          return
+          //end of first IF
+        } else if (favTeam === homeTeams){
+          
+          var opponent = awayTeams
+          otherTeam = $('<div>').text(`Opponent: ${opponent}`)
+          $opponent.append(otherTeam)
+            //logo
+            if (opponent === "Arizona Cardinals"){
+              var logo = $('<img src="pictures/teams/ARI.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Atlanta Falcons"){
+              var logo = $('<img src="pictures/teams/ATL.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Baltimore Ravens"){
+              var logo = $('<img src="pictures/teams/BAL.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Buffalo Bills"){
+              var logo = $('<img src="pictures/teams/BUF.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Carolina Panthers"){
+              var logo = $('<img src="pictures/teams/CAR.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Chicago Bears"){
+              var logo = $('<img src="pictures/teams/CHI.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Cincinnati Bengals"){
+              var logo = $('<img src="pictures/teams/CIN.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Cleveland Browns"){
+              var logo = $('<img src="pictures/teams/CLE.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Dallas Cowboys"){
+              var logo = $('<img src="pictures/teams/DAL.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Denver Broncos"){
+              var logo = $('<img src="pictures/teams/DEN.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Detroit Lions"){
+              var logo = $('<img src="pictures/teams/DET.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Green Bay Packers"){
+              var logo = $('<img src="pictures/teams/GB.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Houston Texans"){
+              var logo = $('<img src="pictures/teams/HOU.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Indianapolis Colts"){
+              var logo = $('<img src="pictures/teams/IND.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Jacksonville Jaguars"){
+              var logo = $('<img src="pictures/teams/JAC.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Kansas City Chiefs"){
+              var logo = $('<img src="pictures/teams/KC.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Los Angeles Chargers"){
+              var logo = $('<img src="pictures/teams/LAC.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Los Angeles Rams"){
+              var logo = $('<img src="pictures/teams/LA.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Miami Dolphins"){
+              var logo = $('<img src="pictures/teams/MIA.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Minnesota Vikings"){
+              var logo = $('<img src="pictures/teams/MIN.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "New England Patriots"){
+              var logo = $('<img src="pictures/teams/NE.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "New Orleans Saints"){
+              var logo = $('<img src="pictures/teams/NO.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "New York Giants"){
+              var logo = $('<img src="pictures/teams/NYG.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "New York Jets"){
+              var logo = $('<img src="pictures/teams/NYJ.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Oakland Raiders"){
+              var logo = $('<img src="pictures/teams/OAK.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Philadelphia Eagles"){
+              var logo = $('<img src="pictures/teams/PHI.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Pittsburgh Steelers"){
+              var logo = $('<img src="pictures/teams/PIT.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "San Francisco 49ers"){
+              var logo = $('<img src="pictures/teams/SF.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Seattle Seahawks"){
+              var logo = $('<img src="pictures/teams/SEA.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Tampa Bay Buccaneers"){
+              var logo = $('<img src="pictures/teams/TB.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Tennessee Titans"){
+              var logo = $('<img src="pictures/teams/TEN.jpeg">')
+              $oppLogo.append(logo)
+            } else if (opponent === "Washington Redskins"){
+              var logo = $('<img src="pictures/teams/WAS.jpeg">')
+              $oppLogo.append(logo)
+            } 
+            else {};
+          // TIME game is at
+            var timeAt = $('<div>').text(`Time of game: ${scheduled}`)
+                $time.append(timeAt)
+
+            var d = scheduled
+            var n = d.toString()  
+            console.log(n)
+          return
+        } else if (i == 14){
+          var opponent = null
+          otherTeam = $('<div>').text(`Opponent: None - Bye Week`)
+          return $opponent.append(otherTeam)
+        } 
+         
+    }})
+
+    
+
+// 4th Item - add opponent team logo based off who fav team is playing
+
+   
+
+  }
+  preloadSports()
   </script>
