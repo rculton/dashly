@@ -31,9 +31,16 @@ userRouter.route('/login')
 
 userRouter.route('/dashboard')
   .get((req, res) => {
-    res.render('user/dashboard', {
-      user: req.user
-    })}),
+    if (!!req.user){
+      console.log(!!req.user)
+      res.render('user/dashboard', {
+        user: req.user
+      })
+    }
+    else{
+      res.redirect('/')
+    }
+  }),
 //
 
 userRouter.route('/editUser')
