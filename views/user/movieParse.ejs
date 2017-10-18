@@ -49,6 +49,7 @@ function populateMovies(movies){
     }
     )
 }
+//function exists to keep the user variable within this script alone
 function preloadMovies(){
     let user = <%- JSON.stringify(user) %>
     $.ajax({url:`/webhose/${user.topics[0].actorName}`, method: 'get', dataType: 'json'})
