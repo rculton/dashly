@@ -8,6 +8,9 @@ Your favorite NFL team the Atlanta Falcons
 <div id="sportsSearch"></div>
 
 <script>
+   let user = <%- JSON.stringify(user) %>
+   console.log(user.topics[0].footballTeam)
+  
     console.log('sports script connected')
       var $favTeam = "ATL"
       var $teamLogo = $('#teamLogo')
@@ -39,7 +42,29 @@ Your favorite NFL team the Atlanta Falcons
           var channel = $('<li>').text(`Watch on channel: ${res.week.games[0].broadcast.network}`)
           $gameInfo.append(channel)
           })
-  /*  //network logos
+  
+  //NETWORK logos
+  var networkLogos = [
+  "/pictures/tv/CBS.jpeg",
+  "/pictures/tv/ESPN.jpeg",
+  "/pictures/tv/FOX.jpeg",
+  "/pictures/tv/NBC.jpeg"
+  ]
+
+  var theUser = {
+      team: 'CBS'
+  }
+
+
+
+ var url = networkLogos.forEach(function(team, i) {
+      if (team.indexOf(theUser.team) > -1) {
+          console.log(team)
+      }
+  })
+//  console.log(url)
+  /* 
+          
       var $cbs = <
     
     if(res.week.games[0].broadcast.network === 'CBS'){
