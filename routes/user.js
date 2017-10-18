@@ -70,13 +70,33 @@ userRouter.route('/editUser')
         })
       }
     })
+    .delete((req, res) => {
+      
+      User.findByIdAndRemove(req.user, (err) => {
+         if(err) return console.log(err)
+      
+      req.logout()
+      res.redirect('/')
+      })
+    })
   })
+  
 
 userRouter.get('/logout', (req, res) => {
   req.logout()
   res.redirect('/')
 })
 
+// userRouter.get('/delete', (req, res) => {
+//   User.findByIdAndRemove(req.user, (err) => {
+//     if(err) return console.log(err)
+//     req.logout()
+//     req.redirect('/')
+//   })
+  // User.findByIdAndRemove()  //add delete users
+  // req.logout() // "kills session"
+  // res.redirect('/')
+//})
 
 module.exports = userRouter
 

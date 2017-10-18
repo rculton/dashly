@@ -67,6 +67,10 @@
         
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+    <hr class="bg-danger">
+    <button type="submit" id="deleteBtn">Delete</button>
+   
+
 </div>
 
 <script>
@@ -101,4 +105,15 @@
         })
 
     })  
+    $('#deleteBtn').on('click', function(e){
+        console.log('clicked button')
+        $.ajax({
+            url: '/editUser',
+            method: 'delete'
+        })
+        .done(function (res) {
+            window.location.href = '/'
+        })
+    })
+
 </script>
