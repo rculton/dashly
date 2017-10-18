@@ -36,6 +36,36 @@ userRouter.route('/')
   })
 })
 
+userRouter.route('/')
+.patch((req, res) => {
+  User.findById(req.user._id, (err, user) => {
+    if(err) return console.log(err)
+    debugger
+    console.log(req.user.body)
+    if (!!user.validPassword(req.body.verifyPassword)) {
+      console.log(req.body.verifyPassword)
+      delete req.body['verifyPassword'];
+      console.log(req.body.password)
+      req.body.password = user.generateHash(req.body.password)
+      console.log(req.body.password)
+      var updatedUser = objectAssign(user, req.body)
+      console.log(updatedUser)
+      updatedUser.save((err, updateUser) => {
+        if(err) return console.log(err)
+        console.log('updated user')
+        res.send({success: true})
+      })
+    }
+  })
+})
+.delete((req, res) =>{
+  User.findByIdAndRemove(req.user._id, (err)=>{
+    if(err) return console.log(err)
+    req.logout()
+    res.send({success: true})
+  })
+})
+
 userRouter.route('/signup')
   .get((req, res) => {
     res.render('signup', {message: req.flash('signup-message')})
@@ -74,10 +104,16 @@ userRouter.route('/dashboard')
 
 userRouter.route('/editUser')
   .get((req, res) => {
-    res.render('user/userEdit', {
-      user: req.user,
-      message: ''
-    })
+    if (!!req.user){
+      res.render('user/userEdit', {
+        user: req.user,
+        message: ''
+      })
+    }
+    else{
+      res.redirect('/')
+    }
+    
   })
   // .patch((req, res) => {
   //   User.findById(req.user._id, (err, user) => {
