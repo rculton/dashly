@@ -24,7 +24,8 @@
         return str 
     }
     userArtist = parseArtist(userArtist)
-    var musicApi = `https://itunes.apple.com/search?media=music&limit=10&entity=allArtist&term=${userArtist}`
+    var musicApi = `https://itunes.apple.com/search?media=music&limit=10&entity=musicTrack&term=${userArtist}`
+    var videoApi = `https://itunes.apple.com/search?media=music&limit=10&entity=musicVideo&term=${userArtist}`
     var music
     var i = 0
     $.ajax({
