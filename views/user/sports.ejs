@@ -144,13 +144,20 @@ function preloadSports(){
         var awayTeams = res.week.games[i].away.name
         var homeTeams = res.week.games[i].home.name
         if (favTeam === awayTeams){
-           return console.log(`${homeTeams}`)
-           
+          var opponent = homeTeams
+          otherTeam = $('<div>').text(`Opponent: ${opponent}`)
+          return $opponent.append(otherTeam)
+          
         } else if (favTeam === homeTeams){
-           return console.log(`${awayTeams}`)
-           
+          var opponent = awayTeams
+          otherTeam = $('<div>').text(`Opponent: ${opponent}`)
+          return $opponent.append(otherTeam)
+          
         } else if (i == 14){
-          return console.log("Bye Week")} 
+          otherTeam = $('<div>').text(`Opponent: None - Bye Week`)
+          return $opponent.append(otherTeam)
+        } 
+          
     }})
 
 
