@@ -4,7 +4,9 @@
 <!-- 2nd item - show favorite team logo -->
 <div id="favTeamLogo"></div>
 
-<div id="sports"></div> <!-- API response - next game -->
+<!-- 3rd item show opponent for this week (week 7) -->
+<div id="opponent"></div> 
+
 <ul id="gameInfo">
 </ul> <!-- API response - game info -->
 <div id="sportsSearch"></div>
@@ -16,20 +18,23 @@ function preloadSports(){
 
   //Connect current user's information
   let user = <%- JSON.stringify(user) %>
-    console.log(`From user model: ${user.topics[0].footballTeam}`) //Test if specific current user info is connected. User is current user > topics[0] is current user topic model. 
+    console.log(`Favorite team from user model: ${user.topics[0].footballTeam}`) //Test if specific current user info is connected. User is current user > topics[0] is current user topic model. 
     
-  //Global variables for sports section
+//Global variables for sports section
   var favTeam = user.topics[0].footballTeam //current user's favorite football team
   var $favoriteTeam = $('#favoriteTeam')
   var $favTeamLogo = $('#favTeamLogo')
+  var $opponent = $('#opponent')
+
+    //old ones
   var $sports = $('#sports')
   var $gameInfo = $('#gameInfo')
 
-  //1st item - show favorite team name
+//1st item - show favorite team name
   var favoriteTeam = $('<div>').text(`Favorite Team: ${user.topics[0].footballTeam}`)
   $favoriteTeam.append(favoriteTeam)
 
-  //2nd item - show favorite team logo
+//2nd item - show favorite team logo
     //need to be able to loop through and/or search for team logo in saved team pics. 
     if (favTeam === "Arizona Cardinals"){
       var logo = $('<img src="pictures/teams/ARI.jpeg">')
@@ -130,23 +135,23 @@ function preloadSports(){
     } 
     else {};
           
-
+//3rd item show opponent for this week (week 7)
     //15 games this week (index 0 through 14)
-    // try to loop through all week's games to find team name. IF found, embed another another IF statement that searches for if they're HOME team - if they are return away team and game details - ELSEIF they're AWAY team return home team and game details - ELSE return "bye week"
-   /* 
+    // try to loop through all week's games to find team name. IF found, embed another IF statement that searches for if they're HOME team - if they are return away team and game details - ELSEIF they're AWAY team return home team and game details - ELSE return "bye week"
    $.ajax({url: '/sports', method: 'get'})
     .done(function(res){
-        for (var i = 0; i <= 14; i += 1){
-        var apiGames = res.week.games[i].away.name
-        console.log(`test + ${apiGames}`) 
-        } 
-    */
-        // var apiResult = res.week.games.forEach(function() {
-        //  if (home.name = user.topics[0].footballTeam) {
-        //    console.log(home.name)
-        //  }
-    //  }) 
-    // })
+        for (var i = 0; i <= 15; i += 1){
+        var awayTeams = res.week.games[i].away.name
+        var homeTeams = res.week.games[i].home.name
+        if (favTeam === awayTeams){
+           return console.log(`${homeTeams}`)
+           
+        } else if (favTeam === homeTeams){
+           return console.log(`${awayTeams}`)
+           
+        } else if (i == 14){
+          return console.log("Bye Week")} 
+    }})
 
 
     //
@@ -177,6 +182,7 @@ function preloadSports(){
           })
       */
   //NETWORK logos
+  /*
   var networkLogos = [
   "/pictures/tv/CBS.jpeg",
   "/pictures/tv/ESPN.jpeg",
