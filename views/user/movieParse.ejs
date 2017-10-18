@@ -26,11 +26,17 @@ function populateMovies(movies){
             </div>
             <div class="col">
                 <div class="row">
-                <div class="col-xs-6">
-                    <div class="mini-box" >
-                    <a href="${thispost.url}">${thispost.title}</a>
+                    <div class="col-xs-6">
+                        <div class="mini-box" >
+                        <a href="${thispost.url}">${thispost.title}</a>
+                        </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="mini-box author-box" >
+                        </div>
+                    </div>
                 </div>
             </div>
             </div>
@@ -43,7 +49,15 @@ function populateMovies(movies){
         else{
             $theLi.find('.small-box').html(`<img class="img img-fluid visual-post-img" src="pictures/default.png"/>`)
         }
-
+        if(thispost.author != undefined && thispost.site != undefined){
+            $theLi.find('author-box').html(`<small>${thispost.author} || ${thispost.site}</small>`)
+        }
+        else if(thispost.author != undefined){
+            $theLi.find('author-box').html(`<small>${thispost.author}</small>`)
+        }
+        else if(thispost.author != undefined && thispost.site != undefined){
+            $theLi.find('author-box').html(`<small>${thispost.author} || ${thispost.site}</small>`)
+        }
         $whUl.append($theLi)
     }
     }
