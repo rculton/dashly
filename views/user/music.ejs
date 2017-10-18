@@ -128,7 +128,7 @@
                         // for cover art
                         var $coverArt = $('<img>')
                         $coverArt.attr('src', music.artworkUrl100).attr('style', 'width:100%;')
-                        var $caption = $(`<figcaption class="text-info text-left">Click to see whole album <a class="badge badge-light" href="${music.collectionViewUrl}">${music.collectionName} 🎧 </a></figcaption>`)
+                        var $caption = $(`<figcaption class="text-info text-left">Click to see whole album <a style="width:100%;" class="badge badge-light" href="${music.collectionViewUrl}">${music.collectionName} 🎧 </a></figcaption>`)
                         $('#image-holder').addClass('album-image').empty().append($coverArt)
                         $('#album-info').empty().append($caption)
 
