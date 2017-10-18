@@ -5,8 +5,12 @@
 <ul id="wh-movies" style="list-style: none;">
     <li>Loading Content - Please Wait...</li>
 </ul>    
+<<<<<<< HEAD
 
 <!-- <script>
+=======
+<script>
+>>>>>>> c874ce2cf38a07c191d83dc87f98f3c1b321fb7d
 var $whQueryForm = $('#wh-query-form')
 var $whQueryText = $('#wh-query-text')
 var $whUl = $('#wh-movies')
@@ -14,7 +18,11 @@ var $whUl = $('#wh-movies')
 function populateMovies(movies){
     $whUl.html('')
     $whQueryText.val('')
-    movies.posts.forEach((post, i)=>{
+//    arr.filter((val, i) => {
+//        if(i < 3) return val;
+//    })
+    movies.posts.filter((post, i)=>{
+        if(i < 10){
         thispost = post.thread
         console.log(thispost)
         console.log('movie git!')
@@ -23,8 +31,7 @@ function populateMovies(movies){
         <div class="container" style="margin-top: 5px; margin-bottom: 5px">
             <div class="row">
             <div class="col" style="height: 75%; width: auto">
-                <div class="small-box">
-                    <img class="img img-fluid visual-post-img" src=${thispost.main_image}>
+                <div class="small-box">                  
                 </div>
             </div>
             <div class="col">
@@ -37,16 +44,24 @@ function populateMovies(movies){
                 </div>
             </div>
             </div>
-        </div>`)
-        $whUl.append($theLi)
-        if (i >= 10){
-        console.log("Ended at", i)
-        return
+        </div>
+        <hr/>`)
+
+        if(thispost.main_image != null){
+            $theLi.find('.small-box').html(`<img class="img img-fluid visual-post-img" src=${thispost.main_image} alt="Image Not Found"/>`)
         }
+        else{
+            $theLi.find('.small-box').html(`<img class="img img-fluid visual-post-img" src="pictures/default.png"/>`)
+        }
+
+        $whUl.append($theLi)
+    }
     }
     )
 }
-$.ajax({url:'/webhose/donald duck', method: 'get', dataType: 'json'})
+let user = <%- JSON.stringify(user) %>
+console.log(user)
+$.ajax({url:`/webhose/${user.topics[0].actorName}`, method: 'get', dataType: 'json'})
 .done((res)=> {
 populateMovies(res)
 }
@@ -63,4 +78,8 @@ $whQueryForm.on('submit', (evt)=>{
         }
     )
 })
+<<<<<<< HEAD
 </script> -->
+=======
+</script>
+>>>>>>> c874ce2cf38a07c191d83dc87f98f3c1b321fb7d
