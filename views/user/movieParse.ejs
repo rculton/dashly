@@ -19,8 +19,6 @@ function populateMovies(movies){
     movies.posts.filter((post, i)=>{
         if(i < 10){
         thispost = post.thread
-        console.log(thispost)
-        console.log('movie git!')
         var $theLi = $('<li>')
         $theLi.html(`
         <div class="container" style="margin-top: 5px; margin-bottom: 5px">
@@ -55,7 +53,6 @@ function populateMovies(movies){
     )
 }
 let user = <%- JSON.stringify(user) %>
-console.log(user)
 $.ajax({url:`/webhose/${user.topics[0].actorName}`, method: 'get', dataType: 'json'})
 .done((res)=> {
 populateMovies(res)

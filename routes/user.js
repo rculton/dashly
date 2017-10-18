@@ -46,14 +46,19 @@ userRouter.route('/editUser')
   .patch((req, res) => {
     User.findById(req.user._id, (err, user) => {
       if(err) return console.log(err)
+      debugger
+      console.log(req.user.body)
       if (!!user.validPassword(req.body.verifyPassword)) {
+        console.log(req.body.verifyPassword)
         delete req.body['verifyPassword'];
+        console.log(req.body.password)
         req.body.password = user.generateHash(req.body.password)
+        console.log(req.body.password)
         var updatedUser = objectAssign(user, req.body)
         console.log(updatedUser)
         updatedUser.save((err, updateUser) => {
           if(err) return console.log(err)
-          console.log(updatedUser)
+          console.log('updated user')
           res.redirect(303,'/dashboard')
         })
       }
