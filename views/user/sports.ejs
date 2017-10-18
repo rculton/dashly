@@ -1,4 +1,4 @@
-<div id="favTeam">Favorite Team: </div>
+<div id="favoriteTeam"></div>
 
 <div id="teamLogo"></div>
 
@@ -15,10 +15,12 @@
   let user = <%- JSON.stringify(user) %>
     console.log(user.topics[0].footballTeam) //Test if specific current user info is connected. User is current user > topics[0] is current user topic model. 
     
+  //Global variables for sports section
+  var $favoriteTeam = $('#favoriteTeam')
 
-   var $favTeam2 = $('#favTeam')
-   var favoriteTeam = $('<div>').text(`${user.topics[0].footballTeam}`)
-   $favTeam2.append(favoriteTeam)
+  //1st item - show favorite team
+  var favoriteTeam = $('<div>').text(`Favorite Team: ${user.topics[0].footballTeam}`)
+   $favoriteTeam.append(favoriteTeam)
 
 
   
