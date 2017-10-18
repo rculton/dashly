@@ -104,13 +104,17 @@ userRouter.route('/dashboard')
 
 userRouter.route('/editUser')
   .get((req, res) => {
-    res.render('user/userEdit', {
-      user: req.user,
-      message: ''
-    })
+    if (!!req.user){
+      res.render('user/userEdit', {
+        user: req.user,
+        message: ''
+      })
+    }
+    else{
+      res.redirect('/')
+    }
+    
   })
-<<<<<<< HEAD
-=======
   // .patch((req, res) => {
   //   User.findById(req.user._id, (err, user) => {
   //     if(err) return console.log(err)
@@ -140,7 +144,6 @@ userRouter.route('/editUser')
     // })
   // })
   
->>>>>>> a45e026db7ab298338b468b7f4031b3c9d680fa1
 
 userRouter.get('/logout', (req, res) => {
   req.logout()
