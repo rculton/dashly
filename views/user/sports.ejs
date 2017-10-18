@@ -15,9 +15,10 @@
 
   //Connect current user's information
   let user = <%- JSON.stringify(user) %>
-    console.log(user.topics[0].footballTeam) //Test if specific current user info is connected. User is current user > topics[0] is current user topic model. 
+    console.log(`From user model: ${user.topics[0].footballTeam}`) //Test if specific current user info is connected. User is current user > topics[0] is current user topic model. 
     
   //Global variables for sports section
+  var favTeam = user.topics[0].footballTeam //current user's favorite football team
   var $favoriteTeam = $('#favoriteTeam')
   var $favTeamLogo = $('#favTeamLogo')
   var $sports = $('#sports')
@@ -29,6 +30,11 @@
 
   //2nd item - show favorite team logo
     //need to be able to loop through and/or search for team logo in saved team pics. 
+    if (favTeam === "Chicago Bears"){
+      var logo1 = $('<img src="pictures/teams/CHI.jpeg">')
+      $favTeamLogo.append(logo1)
+    }
+   
     var teamLogos = [
     'pictures/teams/ARI.jpeg',
     'pictures/teams/ATL.jpeg',
@@ -64,29 +70,29 @@
     'pictures/teams/WAS.jpeg'
     ]
   
-    
      
       
 
     //15 games this week (index 0 through 14)
     // try to loop through all week's games to find team name. IF found, embed another another IF statement that searches for if they're HOME team - if they are return away team and game details - ELSEIF they're AWAY team return home team and game details - ELSE return "bye week"
-    $.ajax({url: '/sports', method: 'get'})
+   /* 
+   $.ajax({url: '/sports', method: 'get'})
     .done(function(res){
         for (var i = 0; i <= 14; i += 1){
         var apiGames = res.week.games[i].away.name
         console.log(`test + ${apiGames}`) 
-        }
-
+        } 
+    */
         // var apiResult = res.week.games.forEach(function() {
         //  if (home.name = user.topics[0].footballTeam) {
         //    console.log(home.name)
         //  }
     //  }) 
-    })
+    // })
 
 
     //
-
+    /*
       $.ajax({url: '/sports', method: 'get'})
       .done(function(res){
       // console.log(res.week.games[2].home.alias) test
@@ -96,11 +102,11 @@
             var logo1 = $('<img src="pictures/teams/DAL.jpeg">')
             $favTeamLogo.append(logo1)
           } else {}
+      */
 
 
 
-
-
+      /*
           //who the game is against
           var theLi = $('<p>').text(`Their next game is against: ${res.week.games[0].home.name}`)
           $sports.append(theLi)
@@ -111,7 +117,7 @@
           var channel = $('<li>').text(`Watch on channel: ${res.week.games[0].broadcast.network}`)
           $gameInfo.append(channel)
           })
-  
+      */
   //NETWORK logos
   var networkLogos = [
   "/pictures/tv/CBS.jpeg",
