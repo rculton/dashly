@@ -10,6 +10,8 @@
 <!-- 4th Item - add opponent team logo based off who fav team is playing -->
 <div id="oppLogo"></div>
 
+<!-- 5th Item - add the date and time of game -->
+<div id="time"></div>
 
 
 <script>
@@ -27,6 +29,7 @@ function preloadSports(){
   var $favTeamLogo = $('#favTeamLogo')
   var $opponent = $('#opponent')
   var $oppLogo = $('#oppLogo')
+  var $time = $('#time')
 
  
 
@@ -143,6 +146,7 @@ function preloadSports(){
         for (var i = 0; i <= 15; i += 1){
         var awayTeams = res.week.games[i].away.name
         var homeTeams = res.week.games[i].home.name
+        var scheduled = res.week.games[i].scheduled
         if (favTeam === awayTeams){
           var opponent = homeTeams
           otherTeam = $('<div>').text(`Opponent: ${opponent}`)
@@ -246,9 +250,13 @@ function preloadSports(){
               $oppLogo.append(logo)
             } 
             else {};
+          // TIME game is at
+            var timeAt = $('<div>').text(`Time of game: ${scheduled}`)
+            $time.append(timeAt)
           return
           //end of first IF
         } else if (favTeam === homeTeams){
+          
           var opponent = awayTeams
           otherTeam = $('<div>').text(`Opponent: ${opponent}`)
           $opponent.append(otherTeam)
@@ -351,6 +359,9 @@ function preloadSports(){
               $oppLogo.append(logo)
             } 
             else {};
+          // TIME game is at
+            var timeAt = $('<div>').text(`Time of game: ${scheduled}`)
+                $time.append(timeAt)
           return
         } else if (i == 14){
           var opponent = null
@@ -359,6 +370,8 @@ function preloadSports(){
         } 
          
     }})
+
+    
 
 // 4th Item - add opponent team logo based off who fav team is playing
 
