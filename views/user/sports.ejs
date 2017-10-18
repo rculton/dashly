@@ -24,9 +24,21 @@
       var $sports = $('#sports')
       var $gameInfo = $('#gameInfo')
 
+    //15 games this week (index 0 through 14)
     // try to loop through all week's games to find team name. IF found, embed another another IF statement that searches for if they're HOME team - if they are return away team and game details - ELSEIF they're AWAY team return home team and game details - ELSE return "bye week"
+    $.ajax({url: '/sports', method: 'get'})
+    .done(function(res){
+        for (var i = 0; i <= 14; i += 1){
+        var apiGames = res.week.games[i].away.name
+        console.log(`test + ${apiGames}`) 
+        }
 
-
+        // var apiResult = res.week.games.forEach(function() {
+        //  if (home.name = user.topics[0].footballTeam) {
+        //    console.log(home.name)
+        //  }
+    //  }) 
+    })
 
 
     //
@@ -36,7 +48,7 @@
       // console.log(res.week.games[2].home.alias) test
        // console.log("server says:", res) test
           //favorite team logo
-          if ($favTeam2 === "DAL"){
+          if (user.topics[0].footballTeam === "Dallas Cowboys"){
             var logo1 = $('<img src="pictures/teams/DAL.jpeg">')
             $teamLogo.append(logo1)
           } else {}
