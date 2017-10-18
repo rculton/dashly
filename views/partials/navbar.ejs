@@ -1,5 +1,9 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="/">Navbar</a>
+      <% if(loggedIn) { %>
+      <a class="navbar-brand" href="/"><%= user.name %>'s Dashboard</a>
+      <% } else { %>
+        <a class="navbar-brand" href="/">Dashly</a>
+      <% } %>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -12,15 +16,14 @@
               <li class="nav-item">
                 <a class="nav-link" href="/editUser">Edit Profile</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item float-right">
                 <a class="nav-link" href="/logout">Log Out</a>
               </li>
-            <% }%>
-            <% if(!loggedIn){ %>
+            <% } else { %>
               <li class="nav-item">
                 <a class="nav-link" href="/signup">Sign Up</a>
             </li>
-            <% }%>
+            <% } %>
         </ul>
       </div>
     </nav>

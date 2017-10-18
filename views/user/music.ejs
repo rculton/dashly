@@ -2,11 +2,20 @@
     <h1 class="text-center"><%= user.topics[0].artistName %></h1>
     <hr class="bg-primary">
     <div class="container">
-        <div class="row">
-            <div id="cover-art" class="col-md-3">
+        <div class="row media-row">
+            <div id="music-media" class="col-md-4 text-center">
+                <h5 class="text-info">Album</h5>
+                <div id="image-holder"></div>
+                <div id="album-info"></div>
+                <hr class="bg-primary" style="margin-bottom:20%;">
+                <h5 class="text-info">Songs</h5>
+                <div id="song-holder"></div>
+                <div id="ablum-holder"></div>
             </div>
-            <div id="music-info" class="col-md-9 text-center">
-
+            <div class="video-container col-md-8 text-center">
+                <h3 class="text-info">Videos</h3>
+                <div id="video-info"></div>
+                <div id="video-holder"></div>
             </div>
         </div>
     </div>
@@ -17,62 +26,116 @@
     function musicSetup() {
         var user = <%- JSON.stringify(user) %>;
         var userArtist = user.topics[0].artistName;
-<<<<<<< HEAD
-
-=======
->>>>>>> 41686392ff087f2e4d598f9d03ecf0ec6dd8c6cd
         function parseArtist (str) {
             str = str.toLowerCase();
             str = str.replace(/\s{2,}/g,' ').trim();
             str = str.replace(/\s/g, '+')
             return str 
         }
-<<<<<<< HEAD
 
-=======
->>>>>>> 41686392ff087f2e4d598f9d03ecf0ec6dd8c6cd
         userArtist = parseArtist(userArtist)
         var musicApi = `https://itunes.apple.com/search?media=music&limit=10&entity=musicTrack&term=${userArtist}`
         var videoApi = `https://itunes.apple.com/search?media=music&limit=10&entity=musicVideo&term=${userArtist}`
         var music
         var i = 0
-<<<<<<< HEAD
+        var j = 0
+
+        $.ajax({
+            url: videoApi,
+            method: 'get',
+            dataType: 'json'
+        })
+        .done((res) => {
+            var results = res.results
+
+            var generateVideoContent = function(j) {
+                var video = results[j];
+
+                // video info
+                var $h4 = $(`<h4>${video.trackName}</h4>`)
+                var $h5 = $(`<h5>${video.artistName}</h5>`)
+                $('#video-info').empty().append($h4, $h5);
+
+                // video
+                var $videoPlayer = $(`<video width="640" height="345" controls>
+                        <source src="${video.previewUrl}" type="video/mp4">
+                        <source src="${video.artistViewUrl}" type="video/ogg">
+                      Your browser does not support the video tag.
+                      </video>`)
+                //
+
+                var $nextBtn = $('<button id="nextVideo" class="btn btn-sm btn-secondary float-right">Next</button>')
+                var $prevBtn = $('<buttton id="prevVideo" class="btn btn-sm btn-secondary float-left">Prev</button>')
+                var $btnHolder = $(`<div class="fluid-container" style="margin-left:auto;margin-right:auto;">`).append($nextBtn, $prevBtn)
+                $('#video-holder').empty().append($videoPlayer, $btnHolder)
+
+
+                $('#nextVideo').on('click', () => {
+                    if(j >= len) {
+                        j = 0;
+                    } else {
+                        j++;
+                    }
+                    generateVideoContent(j)
+                })
+                $('#prevVideo').on('click', () => {
+                    if(j == 0) {
+                        j = len;
+                    } else {
+                        --j;
+                    }
+                    generateVideoContent(j)
+                })
+
+            }
+
+            generateVideoContent(j)
+
+        })
 
         // for music tracks
-=======
->>>>>>> 41686392ff087f2e4d598f9d03ecf0ec6dd8c6cd
         $.ajax({
             url: musicApi,
             method: 'get',
             dataType: 'json'
         })
-        .done((res, body) => {
+        .done((res) => {
             var results = res.results
-            console.log(results)
         
             var generateContent = function(i) {
                 music = results[i]
                 len = results.length - 1
+
                 // for cover art
                 var $coverArt = $('<img>')
                 $coverArt.attr('src', music.artworkUrl100).attr('style', 'width:100%;')
-                var $caption = $('<figcaption>')
-                $caption.text(music.collectionName)
-                $('#cover-art').empty().append($coverArt, $caption)
+                var $caption = $(`<figcaption class="text-info text-left">Click to see whole album <a class="badge badge-light" href="${music.collectionViewUrl}">${music.collectionName} 🎧 </a></figcaption>`)
+                $('#image-holder').addClass('album-image').empty().append($coverArt)
+                $('#album-info').empty().append($caption)
+
                 // for music info
-                var $h2 = $(`<h2>${music.artistName}</h2>`);
-                var $div = $('<div class="container">')
-                var $h3 = $(`<h3>${music.trackName}</h3>`)
-                var $audioPlayer = $(`<audio src="${music}" controls>Your browser doesn't support the audio element</audio>`)
+                var $songHolder = $('#song-holder')
+                var $trackName = $(`<p class="lead">${music.trackName}</p>`)
+                var $audioPlayer = $(`<audio src="${music.previewUrl}" controls>Your browser doesn't support the audio element</audio>`)
+                var $nextBtn = $('<button id="next" class="btn btn-sm btn-secondary float-right">Next</button>')
+                var $prevBtn = $('<buttton id="prev" class="btn btn-sm btn-secondary float-left">Prev</button>')
+                var $btnHolder = $(`<div class="fluid-container">`).append($nextBtn, $prevBtn)
+                $songHolder.empty().append($trackName, $audioPlayer, $btnHolder)
         
-                $('#music-info').empty().append($h2, $h3,`<audio src="${music.previewUrl}" controls>
-                    Your browser does not support the audio element.
-                    </audio>`, `<button id="next">Next</button> `)
+               
                 $('#next').on('click', () => {
                     if(i >= len) {
                         i = 0;
                     } else {
                         i++;
+                    }
+                    generateContent(i)
+                })
+                $('#prev').on('click', () => {
+                    if(i == 0) {
+                        i = len;
+                    } else {
+                        --i;
                     }
                     generateContent(i)
                 })
