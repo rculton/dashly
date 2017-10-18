@@ -154,75 +154,8 @@ function preloadSports(){
     }})
 
 
-    //
-    /*
-      $.ajax({url: '/sports', method: 'get'})
-      .done(function(res){
-      // console.log(res.week.games[2].home.alias) test
-       // console.log("server says:", res) test
-          //favorite team logo
-          if (user.topics[0].footballTeam === "Dallas Cowboys"){
-            var logo1 = $('<img src="pictures/teams/DAL.jpeg">')
-            $favTeamLogo.append(logo1)
-          } else {}
-      */
+   
 
-
-
-      /*
-          //who the game is against
-          var theLi = $('<p>').text(`Their next game is against: ${res.week.games[0].home.name}`)
-          $sports.append(theLi)
-          //when's the game
-          var gameDay = $('<li>').text(`Game is at: ${res.week.games[0].scheduled}`)
-          $gameInfo.append(gameDay)
-          //channel game will be on 
-          var channel = $('<li>').text(`Watch on channel: ${res.week.games[0].broadcast.network}`)
-          $gameInfo.append(channel)
-          })
-      */
-  //NETWORK logos
-  /*
-  var networkLogos = [
-  "/pictures/tv/CBS.jpeg",
-  "/pictures/tv/ESPN.jpeg",
-  "/pictures/tv/FOX.jpeg",
-  "/pictures/tv/NBC.jpeg"
-  ]
-
-  var theUser = {
-      team: 'CBS'
-  }
-
-
-
- var url = networkLogos.forEach(function(team, i) {
-      if (team.indexOf(theUser.team) > -1) {
-         // console.log(team)
-      }
-  })
-//  console.log(url)
-  /* 
-          
-      var $cbs = <
-    
-    if(res.week.games[0].broadcast.network === 'CBS'){
-            var pic = $('<li>').text(`it works`)
-            $gameInfo.append(pic);
-          }
-
-          //if the network name matches the ${file name}.jpeg, then display that networks logo. Else, don't show any logo.
-          var $gameNetwork = res.week.games[0].broadcast.network
-          if ($gameNetwork === 'CBS')
-
-          
-
-
-          //ADD dropdown of favorite team 
-            //ADD logic to determine opponent, gametime, & channel of favorite team's game based off drop down menu selection
-
-          
-    }) */
   }
   preloadSports()
   </script>
