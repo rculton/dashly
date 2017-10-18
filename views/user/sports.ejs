@@ -1,5 +1,5 @@
+<div id="favTeam">Favorite Team: </div>
 
-Your favorite NFL team the Atlanta Falcons
 <div id="teamLogo"></div>
 
 <div id="sports"></div> <!-- API response - next game -->
@@ -8,23 +8,36 @@ Your favorite NFL team the Atlanta Falcons
 <div id="sportsSearch"></div>
 
 <script>
-   let user = <%- JSON.stringify(user) %>
-   console.log(user.topics[0].footballTeam)
+  console.log('sports script connected') 
+  let user = <%- JSON.stringify(user) %>
+   console.log(user.topics[0].footballTeam) //this works. Need to search for current user
+
+   var $favTeam2 = $('#favTeam')
+   var favoriteTeam = $('<div>').text(`${user.topics[0].footballTeam}`)
+   $favTeam2.append(favoriteTeam)
+
+
   
-    console.log('sports script connected')
-      var $favTeam = "ATL"
+    
+     // var $favTeam = "ATL"
       var $teamLogo = $('#teamLogo')
       var $sports = $('#sports')
       var $gameInfo = $('#gameInfo')
 
+    // try to loop through all week's games to find team name. IF found, embed another another IF statement that searches for if they're HOME team - if they are return away team and game details - ELSEIF they're AWAY team return home team and game details - ELSE return "bye week"
+
+
+
+
+    //
 
       $.ajax({url: '/sports', method: 'get'})
       .done(function(res){
       // console.log(res.week.games[2].home.alias) test
        // console.log("server says:", res) test
           //favorite team logo
-          if ($favTeam === "ARI"){
-            var logo1 = $('<img src="../pictures/teams/ARI.jpeg">')
+          if ($favTeam2 === "DAL"){
+            var logo1 = $('<img src="pictures/teams/DAL.jpeg">')
             $teamLogo.append(logo1)
           } else {}
 
@@ -59,7 +72,7 @@ Your favorite NFL team the Atlanta Falcons
 
  var url = networkLogos.forEach(function(team, i) {
       if (team.indexOf(theUser.team) > -1) {
-          console.log(team)
+         // console.log(team)
       }
   })
 //  console.log(url)
