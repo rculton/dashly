@@ -5,6 +5,7 @@
 <ul id="wh-movies" style="list-style: none;">
     <li>Loading Content - Please Wait...</li>
 </ul>    
+<<<<<<< HEAD
 <!-- <script>
     var $whQueryForm = $('#wh-query-form')
     var $whQueryText = $('#wh-query-text')
@@ -31,13 +32,44 @@
                 </div>
                 <div class="col">
                     <div class="row">
+=======
+<script>
+var $whQueryForm = $('#wh-query-form')
+var $whQueryText = $('#wh-query-text')
+var $whUl = $('#wh-movies')
+//pre-query for movies
+function populateMovies(movies){
+    $whUl.html('')
+    $whQueryText.val('')
+    movies.posts.filter((post, i)=>{
+        if(i < 10){
+        thispost = post.thread
+        var $theLi = $('<li>')
+        $theLi.html(`
+        <div class="container" style="margin-top: 5px; margin-bottom: 5px">
+            <div class="row">
+            <div class="col" style="height: 75%; width: auto">
+                <div class="small-box">                  
+                </div>
+            </div>
+            <div class="col">
+                <div class="row">
+>>>>>>> 45713934eae476d3296e0a64e384f44af6ff66cb
                     <div class="col-xs-6">
                         <div class="mini-box" >
                         <a href="${thispost.url}">${thispost.title}</a>
                         </div>
+<<<<<<< HEAD
                     </div>
+=======
+>>>>>>> 45713934eae476d3296e0a64e384f44af6ff66cb
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="mini-box author-box" >
+                        </div>
+                    </div>
                 </div>
             </div>
             <hr/>`)
@@ -52,7 +84,20 @@
             $whUl.append($theLi)
         }
         }
+<<<<<<< HEAD
         )
+=======
+        if(thispost.author != undefined && thispost.site != undefined){
+            $theLi.find('author-box').html(`<small>${thispost.author} || ${thispost.site}</small>`)
+        }
+        else if(thispost.author != undefined){
+            $theLi.find('author-box').html(`<small>${thispost.author}</small>`)
+        }
+        else if(thispost.author != undefined && thispost.site != undefined){
+            $theLi.find('author-box').html(`<small>${thispost.author} || ${thispost.site}</small>`)
+        }
+        $whUl.append($theLi)
+>>>>>>> 45713934eae476d3296e0a64e384f44af6ff66cb
     }
     let user = <%- JSON.stringify(user) %>
     console.log(user)
@@ -61,6 +106,7 @@
     populateMovies(res)
     }
     )
+<<<<<<< HEAD
 
     $whQueryForm.on('submit', (evt)=>{
         evt.preventDefault()
@@ -74,3 +120,30 @@
         )
     })
 </script> -->
+=======
+}
+//function exists to keep the user variable within this script alone
+function preloadMovies(){
+    let user = <%- JSON.stringify(user) %>
+    $.ajax({url:`/webhose/${user.topics[0].actorName}`, method: 'get', dataType: 'json'})
+    .done((res)=> {
+    populateMovies(res)
+    }
+    )
+}
+preloadMovies()
+
+
+$whQueryForm.on('submit', (evt)=>{
+    evt.preventDefault()
+    $whUl.html('')
+    var newQuery = $whQueryText.val()
+    $whUl.append($('<li>').text('Searching... Please Wait....'))
+    $.ajax({url:`/webhose/${newQuery}`, method: 'get'})
+    .done((res)=>{
+        populateMovies(res)
+        }
+    )
+})
+</script>
+>>>>>>> 45713934eae476d3296e0a64e384f44af6ff66cb
