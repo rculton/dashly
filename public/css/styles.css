@@ -11,6 +11,15 @@ body {
     margin: 0 auto;
 }
 
+.videoInsert {
+    min-width: 100%; 
+    min-height: 100%;
+    width: 100%; 
+    height: auto; 
+    z-index: -100;
+    overflow: hidden;
+}
+
 .card {
     background: rgba(0, 0, 0, 0.8);
 }
