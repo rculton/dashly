@@ -94,7 +94,7 @@
         console.log(data)
         console.log(user)
         $.ajax({
-            url: '/editUser',
+            url: '/',
             method: 'patch',
             data: JSON.stringify(data),
             contentType: 'application/json'
@@ -108,7 +108,7 @@
     $('#deleteBtn').on('click', function(e){
         console.log('clicked button')
         $.ajax({
-            url: '/editUser',
+            url: '/',
             method: 'delete'
         })
         .done(function (res) {
