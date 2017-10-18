@@ -8,9 +8,13 @@
 <div id="sportsSearch"></div>
 
 <script>
+  //Test to make sure script is running
   console.log('sports script connected') 
+
+  //Connect current user's information
   let user = <%- JSON.stringify(user) %>
-   console.log(user.topics[0].footballTeam) //this works. Need to search for current user
+    console.log(user.topics[0].footballTeam) //Test if specific current user info is connected. User is current user > topics[0] is current user topic model. 
+    
 
    var $favTeam2 = $('#favTeam')
    var favoriteTeam = $('<div>').text(`${user.topics[0].footballTeam}`)
