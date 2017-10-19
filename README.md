@@ -20,6 +20,7 @@
 * API's used:
 	* <a href="https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/">iTunes</a>
 	* <a href="https://sportradar.us/">sportradar</a>
+	* <a href="https://clearbit.com/">Clearbit</a>
 	* <a href="https://webhose.io/">Webhose.io</a>
 
 
