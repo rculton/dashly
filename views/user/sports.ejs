@@ -1,5 +1,8 @@
 <div class="container"></div>
-  <h1 id="favoriteTeam" class="text-center"></h1><!-- 1st item - show favorite team name -->
+
+  <h1 id="favoriteTeam" class="text-center">
+    <!-- 1st item - show favorite team name -->
+  </h1>
   <hr class="bg-primary">
   <div id="media-container" class="container">
     <div class="row media-row">
@@ -13,15 +16,21 @@
               <div class="row">
                 <div class="col">
                   <h5 class="text-info">Favorite Team</h5>
-                  <div id="favTeamLogo"></div><!-- 2nd item - show favorite team logo -->
-                </div>
+
+                  <div id="favTeamLogo"></div>
+                    <!-- 2nd item - show favorite team logo -->
+                  </div>
                 <div class="col">
                   <h1 style="margin-top:20%;">VS.</h1>
                 </div>
                 <div class="col">
-                    <div id="opponent" class="text-danger"></div> <!-- 3rd item show opponent for this week (week 7) -->
+                    <div id="opponent" class="text-danger">
+                      <!-- 3rd item show opponent for this week (week 7) -->
+                    </div> 
                     
-                      <div id="oppLogo"></div><!-- 4th Item - add opponent team logo based off who fav team is playing -->
+                      <div id="oppLogo">
+                        <!-- 4th Item - add opponent team logo based off who fav team is playing -->
+                      </div>
                 </div>
                 
         
@@ -30,10 +39,14 @@
                 <div class="col">
                   <div id="time" class="text-primary" style="margin-top:15%;">
                     <h2>Game Starts At:</h2>
-                  </div><!-- 5th Item - add the date and time of game -->
+                    <!-- 5th Item - add the date and time of game -->
+                  </div>
                 </div>
                 <div class="col">
-                  <div id="tv" class="text-primary">Watch on:</div><!-- 6th Item - add tv network and add icon of the tv network -->
+                  <div id="tv" class="text-primary">
+                  Watch on: <!-- 6th Item - add tv network and add icon of the tv network -->
+                  </div>
+
                 </div>
               </div>
           </div>
@@ -45,9 +58,9 @@
 </div>
 
 
-
+<!-- The two script tags are for readability on team only. It doesn't really do anything -->
 <script>
-  $('body').on('click', '.btn-block', function(e) {
+  $('body').on('click', '.btn-block', function(e){
     var target = $(this).attr('data-target')
     $('.sports-sections').hide();
     $(`${target}`).slideDown('slow')
@@ -55,25 +68,25 @@
 </script>
 
 <script>
-  function loadTeamStats(teamid) {
+  //a function to use the second sports API to fetch information about a specific game
+  function loadTeamStats(teamid){
+    //with the passed in team ID...
     $.ajax({
+      //Get the stats...
       url: `/sports/stats/${teamid}`,
       method: 'get'
     })
-    .done(res => {
+    .done((res) =>{
       console.log(res)
+      //save the record
       var records = res.record
+      //and build the display for each record
       $statDiv = $('#team-stats')
       $redzone = $(`<div><h3 class="text-danger">Redzone Pct: ${records.efficiency.redzone.pct}%</h3></div><hr class="bg-primary">`)
       $touchdowns = $(`<div><h3 class="text-warning">Touchdowns:<br>Passing: ${records.touchdowns.pass} <br>Rush: ${records.touchdowns.rush}<br>Total: ${records.touchdowns.total}</h3></div><hr class="bg-primary">`)
       $passYards = $(`<div><h3 class="text-light">Pass Yards: ${records.passing.yards}</h3></div><hr class="bg-primary">`)
       $rushYards = $(`<div><h3 class="text-success">Rush Yards: ${records.rushing.yards}</h3></div><hr class="bg-primary">`)
       $statDiv.append($redzone, $touchdowns, $passYards, $rushYards)
-      
-
-
-
-
 
     })
     
@@ -83,7 +96,7 @@ function preloadSports(){
   //console.log('sports script connected') 
 
   //Connect current user's information
-  let user = <%- JSON.stringify(user) %>
+  let user = <%- JSON.stringify(user) %>;
    // console.log(`Favorite team from user model: ${user.topics[0].footballTeam}`) //Test if specific current user info is connected. User is current user > topics[0] is current user topic model. 
     
 //Global variables for sports section
@@ -103,7 +116,8 @@ function preloadSports(){
   //if fav name is la chargers, then load chargers saved img
   //else if fav name is la rams, then load rams saved img
   //else run general teamString = favTeam.toLowerCase.....
-  
+
+//find the team's logo using the clearbit API
   var teamString = favTeam.toLowerCase().replace(/ /g, "")//make a variable of fav team name that makes all letters lower case and combines both words.
   var logoUrl = $(`<img src="https://logo.clearbit.com/${teamString}.com">`)//interpolate new var team name into clearbit link. Clearbit is free API. 
   $favTeamLogo.append(logoUrl)//append to screen
@@ -114,26 +128,25 @@ function preloadSports(){
     // try to loop through all week's games to find team name. IF found, embed another IF statement that searches for if they're HOME team - if they are return away team and game details - ELSEIF they're AWAY team return home team and game details - ELSE return "bye week"
    $.ajax({url: '/sports', method: 'get'})
     .done(function(res){
-
       var data = res.week.games
       var myTeam
-      for(var j = 0; j < data.length; j++) {
+      for(var j = 0; j < data.length; j++){
         var away = res.week.games[j].away
         var home = res.week.games[j].home
-        if(favTeam === away.name) {
+        if(favTeam === away.name){
           myTeam = away.id
           break
         }
-        if(favTeam === home.name) {
+        if(favTeam === home.name){
           myTeam = home.id
           break
         }
       }
+  //call the load stats function
   loadTeamStats(myTeam)
   
-      
-
-
+    //looping through all the games in a week
+    ///check the opponent, and append the proper picture
         for (var i = 0; i <= 15; i += 1){
           //Local vars
           var awayTeams = res.week.games[i].away.name
@@ -422,5 +435,6 @@ function preloadSports(){
    
 
   }
+  //run the preload
   preloadSports()
   </script>

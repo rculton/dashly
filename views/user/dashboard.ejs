@@ -27,10 +27,11 @@
         </h5>
       </div>
       <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
-        <div class="card-block"></div>
-        <% include ../user/sports %>
+        <div class="card-block">
+            <% include ../user/sports %>
         </div>
       </div>
+    </div>
   <%}%>
   <!-- card 3 -->
   <%if (!!user.topics[0].actorName) {%>
