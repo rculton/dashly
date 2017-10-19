@@ -123,6 +123,9 @@ function preloadSports(){
 } else if (favTeam === "Kansas City Chiefs"){
   var logo = $('<img src="pictures/teams/KC.jpeg">')
   $favTeamLogo.append(logo)//append to screen
+} else if (favTeam === "Tampa Bay Buccaneers"){
+  var logo = $('<img src="pictures/teams/TB.jpeg">')
+  $favTeamLogo.append(logo)//append to screen
 } else {
 
   var teamString = favTeam.toLowerCase().replace(/ /g, "")//make a variable of fav team name that makes all letters lower case and combines both words.
@@ -175,6 +178,9 @@ function preloadSports(){
           } else if (opponent === "Kansas City Chiefs"){
             var logo = $('<img src="pictures/teams/KC.jpeg">')
             $oppLogo.append(logo)//append to screen
+          } else if (opponent === "Tampa Bay Buccaneers"){
+            var logo = $('<img src="pictures/teams/TB.jpeg">')
+            $oppLogo.append(logo)//append to screen
           } else {
             var opponent2 = opponent.toLowerCase().replace(/ /g, "")//make a variable of fav team name that makes all letters lower case and combines both words.
             var logo = $(`<img src="https://logo.clearbit.com/${opponent2}.com">`)//interpolate new var team name into clearbit link. Clearbit is free API. 
@@ -213,105 +219,25 @@ function preloadSports(){
           var opponent = awayTeams
           otherTeam = $('<div>').text(`Opponent: ${opponent}`)
           $opponent.append(otherTeam)
-            //logo
-            if (opponent === "Arizona Cardinals"){
-              var logo = $('<img src="pictures/teams/ARI.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Atlanta Falcons"){
-              var logo = $('<img src="pictures/teams/ATL.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Baltimore Ravens"){
-              var logo = $('<img src="pictures/teams/BAL.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Buffalo Bills"){
-              var logo = $('<img src="pictures/teams/BUF.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Carolina Panthers"){
-              var logo = $('<img src="pictures/teams/CAR.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Chicago Bears"){
-              var logo = $('<img src="pictures/teams/CHI.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Cincinnati Bengals"){
-              var logo = $('<img src="pictures/teams/CIN.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Cleveland Browns"){
-              var logo = $('<img src="pictures/teams/CLE.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Dallas Cowboys"){
-              var logo = $('<img src="pictures/teams/DAL.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Denver Broncos"){
-              var logo = $('<img src="pictures/teams/DEN.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Detroit Lions"){
-              var logo = $('<img src="pictures/teams/DET.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Green Bay Packers"){
-              var logo = $('<img src="pictures/teams/GB.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Houston Texans"){
-              var logo = $('<img src="pictures/teams/HOU.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Indianapolis Colts"){
-              var logo = $('<img src="pictures/teams/IND.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Jacksonville Jaguars"){
-              var logo = $('<img src="pictures/teams/JAC.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Kansas City Chiefs"){
-              var logo = $('<img src="pictures/teams/KC.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Los Angeles Chargers"){
-              var logo = $('<img src="pictures/teams/LAC.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Los Angeles Rams"){
-              var logo = $('<img src="pictures/teams/LA.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Miami Dolphins"){
-              var logo = $('<img src="pictures/teams/MIA.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Minnesota Vikings"){
-              var logo = $('<img src="pictures/teams/MIN.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "New England Patriots"){
-              var logo = $('<img src="pictures/teams/NE.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "New Orleans Saints"){
-              var logo = $('<img src="pictures/teams/NO.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "New York Giants"){
-              var logo = $('<img src="pictures/teams/NYG.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "New York Jets"){
-              var logo = $('<img src="pictures/teams/NYJ.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Oakland Raiders"){
-              var logo = $('<img src="pictures/teams/OAK.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Philadelphia Eagles"){
-              var logo = $('<img src="pictures/teams/PHI.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Pittsburgh Steelers"){
-              var logo = $('<img src="pictures/teams/PIT.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "San Francisco 49ers"){
-              var logo = $('<img src="pictures/teams/SF.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Seattle Seahawks"){
-              var logo = $('<img src="pictures/teams/SEA.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Tampa Bay Buccaneers"){
-              var logo = $('<img src="pictures/teams/TB.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Tennessee Titans"){
-              var logo = $('<img src="pictures/teams/TEN.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Washington Redskins"){
-              var logo = $('<img src="pictures/teams/WAS.jpeg">')
-              $oppLogo.append(logo)
-            } 
-            else {};
+          //v2 refactor
+          if (opponent === "Los Angeles Chargers"){
+            var logo = $('<img src="pictures/teams/LAC.jpeg">')
+            $oppLogo.append(logo)//append to screen
+          } else if (opponent === "Los Angeles Rams"){
+            var logo = $('<img src="pictures/teams/LA.jpeg">')
+            $oppLogo.append(logo)//append to screen
+          } else if (opponent === "Kansas City Chiefs"){
+            var logo = $('<img src="pictures/teams/KC.jpeg">')
+            $oppLogo.append(logo)//append to screen
+          } else if (opponent === "Tampa Bay Buccaneers"){
+            var logo = $('<img src="pictures/teams/TB.jpeg">')
+            $oppLogo.append(logo)//append to screen
+          } else {
+            var opponent2 = opponent.toLowerCase().replace(/ /g, "")//make a variable of fav team name that makes all letters lower case and combines both words.
+            var logo = $(`<img src="https://logo.clearbit.com/${opponent2}.com">`)//interpolate new var team name into clearbit link. Clearbit is free API. 
+            $oppLogo.append(logo)//append to screen
+          }
+          
           // TIME game is at
             if (scheduled === "2017-10-20T00:25:00+00:00"){
               var timeAt = $('<div>').text(`THURSDAY, OCT 19  5:25 PM PT`)
