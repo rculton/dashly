@@ -4,21 +4,39 @@
   <div id="media-container" class="container">
     <div class="row media-row">
       <div id="music-media" class="col-md-4 text-center">
-      <h5 class="text-info">Favorite Team</h5>
-      <div id="favTeamLogo"></div><!-- 2nd item - show favorite team logo -->
-    </div>
-    <div class="video-container col-md-8 text-center">
-      <h3 class="text-info">This Week's Game</h3>
-      <div id="opponent"></div> <!-- 3rd item show opponent for this week (week 7) -->
-      
-      <div id="oppLogo"></div><!-- 4th Item - add opponent team logo based off who fav team is playing -->
-      
-      <div id="time"></div><!-- 5th Item - add the date and time of game -->
+        <buttton data-target="#weekly-game" class="btn btn-info btn-block">Weekly Matchup</buttton>
+        <buttton data-target="#team-stats" class="btn btn-info btn-block">Team's Statistics</buttton>
+        <buttton data-target="#option3" class="btn btn-info btn-block">option 3</buttton>
+      </div>
+      <div class="video-container col-md-8 text-center">
+        <div id="weekly-game" class="sports-sections">
+          <h3 class="text-info">This Week's Game</h3>
+          <h5 class="text-info">Favorite Team</h5>
+          <div id="favTeamLogo"></div><!-- 2nd item - show favorite team logo -->
+          <div id="opponent"></div> <!-- 3rd item show opponent for this week (week 7) -->
+        
+          <div id="oppLogo"></div><!-- 4th Item - add opponent team logo based off who fav team is playing -->
+        
+          <div id="time"></div><!-- 5th Item - add the date and time of game -->
 
-      <div id="tv">Watch on:</div><!-- 6th Item - add tv network and add icon of the tv network -->
+         <div id="tv">Watch on:</div><!-- 6th Item - add tv network and add icon of the tv network -->
+        </div>
+        <div id="team-stats" class="sports-sections">team stats</div>
+        <div id="option3" class="sports-sections">idk.....</div>
     </div>
   </div>
 </div>
+
+
+
+<script>
+  $('body').on('click', '.btn-block', function(e) {
+    var target = $(this).attr('data-target')
+    $('.sports-sections').hide();
+    $(`${target}`).slideDown('slow')
+  })
+</script>
+
 <script>
 function preloadSports(){
   //Test to make sure script is running
