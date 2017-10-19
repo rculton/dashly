@@ -51,4 +51,15 @@ small {
 .badge-light {
     font-size: 16px;
 }
+ 
+ /* FOR slide down on the sports section */
+.btn-block {
+    margin: 7% auto;
+    font-size: x-large;
+}
+
+/* #weekly-game, #team-stats, #option3 {
+    display: none;
+} */
+
 
