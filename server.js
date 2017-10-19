@@ -13,9 +13,11 @@ const
   passportConfig = require('./config/passport.js'),
   userRoutes = require('./routes/user.js'),
   httpClient = require('request'),
+  //require our API routes
   sportsRoutes = require('./routes/sports.js'),
-  whRoutes = require('./routes/whClient.js'),
-  dotenv = require('dotenv').load();
+  whRoutes = require('./routes/whClient.js')
+    //dotenv allows us to access our environment variables
+    dotenv = require('dotenv').load();
 //
 
 // enviroment port
@@ -29,15 +31,11 @@ mongoose.connect(mongoConnectionString, (err) => {
     console.log('Connected to MongoDB ✔️')
 })
 
-//
+
 const store  = new mongoDbStore({
     uri: mongoConnectionString,
     collection: 'sessions'
 })
-
-//webhose API
-
-
 
 app.use(express.static(__dirname + '/public'))
 app.use(logger('dev'))
@@ -49,6 +47,7 @@ app.use(flash())
 // config cookies 
 app.use(session({
     secret: 'elfuegoisreal',
+    //expiration of the cookie is set to December 31st, 9999 for testing purposes
     cookie: {expires: new Date(253402300000000)},
     resave: true,
     saveUninitialize: false,
@@ -73,9 +72,9 @@ app.get('/', (req, res) => {
     })
 })
 
+//other routes
 app.use('/', userRoutes)
 app.use('/sports', sportsRoutes)
-
 app.use('/webhose', whRoutes)
 
 

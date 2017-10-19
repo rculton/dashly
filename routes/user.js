@@ -6,28 +6,38 @@ const
   User = require('../models/User.js'),
   objectAssign = require('object-assign');
 //
+
 userRouter.route('/')
+  //update the user
 .patch((req, res) => {
   User.findById(req.user._id, (err, user) => {
     if(err) return console.log(err)
     debugger
     console.log(req.user.body)
+    //Only allow a change if the password is a valid password
     if (!!user.validPassword(req.body.verifyPassword)) {
-      console.log(req.body.verifyPassword)
+      //remove the "verify password" as soon as it's verified
       delete req.body['verifyPassword'];
-      console.log(req.body.password)
+      //set the body password to the hash of the body password (if there is one)
       req.body.password = user.generateHash(req.body.password)
-      console.log(req.body.password)
+      //combine the current user with the changes
       var updatedUser = objectAssign(user, req.body)
-      console.log(updatedUser)
+      //save the user
       updatedUser.save((err, updateUser) => {
         if(err) return console.log(err)
         console.log('updated user')
+        //and return a success message
         res.send({success: true})
       })
     }
+    //if the password is invalid...
+    else{
+      //send a message of failure
+      res.send({success: false})
+    }
   })
 })
+  //delete the user
 .delete((req, res) =>{
   User.findByIdAndRemove(req.user._id, (err)=>{
     if(err) return console.log(err)
@@ -36,40 +46,26 @@ userRouter.route('/')
   })
 })
 
-userRouter.route('/')
-.patch((req, res) => {
-  User.findById(req.user._id, (err, user) => {
-    if(err) return console.log(err)
-    debugger
-    console.log(req.user.body)
-    if (!!user.validPassword(req.body.verifyPassword)) {
-      console.log(req.body.verifyPassword)
-      delete req.body['verifyPassword'];
-      console.log(req.body.password)
-      req.body.password = user.generateHash(req.body.password)
-      console.log(req.body.password)
-      var updatedUser = objectAssign(user, req.body)
-      console.log(updatedUser)
-      updatedUser.save((err, updateUser) => {
-        if(err) return console.log(err)
-        console.log('updated user')
-        res.send({success: true})
-      })
-    }
-  })
-})
-.delete((req, res) =>{
-  User.findByIdAndRemove(req.user._id, (err)=>{
-    if(err) return console.log(err)
-    req.logout()
-    res.send({success: true})
-  })
-})
-
+//signup route
 userRouter.route('/signup')
   .get((req, res) => {
-    res.render('signup', {message: req.flash('signup-message')})
+    //if they are logged in, pass the user information
+    if (!!req.user){
+      res.render('user/dashboard', {
+        user: req.user,
+        message: ''
+      })
+    }
+    //otherwise, redirect them home
+    else{
+
+      res.render('signup', {message: req.flash('signup-message')})
+    }
+    
+    //get the form
+
   })
+  //post the user via passport
   .post(passport.authenticate('local-signup', {
     successRedirect: '/dashboard',
     failureRedirect: '/signup',
@@ -77,10 +73,24 @@ userRouter.route('/signup')
   }))
 //
 
+//login route
 userRouter.route('/login')
   .get((req, res) => {
+    if (!!req.user){
+      res.render('user/dashboard', {
+        user: req.user,
+        message: ''
+      })
+    }
+    //otherwise, redirect them home
+    else{
+
+    //get the login page
     res.render('login', {message: req.flash('login-message')})
+    }
+
   })
+  //authenticate the user, redirect based on result
   .post(passport.authenticate('local-login', {
     successRedirect: '/dashboard',
     failureRedirect: '/login',
@@ -88,81 +98,51 @@ userRouter.route('/login')
   }))
 //
 
+//get the dashboard
 userRouter.route('/dashboard')
   .get((req, res) => {
+    //check if the user is logged in before rendering
     if (!!req.user){
       console.log(!!req.user)
       res.render('user/dashboard', {
         user: req.user
       })
     }
+    //if they are not logged in, redirect them to the home page
     else{
       res.redirect('/')
     }
   }),
 //
 
+//get the page to edit a user
 userRouter.route('/editUser')
   .get((req, res) => {
+    //if they are logged in, pass the user information
     if (!!req.user){
       res.render('user/userEdit', {
         user: req.user,
         message: ''
       })
     }
+    //otherwise, redirect them home
     else{
+
       res.redirect('/')
     }
     
   })
-  // .patch((req, res) => {
-  //   User.findById(req.user._id, (err, user) => {
-  //     if(err) return console.log(err)
-  //     debugger
-  //     console.log(req.user.body)
-  //     if (!!user.validPassword(req.body.verifyPassword)) {
-  //       console.log(req.body.verifyPassword)
-  //       delete req.body['verifyPassword'];
-  //       console.log(req.body.password)
-  //       req.body.password = user.generateHash(req.body.password)
-  //       console.log(req.body.password)
-  //       var updatedUser = objectAssign(user, req.body)
-  //       console.log(updatedUser)
-  //       updatedUser.save((err, updateUser) => {
-  //         if(err) return console.log(err)
-  //         console.log('updated user')
-  //         res.redirect(303,'/dashboard')
-  //       })
-  //     }
-  //   })
-    // .delete((req, res) => {
-    //   User.findByIdAndRemove(req.user._id, (err) => {
-    //      if(err) return console.log(err)
-    //   req.logout()
-    //   res.redirect('/')
-    //   })
-    // })
-  // })
-  
 
+  //logout page
 userRouter.get('/logout', (req, res) => {
   req.logout()
   res.redirect('/')
 })
 
-// userRouter.get('/delete', (req, res) => {
-//   User.findByIdAndRemove(req.user, (err) => {
-//     if(err) return console.log(err)
-//     req.logout()
-//     req.redirect('/')
-//   })
-  // User.findByIdAndRemove()  //add delete users
-  // req.logout() // "kills session"
-  // res.redirect('/')
-//})
-
+//export routes
 module.exports = userRouter
 
+//function to check if user is logged in
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
