@@ -6,7 +6,6 @@
       <div id="music-media" class="col-md-4 text-center">
         <buttton data-target="#weekly-game" class="btn btn-info btn-block">Weekly Matchup</buttton>
         <buttton data-target="#team-stats" class="btn btn-info btn-block">Team's Statistics</buttton>
-        <buttton data-target="#option3" class="btn btn-info btn-block">option 3</buttton>
       </div>
       <div class="video-container col-md-8 text-center">
           <div id="weekly-game" class="sports-sections container">
@@ -41,7 +40,6 @@
       <div id="team-stats" class="sports-sections">
         <h2 class="text-info"><%= user.topics[0].footballTeam %>'s Statistics</h2>
       </div>
-      <!-- <div id="option3" class="sports-sections">idk.....</div> -->
     </div>
   </div>
 </div>
@@ -57,18 +55,20 @@
 </script>
 
 <script>
-  loadTeamStats()
   function loadTeamStats(teamid) {
     $.ajax({
-      url: `https://api.nfl.com/v1/teams`,
+      url: `/sports/stats/${teamid}`,
       method: 'get'
     })
     .done(res => {
       console.log(res)
       var records = res.record
-      //$statDiv = $('#team-stats')
-      //$redzone = $(`<div><h3 class="text-danger">Redzone Pct: ${records.efficiency.redzone.pct}%</h3></div>`)
-     // $statDiv.append($redzone)
+      $statDiv = $('#team-stats')
+      $redzone = $(`<div><h3 class="text-danger">Redzone Pct: ${records.efficiency.redzone.pct}%</h3></div><hr class="bg-primary">`)
+      $touchdowns = $(`<div><h3 class="text-warning">Touchdowns:<br>Passing: ${records.touchdowns.pass} <br>Rush: ${records.touchdowns.rush}<br>Total: ${records.touchdowns.total}</h3></div><hr class="bg-primary">`)
+      $passYards = $(`<div><h3 class="text-light">Pass Yards: ${records.passing.yards}</h3></div><hr class="bg-primary">`)
+      $rushYards = $(`<div><h3 class="text-success">Rush Yards: ${records.rushing.yards}</h3></div><hr class="bg-primary">`)
+      $statDiv.append($redzone, $touchdowns, $passYards, $rushYards)
       
 
 
@@ -222,6 +222,8 @@ function preloadSports(){
           break
         }
       }
+  loadTeamStats(myTeam)
+  
       
 
 
