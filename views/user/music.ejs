@@ -1,5 +1,5 @@
 <div class="container">
-    <h1 class="text-center"><%= user.topics[0].artistName %></h1>
+    <h1 id="heading" class="text-center"><%= user.topics[0].artistName %></h1>
     <hr class="bg-primary">
     <div id="media-container" class="container">
         <div class="row media-row">
@@ -37,6 +37,7 @@
         e.preventDefault()
         var searchItem = $($(this)[0][0]).val()
         musicSetup(searchItem)
+        $('#heading').empty().text(searchItem)
         $($(this)[0][0]).val('')
     });
 
