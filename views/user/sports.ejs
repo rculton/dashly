@@ -17,14 +17,14 @@
 <script>
 function preloadSports(){
   //Test to make sure script is running
-  console.log('sports script connected') 
+  //console.log('sports script connected') 
 
   //Connect current user's information
   let user = <%- JSON.stringify(user) %>
-    console.log(`Favorite team from user model: ${user.topics[0].footballTeam}`) //Test if specific current user info is connected. User is current user > topics[0] is current user topic model. 
+   // console.log(`Favorite team from user model: ${user.topics[0].footballTeam}`) //Test if specific current user info is connected. User is current user > topics[0] is current user topic model. 
     
 //Global variables for sports section
-  var favTeam = user.topics[0].footballTeam //current user's favorite football team
+  var favTeam = user.topics[0].footballTeam //red error line OK - current user's favorite football team
   var $favoriteTeam = $('#favoriteTeam')
   var $favTeamLogo = $('#favTeamLogo')
   var $opponent = $('#opponent')
@@ -250,9 +250,27 @@ function preloadSports(){
               $oppLogo.append(logo)
             } 
             else {};
+          
           // TIME game is at
-            var timeAt = $('<div>').text(`Time of game: ${scheduled}`)
+          if (scheduled === "2017-10-20T00:25:00+00:00"){
+            var timeAt = $('<div>').text(`THURSDAY, OCT 19  5:25 PM PT`)
             $time.append(timeAt)
+          } else if (scheduled === "2017-10-22T17:00:00+00:00"){
+              var timeAt = $('<div>').text(`SUNDAY, OCT 22  10:00 AM PT`)
+              $time.append(timeAt)
+          } else if (scheduled === "2017-10-22T20:05:00+00:00"){
+            var timeAt = $('<div>').text(`SUNDAY, OCT 22  1:05 PM PT`)
+            $time.append(timeAt)
+          } else if (scheduled === "2017-10-22T20:25:00+00:00"){
+            var timeAt = $('<div>').text(`SUNDAY, OCT 22  1:25 PM PT`)
+            $time.append(timeAt)
+          } else if (scheduled === "2017-10-23T00:30:00+00:00"){
+            var timeAt = $('<div>').text(`SUNDAY, OCT 22  5:30 PM PT`)
+            $time.append(timeAt)
+          } else if (scheduled === "2017-10-24T00:30:00+00:00"){
+            var timeAt = $('<div>').text(`MONDAY, OCT 23  5:30 PM PT`)
+            $time.append(timeAt)
+          } else {}
 
             
           return
@@ -362,12 +380,25 @@ function preloadSports(){
             } 
             else {};
           // TIME game is at
-            var timeAt = $('<div>').text(`Time of game: ${scheduled}`)
+            if (scheduled === "2017-10-20T00:25:00+00:00"){
+              var timeAt = $('<div>').text(`THURSDAY, OCT 19  5:25 PM PT`)
+              $time.append(timeAt)
+            } else if (scheduled === "2017-10-22T17:00:00+00:00"){
+                var timeAt = $('<div>').text(`SUNDAY, OCT 22  10:00 AM PT`)
                 $time.append(timeAt)
-
-            var d = scheduled
-            var n = d.toString()  
-            console.log(n)
+            } else if (scheduled === "2017-10-22T20:05:00+00:00"){
+              var timeAt = $('<div>').text(`SUNDAY, OCT 22  1:05 PM PT`)
+              $time.append(timeAt)
+            } else if (scheduled === "2017-10-22T20:25:00+00:00"){
+              var timeAt = $('<div>').text(`SUNDAY, OCT 22  1:25 PM PT`)
+              $time.append(timeAt)
+            } else if (scheduled === "2017-10-23T00:30:00+00:00"){
+              var timeAt = $('<div>').text(`SUNDAY, OCT 22  5:30 PM PT`)
+              $time.append(timeAt)
+            } else if (scheduled === "2017-10-24T00:30:00+00:00"){
+              var timeAt = $('<div>').text(`MONDAY, OCT 23  5:30 PM PT`)
+              $time.append(timeAt)
+            } else {}
           return
         } else if (i == 14){
           var opponent = null
