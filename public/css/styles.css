@@ -58,7 +58,7 @@ small {
     font-size: x-large;
 }
 
-#weekly-game, #team-stats, #option3 {
+#team-stats{
     display: none;
 }
 
