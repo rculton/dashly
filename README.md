@@ -23,7 +23,7 @@
 	* <a href="https://webhose.io/">Webhose.io</a>
 
 
-##Approach
+## Approach
 - Started with wireframing and ERB modeling first. 
 - Tried to map out and draw up how we wanted the app to function before starting to code. This planning helped make for a clean, quick start that allowed us to get the MVP technical requirements done in 3 days.
 - We were able to execute well by working together on the more difficult, general portions of the app, e.g.: routes, server.js file, deploying to heroku, and authentication/authorization. 
@@ -43,7 +43,7 @@
 	* ![Imgur](https://i.imgur.com/2FOhlAcm.jpg)
 * Presentation Deck
 
-##Installation instructions to run your app locally on your machine
+## Installation instructions to run your app locally on your machine
 * Fork from GitHub 
 * From your terminal, go into the working folder you want to save application to. 
 * Run git clone
@@ -52,5 +52,5 @@
 * In terminal, open up a separate tab and run `mongod`. Then, open another tab and run `nodemon`.
 * Open in browser local host to ensure site works.
 
-##Unsolved problems or major hurdles
+## Unsolved problems or major hurdles
 * Major hurdle: Redirect from edit profile page
