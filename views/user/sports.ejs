@@ -13,6 +13,8 @@
 <!-- 5th Item - add the date and time of game -->
 <div id="time"></div>
 
+<!-- 6th Item - add tv network and add icon of the tv network -->
+<div id="tv"></div>
 
 <script>
 function preloadSports(){
@@ -30,6 +32,7 @@ function preloadSports(){
   var $opponent = $('#opponent')
   var $oppLogo = $('#oppLogo')
   var $time = $('#time')
+  var $tv = $('#tv')
 
  
 
@@ -144,9 +147,12 @@ function preloadSports(){
    $.ajax({url: '/sports', method: 'get'})
     .done(function(res){
         for (var i = 0; i <= 15; i += 1){
-        var awayTeams = res.week.games[i].away.name
-        var homeTeams = res.week.games[i].home.name
-        var scheduled = res.week.games[i].scheduled
+          //Local vars
+          var awayTeams = res.week.games[i].away.name
+          var homeTeams = res.week.games[i].home.name
+          var scheduled = res.week.games[i].scheduled
+          
+
         if (favTeam === awayTeams){
           var opponent = homeTeams
           otherTeam = $('<div>').text(`Opponent: ${opponent}`)
@@ -272,7 +278,8 @@ function preloadSports(){
             $time.append(timeAt)
           } else {}
 
-            
+          //TV CHANNEL NAME AND LOGO
+          console.log(res.week.games[i].broadcast.network)
           return
           //end of first IF
         } else if (favTeam === homeTeams){
@@ -400,6 +407,11 @@ function preloadSports(){
               $time.append(timeAt)
             } else {}
           return
+          
+          //TV CHANNEL NAME AND LOGO
+          //console.log(network)
+
+          //END of 2nd IF
         } else if (i == 14){
           var opponent = null
           otherTeam = $('<div>').text(`Opponent: None - Bye Week`)
