@@ -14,7 +14,7 @@
 <div id="time"></div>
 
 <!-- 6th Item - add tv network and add icon of the tv network -->
-<div id="tv"></div>
+<div id="tv">Watch on:</div>
 
 <script>
 function preloadSports(){
@@ -151,7 +151,7 @@ function preloadSports(){
           var awayTeams = res.week.games[i].away.name
           var homeTeams = res.week.games[i].home.name
           var scheduled = res.week.games[i].scheduled
-          
+          var network = res.week.games[i].broadcast.network
 
         if (favTeam === awayTeams){
           var opponent = homeTeams
@@ -279,7 +279,21 @@ function preloadSports(){
           } else {}
 
           //TV CHANNEL NAME AND LOGO
-          console.log(res.week.games[i].broadcast.network)
+          //console.log(res.week.games[i].broadcast.network)
+          if (network === "FOX"){
+            var station = $('<img src="pictures/tv/FOX.jpeg">')
+            $tv.append(station)
+          } else if (network === "CBS"){
+            var station = $('<img src="pictures/tv/CBS.jpeg">')
+            $tv.append(station)
+          } else if (network === "ESPN"){
+            var station = $('<img src="pictures/tv/ESPN.jpeg">')
+            $tv.append(station)
+          } else if (network === "NBC"){
+            var station = $('<img src="pictures/tv/NBC.jpeg">')
+            $tv.append(station)
+          }
+
           return
           //end of first IF
         } else if (favTeam === homeTeams){
@@ -409,7 +423,19 @@ function preloadSports(){
           return
           
           //TV CHANNEL NAME AND LOGO
-          //console.log(network)
+          if (network === "FOX"){
+            var station = $('<img src="pictures/tv/FOX.jpeg">')
+            $tv.append(station)
+          } else if (network === "CBS"){
+            var station = $('<img src="pictures/tv/CBS.jpeg">')
+            $tv.append(station)
+          } else if (network === "ESPN"){
+            var station = $('<img src="pictures/tv/ESPN.jpeg">')
+            $tv.append(station)
+          } else if (network === "NBC"){
+            var station = $('<img src="pictures/tv/NBC.jpeg">')
+            $tv.append(station)
+          }
 
           //END of 2nd IF
         } else if (i == 14){
