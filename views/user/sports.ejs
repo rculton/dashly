@@ -1,35 +1,41 @@
-<!-- 1st item - show favorite team name -->
-<div id="favoriteTeam"></div>
+<div class="container"></div>
+  <h1 id="favoriteTeam" class="text-center"></h1><!-- 1st item - show favorite team name -->
+  <hr class="bg-primary">
+  <div id="media-container" class="container">
+    <div class="row media-row">
+      <div id="music-media" class="col-md-4 text-center">
+      <h5 class="text-info">Favorite Team</h5>
+      <div id="favTeamLogo"></div><!-- 2nd item - show favorite team logo -->
+    </div>
+    <div class="video-container col-md-8 text-center">
+      <h3 class="text-info">This Week's Game</h3>
+      <div id="opponent"></div> <!-- 3rd item show opponent for this week (week 7) -->
+      
+      <div id="oppLogo"></div><!-- 4th Item - add opponent team logo based off who fav team is playing -->
+      
+      <div id="time"></div><!-- 5th Item - add the date and time of game -->
 
-<!-- 2nd item - show favorite team logo -->
-<div id="favTeamLogo"></div>
-
-<!-- 3rd item show opponent for this week (week 7) -->
-<div id="opponent"></div> 
-
-<!-- 4th Item - add opponent team logo based off who fav team is playing -->
-<div id="oppLogo"></div>
-
-<!-- 5th Item - add the date and time of game -->
-<div id="time"></div>
-
-
+      <div id="tv">Watch on:</div><!-- 6th Item - add tv network and add icon of the tv network -->
+    </div>
+  </div>
+</div>
 <script>
 function preloadSports(){
   //Test to make sure script is running
-  console.log('sports script connected') 
+  //console.log('sports script connected') 
 
   //Connect current user's information
   let user = <%- JSON.stringify(user) %>
-    console.log(`Favorite team from user model: ${user.topics[0].footballTeam}`) //Test if specific current user info is connected. User is current user > topics[0] is current user topic model. 
+   // console.log(`Favorite team from user model: ${user.topics[0].footballTeam}`) //Test if specific current user info is connected. User is current user > topics[0] is current user topic model. 
     
 //Global variables for sports section
-  var favTeam = user.topics[0].footballTeam //current user's favorite football team
+  var favTeam = user.topics[0].footballTeam //red error line OK - current user's favorite football team
   var $favoriteTeam = $('#favoriteTeam')
   var $favTeamLogo = $('#favTeamLogo')
   var $opponent = $('#opponent')
   var $oppLogo = $('#oppLogo')
   var $time = $('#time')
+  var $tv = $('#tv')
 
  
 
@@ -144,9 +150,12 @@ function preloadSports(){
    $.ajax({url: '/sports', method: 'get'})
     .done(function(res){
         for (var i = 0; i <= 15; i += 1){
-        var awayTeams = res.week.games[i].away.name
-        var homeTeams = res.week.games[i].home.name
-        var scheduled = res.week.games[i].scheduled
+          //Local vars
+          var awayTeams = res.week.games[i].away.name
+          var homeTeams = res.week.games[i].home.name
+          var scheduled = res.week.games[i].scheduled
+          var network = res.week.games[i].broadcast.network
+
         if (favTeam === awayTeams){
           var opponent = homeTeams
           otherTeam = $('<div>').text(`Opponent: ${opponent}`)
@@ -250,11 +259,44 @@ function preloadSports(){
               $oppLogo.append(logo)
             } 
             else {};
+          
           // TIME game is at
-            var timeAt = $('<div>').text(`Time of game: ${scheduled}`)
+          if (scheduled === "2017-10-20T00:25:00+00:00"){
+            var timeAt = $('<div>').text(`THURSDAY, OCT 19  5:25 PM PT`)
             $time.append(timeAt)
+          } else if (scheduled === "2017-10-22T17:00:00+00:00"){
+              var timeAt = $('<div>').text(`SUNDAY, OCT 22  10:00 AM PT`)
+              $time.append(timeAt)
+          } else if (scheduled === "2017-10-22T20:05:00+00:00"){
+            var timeAt = $('<div>').text(`SUNDAY, OCT 22  1:05 PM PT`)
+            $time.append(timeAt)
+          } else if (scheduled === "2017-10-22T20:25:00+00:00"){
+            var timeAt = $('<div>').text(`SUNDAY, OCT 22  1:25 PM PT`)
+            $time.append(timeAt)
+          } else if (scheduled === "2017-10-23T00:30:00+00:00"){
+            var timeAt = $('<div>').text(`SUNDAY, OCT 22  5:30 PM PT`)
+            $time.append(timeAt)
+          } else if (scheduled === "2017-10-24T00:30:00+00:00"){
+            var timeAt = $('<div>').text(`MONDAY, OCT 23  5:30 PM PT`)
+            $time.append(timeAt)
+          } else {}
 
-            
+          //TV CHANNEL NAME AND LOGO
+          //console.log(res.week.games[i].broadcast.network)
+          if (network === "FOX"){
+            var station = $('<img src="pictures/tv/FOX.jpeg">')
+            $tv.append(station)
+          } else if (network === "CBS"){
+            var station = $('<img src="pictures/tv/CBS.jpeg">')
+            $tv.append(station)
+          } else if (network === "ESPN"){
+            var station = $('<img src="pictures/tv/ESPN.jpeg">')
+            $tv.append(station)
+          } else if (network === "NBC"){
+            var station = $('<img src="pictures/tv/NBC.jpeg">')
+            $tv.append(station)
+          }
+
           return
           //end of first IF
         } else if (favTeam === homeTeams){
@@ -362,13 +404,43 @@ function preloadSports(){
             } 
             else {};
           // TIME game is at
-            var timeAt = $('<div>').text(`Time of game: ${scheduled}`)
+            if (scheduled === "2017-10-20T00:25:00+00:00"){
+              var timeAt = $('<div>').text(`THURSDAY, OCT 19  5:25 PM PT`)
+              $time.append(timeAt)
+            } else if (scheduled === "2017-10-22T17:00:00+00:00"){
+                var timeAt = $('<div>').text(`SUNDAY, OCT 22  10:00 AM PT`)
                 $time.append(timeAt)
-
-            var d = scheduled
-            var n = d.toString()  
-            console.log(n)
+            } else if (scheduled === "2017-10-22T20:05:00+00:00"){
+              var timeAt = $('<div>').text(`SUNDAY, OCT 22  1:05 PM PT`)
+              $time.append(timeAt)
+            } else if (scheduled === "2017-10-22T20:25:00+00:00"){
+              var timeAt = $('<div>').text(`SUNDAY, OCT 22  1:25 PM PT`)
+              $time.append(timeAt)
+            } else if (scheduled === "2017-10-23T00:30:00+00:00"){
+              var timeAt = $('<div>').text(`SUNDAY, OCT 22  5:30 PM PT`)
+              $time.append(timeAt)
+            } else if (scheduled === "2017-10-24T00:30:00+00:00"){
+              var timeAt = $('<div>').text(`MONDAY, OCT 23  5:30 PM PT`)
+              $time.append(timeAt)
+            } else {}
           return
+          
+          //TV CHANNEL NAME AND LOGO
+          if (network === "FOX"){
+            var station = $('<img src="pictures/tv/FOX.jpeg">')
+            $tv.append(station)
+          } else if (network === "CBS"){
+            var station = $('<img src="pictures/tv/CBS.jpeg">')
+            $tv.append(station)
+          } else if (network === "ESPN"){
+            var station = $('<img src="pictures/tv/ESPN.jpeg">')
+            $tv.append(station)
+          } else if (network === "NBC"){
+            var station = $('<img src="pictures/tv/NBC.jpeg">')
+            $tv.append(station)
+          }
+
+          //END of 2nd IF
         } else if (i == 14){
           var opponent = null
           otherTeam = $('<div>').text(`Opponent: None - Bye Week`)
