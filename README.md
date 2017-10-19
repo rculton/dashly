@@ -38,4 +38,14 @@
 - webhoseio
 	- Used to crawl news websites for information on movies & actors
 - itunes
-	- Used to fetch songs, song information, and music videos   
+	- Used to fetch songs, song information, and music videos
+
+## Approach Used
+
+## Installation Instructions   
+
+## Trello & Documentation
+
+## Unsolved Problems
+
+## Major Hurdles
