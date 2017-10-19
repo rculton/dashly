@@ -1,6 +1,6 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <% if(loggedIn) { %>
-      <a class="navbar-brand" href="/"><%= user.name %>'s Dashboard</a>
+      <a class="navbar-brand" href="/dashboard"><%= user.name %>'s Dashboard</a>
       <% } else { %>
         <a class="navbar-brand" href="/">Dashly</a>
       <% } %>

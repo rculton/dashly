@@ -100,108 +100,13 @@ function preloadSports(){
 //1st item - show favorite team name
   var favoriteTeam = $('<div>').text(`Favorite Team: ${user.topics[0].footballTeam}`)
   $favoriteTeam.append(favoriteTeam)
+ 
+//2nd item - show favorite team logo v2    
+  var teamString = favTeam.toLowerCase().replace(" ","")//make a variable of fav team name that makes all letters lower case and combines both words.
+  var logoUrl = $(`<img src="https://logo.clearbit.com/${teamString}.com">`)//interpolate new var team name into clearbit link. Clearbit is free API. 
+  $favTeamLogo.append(logoUrl)//append to screen
 
-//2nd item - show favorite team logo
-    //need to be able to loop through and/or search for team logo in saved team pics. 
-    if (favTeam === "Arizona Cardinals"){
-      var logo = $('<img src="pictures/teams/ARI.jpeg">')
-      $favTeamLogo.append(logo)
-    } else if (favTeam === "Atlanta Falcons"){
-      var logo = $('<img src="pictures/teams/ATL.jpeg">')
-      $favTeamLogo.append(logo)
-    } else if (favTeam === "Baltimore Ravens"){
-      var logo = $('<img src="pictures/teams/BAL.jpeg">')
-      $favTeamLogo.append(logo)
-    } else if (favTeam === "Buffalo Bills"){
-      var logo = $('<img src="pictures/teams/BUF.jpeg">')
-      $favTeamLogo.append(logo)
-    } else if (favTeam === "Carolina Panthers"){
-      var logo = $('<img src="pictures/teams/CAR.jpeg">')
-      $favTeamLogo.append(logo)
-    } else if (favTeam === "Chicago Bears"){
-      var logo = $('<img src="pictures/teams/CHI.jpeg">')
-      $favTeamLogo.append(logo)
-    } else if (favTeam === "Cincinnati Bengals"){
-      var logo = $('<img src="pictures/teams/CIN.jpeg">')
-      $favTeamLogo.append(logo)
-    } else if (favTeam === "Cleveland Browns"){
-      var logo = $('<img src="pictures/teams/CLE.jpeg">')
-      $favTeamLogo.append(logo)
-    } else if (favTeam === "Dallas Cowboys"){
-      var logo = $('<img src="pictures/teams/DAL.jpeg">')
-      $favTeamLogo.append(logo)
-    } else if (favTeam === "Denver Broncos"){
-      var logo = $('<img src="pictures/teams/DEN.jpeg">')
-      $favTeamLogo.append(logo)
-    } else if (favTeam === "Detroit Lions"){
-      var logo = $('<img src="pictures/teams/DET.jpeg">')
-      $favTeamLogo.append(logo)
-    } else if (favTeam === "Green Bay Packers"){
-      var logo = $('<img src="pictures/teams/GB.jpeg">')
-      $favTeamLogo.append(logo)
-    } else if (favTeam === "Houston Texans"){
-      var logo = $('<img src="pictures/teams/HOU.jpeg">')
-      $favTeamLogo.append(logo)
-    } else if (favTeam === "Indianapolis Colts"){
-      var logo = $('<img src="pictures/teams/IND.jpeg">')
-      $favTeamLogo.append(logo)
-    } else if (favTeam === "Jacksonville Jaguars"){
-      var logo = $('<img src="pictures/teams/JAC.jpeg">')
-      $favTeamLogo.append(logo)
-    } else if (favTeam === "Kansas City Chiefs"){
-      var logo = $('<img src="pictures/teams/KC.jpeg">')
-      $favTeamLogo.append(logo)
-    } else if (favTeam === "Los Angeles Chargers"){
-      var logo = $('<img src="pictures/teams/LAC.jpeg">')
-      $favTeamLogo.append(logo)
-    } else if (favTeam === "Los Angeles Rams"){
-      var logo = $('<img src="pictures/teams/LA.jpeg">')
-      $favTeamLogo.append(logo)
-    } else if (favTeam === "Miami Dolphins"){
-      var logo = $('<img src="pictures/teams/MIA.jpeg">')
-      $favTeamLogo.append(logo)
-    } else if (favTeam === "Minnesota Vikings"){
-      var logo = $('<img src="pictures/teams/MIN.jpeg">')
-      $favTeamLogo.append(logo)
-    } else if (favTeam === "New England Patriots"){
-      var logo = $('<img src="pictures/teams/NE.jpeg">')
-      $favTeamLogo.append(logo)
-    } else if (favTeam === "New Orleans Saints"){
-      var logo = $('<img src="pictures/teams/NO.jpeg">')
-      $favTeamLogo.append(logo)
-    } else if (favTeam === "New York Giants"){
-      var logo = $('<img src="pictures/teams/NYG.jpeg">')
-      $favTeamLogo.append(logo)
-    } else if (favTeam === "New York Jets"){
-      var logo = $('<img src="pictures/teams/NYJ.jpeg">')
-      $favTeamLogo.append(logo)
-    } else if (favTeam === "Oakland Raiders"){
-      var logo = $('<img src="pictures/teams/OAK.jpeg">')
-      $favTeamLogo.append(logo)
-    } else if (favTeam === "Philadelphia Eagles"){
-      var logo = $('<img src="pictures/teams/PHI.jpeg">')
-      $favTeamLogo.append(logo)
-    } else if (favTeam === "Pittsburgh Steelers"){
-      var logo = $('<img src="pictures/teams/PIT.jpeg">')
-      $favTeamLogo.append(logo)
-    } else if (favTeam === "San Francisco 49ers"){
-      var logo = $('<img src="pictures/teams/SF.jpeg">')
-      $favTeamLogo.append(logo)
-    } else if (favTeam === "Seattle Seahawks"){
-      var logo = $('<img src="pictures/teams/SEA.jpeg">')
-      $favTeamLogo.append(logo)
-    } else if (favTeam === "Tampa Bay Buccaneers"){
-      var logo = $('<img src="pictures/teams/TB.jpeg">')
-      $favTeamLogo.append(logo)
-    } else if (favTeam === "Tennessee Titans"){
-      var logo = $('<img src="pictures/teams/TEN.jpeg">')
-      $favTeamLogo.append(logo)
-    } else if (favTeam === "Washington Redskins"){
-      var logo = $('<img src="pictures/teams/WAS.jpeg">')
-      $favTeamLogo.append(logo)
-    } 
-    else {};
-          
+
 //3rd item show opponent for this week (week 7)
     //15 games this week (index 0 through 14)
     // try to loop through all week's games to find team name. IF found, embed another IF statement that searches for if they're HOME team - if they are return away team and game details - ELSEIF they're AWAY team return home team and game details - ELSE return "bye week"

@@ -13,12 +13,13 @@
         </div>
         <hr class="hr-2 bg-dark">
         <div class="form-group">
+            <!-- text input for favorite music artist -->
         <label for="">Favorite Music Artist</label>
         <input type="text" class="form-control" name="artistName" placeholder="artistName">
         </div>
         <div class="form-group">
+            <!-- select favorite football team -->
         <label for="">Favorite Football Team</label>
-        <!-- <input type="text" class="form-control" name="footballTeam" placeholder="football team"> -->
         <label for="exampleFormControlSelect1">Favorite Football Team</label>
             <select class="form-control" id="exampleFormControlSelect1" name="footballTeam">
             <option>Arizona Cardinals</option>
@@ -56,6 +57,7 @@
             </select>
         </div>
         <div class="form-group">
+            <!-- text input for favorite actor -->
         <label for="">Favorite Actor</label>
         <input type="text" class="form-control" name="actorName" placeholder="actor name">
         </div>
@@ -74,12 +76,17 @@
 </div>
 
 <script>
+    //this gets the user information
     let user = <%- JSON.stringify(user) %>;
     console.log(user)
     $('form').on('submit', function(e) {
         e.preventDefault()
         var values = {};
+        //serialize the values for use
         $.each($(this).serializeArray(), function(){ values[this.name] = this.value; })
+        //the data needs to be restructured into a model that matches the user schema
+        //each piece of data is assigned based on existance
+        //if nothing was entered, the old value is inserted
         var data = {
             name: values['name'] || user.name,
             password: values['newPassword'] || values['password'],
@@ -91,8 +98,6 @@
                 actorName: values['actorName'] || user.topics[0].actorName
             }]
         }
-        console.log(data)
-        console.log(user)
         $.ajax({
             url: '/',
             method: 'patch',
@@ -100,7 +105,15 @@
             contentType: 'application/json'
         })
         .done(function (res) {
-            window.location.href = '/dashboard'
+            //if the update was successfull, redirect to the dash
+            if (res.success) window.location.href = '/dashboard'
+            //otherwise, alert the user and refresh the page
+            if (!res.success){
+                alert('Invalid password')
+                window.location.href = '/editUser'
+
+            } 
+
             
         })
 
@@ -112,6 +125,7 @@
             method: 'delete'
         })
         .done(function (res) {
+            //redirect to home on deletion
             window.location.href = '/'
         })
     })
