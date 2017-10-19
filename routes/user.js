@@ -49,8 +49,21 @@ userRouter.route('/')
 //signup route
 userRouter.route('/signup')
   .get((req, res) => {
+    //if they are logged in, pass the user information
+    if (!!req.user){
+      res.render('user/dashboard', {
+        user: req.user,
+        message: ''
+      })
+    }
+    //otherwise, redirect them home
+    else{
+
+      res.render('signup', {message: req.flash('signup-message')})
+    }
+    
     //get the form
-    res.render('signup', {message: req.flash('signup-message')})
+
   })
   //post the user via passport
   .post(passport.authenticate('local-signup', {
@@ -63,8 +76,19 @@ userRouter.route('/signup')
 //login route
 userRouter.route('/login')
   .get((req, res) => {
+    if (!!req.user){
+      res.render('user/dashboard', {
+        user: req.user,
+        message: ''
+      })
+    }
+    //otherwise, redirect them home
+    else{
+
     //get the login page
     res.render('login', {message: req.flash('login-message')})
+    }
+
   })
   //authenticate the user, redirect based on result
   .post(passport.authenticate('local-login', {
