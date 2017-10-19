@@ -112,16 +112,20 @@ function preloadSports(){
   var favoriteTeam = $('<div>').text(`Favorite Team: ${user.topics[0].footballTeam}`)
   $favoriteTeam.append(favoriteTeam)
  
-//2nd item - show favorite team logo v2 (Clearbit doesn't have LA rams and chargers logos. Probably because neither team belongs in LA...)    
-  //if fav name is la chargers, then load chargers saved img
-  //else if fav name is la rams, then load rams saved img
-  //else run general teamString = favTeam.toLowerCase.....
-
 //find the team's logo using the clearbit API
-  var teamString = favTeam.toLowerCase().replace(/ /g, "")//make a variable of fav team name that makes all letters lower case and combines both words.
-  var logoUrl = $(`<img src="https://logo.clearbit.com/${teamString}.com">`)//interpolate new var team name into clearbit link. Clearbit is free API. 
-  $favTeamLogo.append(logoUrl)//append to screen
+//2nd item - show favorite team logo v2 (Clearbit doesn't have LA Rams or Chargers logos. Probably because neither team belongs in LA...)
+  if (favTeam === "Los Angeles Chargers"){
+  var logo = $('<img src="pictures/teams/LAC.jpeg">')
+  $favTeamLogo.append(logo)//append to screen
+} else if (favTeam === "Los Angeles Rams"){
+  var logo = $('<img src="pictures/teams/LA.jpeg">')
+  $favTeamLogo.append(logo)//append to screen
+} else {
 
+  var teamString = favTeam.toLowerCase().replace(/ /g, "")//make a variable of fav team name that makes all letters lower case and combines both words.
+  var logo = $(`<img src="https://logo.clearbit.com/${teamString}.com">`)//interpolate new var team name into clearbit link. Clearbit is free API. 
+  $favTeamLogo.append(logo)//append to screen
+}
 
 //3rd item show opponent for this week (week 7)
     //15 games this week (index 0 through 14)
