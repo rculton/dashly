@@ -95,14 +95,16 @@ function preloadSports(){
   var $time = $('#time')
   var $tv = $('#tv')
 
- 
-
 //1st item - show favorite team name
   var favoriteTeam = $('<div>').text(`Favorite Team: ${user.topics[0].footballTeam}`)
   $favoriteTeam.append(favoriteTeam)
  
-//2nd item - show favorite team logo v2    
-  var teamString = favTeam.toLowerCase().replace(" ","")//make a variable of fav team name that makes all letters lower case and combines both words.
+//2nd item - show favorite team logo v2 (Clearbit doesn't have LA rams and chargers logos. Probably because neither team belongs in LA...)    
+  //if fav name is la chargers, then load chargers saved img
+  //else if fav name is la rams, then load rams saved img
+  //else run general teamString = favTeam.toLowerCase.....
+  
+  var teamString = favTeam.toLowerCase().replace(/ /g, "")//make a variable of fav team name that makes all letters lower case and combines both words.
   var logoUrl = $(`<img src="https://logo.clearbit.com/${teamString}.com">`)//interpolate new var team name into clearbit link. Clearbit is free API. 
   $favTeamLogo.append(logoUrl)//append to screen
 
@@ -138,10 +140,7 @@ function preloadSports(){
           var homeTeams = res.week.games[i].home.name
           var scheduled = res.week.games[i].scheduled
           var network = res.week.games[i].broadcast.network
-
-  
-      
-
+          
         if (favTeam === awayTeams){
           var opponent = homeTeams
           otherTeam = $('<div>').text(`Opponent: ${opponent}`)
@@ -269,27 +268,13 @@ function preloadSports(){
           } else {}
 
           //TV CHANNEL NAME AND LOGO
-          //console.log(res.week.games[i].broadcast.network)
-          if (network === "FOX"){
-            var station = $('<img src="pictures/tv/FOX.jpeg">')
-            $tv.append(station)
-          } else if (network === "CBS"){
-            var station = $('<img src="pictures/tv/CBS.jpeg">')
-            $tv.append(station)
-          } else if (network === "ESPN"){
-            var station = $('<img src="pictures/tv/ESPN.jpeg">')
-            $tv.append(station)
-          } else if (network === "NBC"){
-            var station = $('<img src="pictures/tv/NBC.jpeg">')
-            $tv.append(station)
-          }
-
+          var tvString = network.toLowerCase()//make a variable of network name that makes all letters lower case
+          var tvUrl = $(`<img src="https://logo.clearbit.com/${tvString}.com">`)//interpolate new var tv name into clearbit link. Clearbit is free API. 
+          $tv.append(tvUrl)//append to screen
           return
-          //end of first IF
+          //END OF 1st IF
+          
         } else if (favTeam === homeTeams){
-          
-          
-          
           var opponent = awayTeams
           otherTeam = $('<div>').text(`Opponent: ${opponent}`)
           $opponent.append(otherTeam)
@@ -412,24 +397,16 @@ function preloadSports(){
               var timeAt = $('<div>').text(`MONDAY, OCT 23  5:30 PM PT`)
               $time.append(timeAt)
             } else {}
-          return
+          
           
           //TV CHANNEL NAME AND LOGO
-          if (network === "FOX"){
-            var station = $('<img src="pictures/tv/FOX.jpeg">')
-            $tv.append(station)
-          } else if (network === "CBS"){
-            var station = $('<img src="pictures/tv/CBS.jpeg">')
-            $tv.append(station)
-          } else if (network === "ESPN"){
-            var station = $('<img src="pictures/tv/ESPN.jpeg">')
-            $tv.append(station)
-          } else if (network === "NBC"){
-            var station = $('<img src="pictures/tv/NBC.jpeg">')
-            $tv.append(station)
-          }
+          var tvString = network.toLowerCase()//make a variable of network name that makes all letters lower case
+          var tvUrl = $(`<img src="https://logo.clearbit.com/${tvString}.com">`)//interpolate new var tv name into clearbit link. Clearbit is free API. 
+          $tv.append(tvUrl)//append to screen 
+          
+          return
+          //END OF 2nd IF
 
-          //END of 2nd IF
         } else if (i == 14){
           var opponent = null
           otherTeam = $('<div>').text(`Opponent: None - Bye Week`)
