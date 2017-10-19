@@ -20,7 +20,7 @@
         </div>
         <div class="row media-row">
             <div class="container" style="margin: 20px auto;">
-                <form class="form-inline my-2 my-lg-0 float-right">
+                <form id="search" class="form-inline my-2 my-lg-0 float-right">
                     <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
                 </form>
@@ -33,9 +33,16 @@
 
    
 <script>
-    function musicSetup() {
+    $('#search').on('submit', function(e) {
+        e.preventDefault()
+        var searchItem = $($(this)[0][0]).val()
+        musicSetup(searchItem)
+        $($(this)[0][0]).val('')
+    });
+
+    function musicSetup(artist) {
         var user = <%- JSON.stringify(user) %>;
-        var userArtist = user.topics[0].artistName;
+        var userArtist = artist || user.topics[0].artistName;
         function parseArtist (str) {
             str = str.toLowerCase();
             str = str.replace(/\s{2,}/g,' ').trim();
