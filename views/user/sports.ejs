@@ -37,8 +37,6 @@ function preloadSports(){
   var $time = $('#time')
   var $tv = $('#tv')
 
- 
-
 //1st item - show favorite team name
   var favoriteTeam = $('<div>').text(`Favorite Team: ${user.topics[0].footballTeam}`)
   $favoriteTeam.append(favoriteTeam)
@@ -60,7 +58,7 @@ function preloadSports(){
           var homeTeams = res.week.games[i].home.name
           var scheduled = res.week.games[i].scheduled
           var network = res.week.games[i].broadcast.network
-
+          
         if (favTeam === awayTeams){
           var opponent = homeTeams
           otherTeam = $('<div>').text(`Opponent: ${opponent}`)
@@ -188,7 +186,7 @@ function preloadSports(){
 
           //TV CHANNEL NAME AND LOGO
           //console.log(res.week.games[i].broadcast.network)
-          if (network === "FOX"){
+          /*if (network === "FOX"){
             var station = $('<img src="pictures/tv/FOX.jpeg">')
             $tv.append(station)
           } else if (network === "CBS"){
@@ -200,10 +198,13 @@ function preloadSports(){
           } else if (network === "NBC"){
             var station = $('<img src="pictures/tv/NBC.jpeg">')
             $tv.append(station)
-          }
-
+          }*/
+          var tvString = network.toLowerCase()//make a variable of network name that makes all letters lower case
+          var tvUrl = $(`<img src="https://logo.clearbit.com/${tvString}.com">`)//interpolate new var tv name into clearbit link. Clearbit is free API. 
+          $tv.append(tvUrl)//append to screen
           return
           //end of first IF
+          
         } else if (favTeam === homeTeams){
           
           var opponent = awayTeams
@@ -331,7 +332,7 @@ function preloadSports(){
           return
           
           //TV CHANNEL NAME AND LOGO
-          if (network === "FOX"){
+          /*if (network === "FOX"){
             var station = $('<img src="pictures/tv/FOX.jpeg">')
             $tv.append(station)
           } else if (network === "CBS"){
@@ -343,8 +344,10 @@ function preloadSports(){
           } else if (network === "NBC"){
             var station = $('<img src="pictures/tv/NBC.jpeg">')
             $tv.append(station)
-          }
-
+          }*/
+          var tvString = network.toLowerCase()//make a variable of network name that makes all letters lower case
+          var tvUrl = $(`<img src="https://logo.clearbit.com/${tvString}.com">`)//interpolate new var tv name into clearbit link. Clearbit is free API. 
+          $tv.append(tvUrl)//append to screen
           //END of 2nd IF
         } else if (i == 14){
           var opponent = null
