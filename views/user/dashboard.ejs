@@ -1,4 +1,6 @@
 <div id="accordion" role="tablist" aria-multiselectable="true">
+  <!-- card 1 -->
+  <%if (!!user.topics[0].artistName) {%>
     <div class="card text-white">
       <div class="card-header bg-dark" role="tab" id="headingOne">
         <h5 class="mb-0">
@@ -7,13 +9,16 @@
           </a>
         </h5>
       </div>
-  
+  <!-- body 1 -->
       <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
         <div class="card-block">
             <% include ../user/music %>
         </div>
       </div>
     </div>
+  <%}%>
+  <!-- card 2 -->
+  <%if (!!user.topics[0].footballTeam) {%>
     <div class="card text-white">
       <div class="card-header bg-dark" role="tab" id="headingTwo">
         <h5 class="mb-0">
@@ -22,11 +27,15 @@
           </a>
         </h5>
       </div>
+  <!-- body 2 -->
       <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
         <div class="card-block"></div>
         <% include ../user/sports %>
         </div>
       </div>
+  <%}%>
+  <!-- card 3 -->
+  <%if (!!user.topics[0].actorName) {%>
       <div class="card bg-dark text-white">
         <div class="card-header" role="tab" id="headingThree">
           <h5 class="mb-0">
@@ -35,11 +44,13 @@
             </a>
           </h5>
         </div>
+  <!-- body 3 -->
         <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
           <div class="card-block">
-            <!-- <% include ../user/movieParse %> -->
+            <% include ../user/movieParse %>
           </div>
         </div>
+    <%}%>
       </div>
     </div>
   </div>
