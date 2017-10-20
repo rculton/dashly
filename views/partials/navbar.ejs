@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <% if(loggedIn){ %>
-    <a class="navbar-brand" href="/dashboard"><%= user.name %>'s Dashboard</a>
-  <% } else{ %>
+    <a class="navbar-brand" href="/dashboard"><%= currentUser.name %>'s Dashboard</a>
+  <% } else { %>
     <a class="navbar-brand" href="/">Dashly</a>
   <% } %>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

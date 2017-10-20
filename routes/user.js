@@ -12,8 +12,6 @@ userRouter.route('/')
 .patch((req, res) => {
   User.findById(req.user._id, (err, user) => {
     if(err) return console.log(err)
-    debugger
-    console.log(req.user.body)
     //Only allow a change if the password is a valid password
     if (!!user.validPassword(req.body.verifyPassword)) {
       //remove the "verify password" as soon as it's verified
@@ -27,14 +25,15 @@ userRouter.route('/')
         if(err) return console.log(err)
         console.log('updated user')
         //and return a success message
+        console.log(updatedUser)
         res.send({success: true})
       })
     }
-    //if the password is invalid...
-    else{
-      //send a message of failure
+    if(!user.validPassword(req.body.verifyPassword)) {
       res.send({success: false})
     }
+    //if the password is invalid...
+      //send a message of failure
   })
 })
   //delete the user
@@ -57,11 +56,7 @@ userRouter.route('/signup')
       })
     }
     //otherwise, redirect them home
-    else{
-
-      res.render('signup', {message: req.flash('signup-message')})
-    }
-    
+    res.render('signup', {message: req.flash('signup-message')})
     //get the form
 
   })
@@ -76,19 +71,7 @@ userRouter.route('/signup')
 //login route
 userRouter.route('/login')
   .get((req, res) => {
-    if (!!req.user){
-      res.render('user/dashboard', {
-        user: req.user,
-        message: ''
-      })
-    }
-    //otherwise, redirect them home
-    else{
-
-    //get the login page
     res.render('login', {message: req.flash('login-message')})
-    }
-
   })
   //authenticate the user, redirect based on result
   .post(passport.authenticate('local-login', {
@@ -109,7 +92,7 @@ userRouter.route('/dashboard')
       })
     }
     //if they are not logged in, redirect them to the home page
-    else{
+    if(!req.user) {
       res.redirect('/')
     }
   }),
@@ -117,20 +100,13 @@ userRouter.route('/dashboard')
 
 //get the page to edit a user
 userRouter.route('/editUser')
+  .all(isLoggedIn)
   .get((req, res) => {
     //if they are logged in, pass the user information
-    if (!!req.user){
       res.render('user/userEdit', {
         user: req.user,
         message: ''
       })
-    }
-    //otherwise, redirect them home
-    else{
-
-      res.redirect('/')
-    }
-    
   })
 
   //logout page

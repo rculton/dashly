@@ -105,6 +105,7 @@
             contentType: 'application/json'
         })
         .done(function(res){
+            console.log(res)
             //if the update was successfull, redirect to the dash
             if (res.success) window.location.href = '/dashboard'
             //otherwise, alert the user and refresh the page
