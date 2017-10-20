@@ -47,18 +47,9 @@ userRouter.route('/')
 
 //signup route
 userRouter.route('/signup')
+  .all(isLoggedOut)
   .get((req, res) => {
-    //if they are logged in, pass the user information
-    if (!!req.user){
-      res.render('user/dashboard', {
-        user: req.user,
-        message: ''
-      })
-    }
-    //otherwise, redirect them home
     res.render('signup', {message: req.flash('signup-message')})
-    //get the form
-
   })
   //post the user via passport
   .post(passport.authenticate('local-signup', {
@@ -70,6 +61,7 @@ userRouter.route('/signup')
 
 //login route
 userRouter.route('/login')
+  .all(isLoggedOut)
   .get((req, res) => {
     res.render('login', {message: req.flash('login-message')})
   })
@@ -83,18 +75,11 @@ userRouter.route('/login')
 
 //get the dashboard
 userRouter.route('/dashboard')
+  .all(isLoggedIn)
   .get((req, res) => {
-    //check if the user is logged in before rendering
-    if (!!req.user){
-      console.log(!!req.user)
       res.render('user/dashboard', {
         user: req.user
       })
-    }
-    //if they are not logged in, redirect them to the home page
-    if(!req.user) {
-      res.redirect('/')
-    }
   }),
 //
 
@@ -102,7 +87,6 @@ userRouter.route('/dashboard')
 userRouter.route('/editUser')
   .all(isLoggedIn)
   .get((req, res) => {
-    //if they are logged in, pass the user information
       res.render('user/userEdit', {
         user: req.user,
         message: ''
@@ -124,4 +108,11 @@ function isLoggedIn(req, res, next) {
     return next();
   } 
   res.redirect('/')
+}
+
+function isLoggedOut(req, res, next) {
+  if (!req.isAuthenticated()) {
+    return next();
+  } 
+  res.redirect('/dashboard')
 }
