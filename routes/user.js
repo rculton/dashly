@@ -76,7 +76,6 @@ userRouter.route('/login')
 
 //get the dashboard
 userRouter.route('/dashboard')
-  .all(isLoggedIn)
   .get((req, res) => {
       res.render('user/dashboard', {
         user: req.user
