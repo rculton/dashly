@@ -48,22 +48,9 @@ userRouter.route('/')
 
 //signup route
 userRouter.route('/signup')
+  .all(isLoggedOut)
   .get((req, res) => {
-    //if they are logged in, pass the user information
-    if (!!req.user){
-      res.render('user/dashboard', {
-        user: req.user,
-        message: ''
-      })
-    }
-    //otherwise, redirect them home
-    else{
-
-      res.render('signup', {message: req.flash('signup-message')})
-    }
-    
-    //get the form
-
+    res.render('signup', {message: req.flash('signup-message')})
   })
   //post the user via passport
   .post(passport.authenticate('local-signup', {
@@ -75,20 +62,9 @@ userRouter.route('/signup')
 
 //login route
 userRouter.route('/login')
+  .all(isLoggedOut)
   .get((req, res) => {
-    if (!!req.user){
-      res.render('user/dashboard', {
-        user: req.user,
-        message: ''
-      })
-    }
-    //otherwise, redirect them home
-    else{
-
-    //get the login page
     res.render('login', {message: req.flash('login-message')})
-    }
-
   })
   //authenticate the user, redirect based on result
   .post(passport.authenticate('local-login', {
@@ -100,37 +76,22 @@ userRouter.route('/login')
 
 //get the dashboard
 userRouter.route('/dashboard')
+  .all(isLoggedIn)
   .get((req, res) => {
-    //check if the user is logged in before rendering
-    if (!!req.user){
-      console.log(!!req.user)
       res.render('user/dashboard', {
         user: req.user
       })
-    }
-    //if they are not logged in, redirect them to the home page
-    else{
-      res.redirect('/')
-    }
   }),
 //
 
 //get the page to edit a user
 userRouter.route('/editUser')
+  .all(isLoggedIn)
   .get((req, res) => {
-    //if they are logged in, pass the user information
-    if (!!req.user){
       res.render('user/userEdit', {
         user: req.user,
         message: ''
       })
-    }
-    //otherwise, redirect them home
-    else{
-
-      res.redirect('/')
-    }
-    
   })
 
   //logout page
@@ -148,4 +109,11 @@ function isLoggedIn(req, res, next) {
     return next();
   } 
   res.redirect('/')
+}
+
+function isLoggedOut(req, res, next) {
+  if (!req.isAuthenticated()) {
+    return next();
+  } 
+  res.redirect('/dashboard')
 }
