@@ -9,7 +9,7 @@ statsKey = process.env.statsKey
 
 sportsRouter.route('/')
 .get((req, res) => {
-  var apiUrl = `http://api.sportradar.us/nfl-ot2/games/2017/REG/7/schedule.json?api_key=nrqn8ufuv3w8hbswrjq8bvq5`
+  var apiUrl = `http://api.sportradar.us/nfl-ot2/games/2017/REG/7/schedule.json?api_key=${process.env.sportsKey}`
   httpClient.get(apiUrl, (err, response, body) => {
       var data = JSON.parse(body)
       // console.log(data)
@@ -20,7 +20,7 @@ sportsRouter.route('/')
 
 sportsRouter.route('/stats/:id')
 .get((req, res) => {
-  var statUrl = `http://api.sportradar.us/nfl-ot2/seasontd/2017/REG/teams/${req.params.id}/statistics.json?api_key=nrqn8ufuv3w8hbswrjq8bvq5`
+  var statUrl = `http://api.sportradar.us/nfl-ot2/seasontd/2017/REG/teams/${req.params.id}/statistics.json?api_key=${process.env.statsKey}`
   httpClient.get(statUrl, (err, response, body) => {
     if(err) return console.log(err)
       var data = JSON.parse(body)

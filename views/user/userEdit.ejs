@@ -107,11 +107,11 @@
         .done(function(res){
             console.log(res)
             //if the update was successfull, redirect to the dash
-            if (res.success) window.location.href = '/dashboard'
+            if (res.success) window.location = '/dashboard'
             //otherwise, alert the user and refresh the page
             if (!res.success){
                 alert('Invalid password')
-                window.location.href = '/editUser'
+                window.location = '/editUser'
 
             }     
         })
