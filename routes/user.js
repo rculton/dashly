@@ -12,7 +12,7 @@ userRouter.route('/')
 .patch((req, res) => {
   // User.findById(req.user._id, (err, user) => {
 
-    User.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, user) => {
+    User.findByIdAndUpdate(req.user.id, req.body, {new: true}, (err, user) => {
       res.json({success: true})
     })
   // })
