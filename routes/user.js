@@ -75,12 +75,9 @@ userRouter.route('/login')
 //
 
 //get the dashboard
-userRouter.route('/dashboard')
-  .get((req, res) => {
-      res.render('user/dashboard', {
-        user: req.user
-      })
-  }),
+userRouter.get('/dashboard', isLoggedIn, (req, res) => {
+  res.render('user/dashboard', {user: req.user})
+})
 //
 
 //get the page to edit a user
