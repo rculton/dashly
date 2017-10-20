@@ -47,8 +47,7 @@ app.use(flash())
 // config cookies 
 app.use(session({
     secret: 'elfuegoisreal',
-    //expiration of the cookie is set to December 31st, 9999 for testing purposes
-    cookie: {expires: new Date(253402300000000)},
+    cookie: {expires: new Date(60000000)},
     resave: true,
     saveUninitialize: false,
     store: store

@@ -20,6 +20,7 @@
 * API's used:
 	* <a href="https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/">iTunes</a>
 	* <a href="https://sportradar.us/">sportradar</a>
+	* <a href="https://clearbit.com/">Clearbit</a>
 	* <a href="https://webhose.io/">Webhose.io</a>
 
 
@@ -29,8 +30,8 @@
 - We were able to execute well by working together on the more difficult, general portions of the app, e.g.: routes, server.js file, deploying to heroku, and authentication/authorization. 
 - We challenged ourselves by selecting a different API for each team member to integrate onto a single page (SPA). We coded around each other in case one of us got caught up on an issue.  
 - The user stories to begin with were:
-    * As a candidate user, I want to be able to post my views on relevant topics for voters to see.
-    * As a user, I want to be able to see who my favorite NFL team is playing this week so I can plan to watch it.
+    * As a user, I want to be able to have my own dashboard to have 1 central place to see latest info on my interests
+	* As a user, I want to be able to see who my favorite NFL team is playing this week so I can plan to watch it.
     * As a user, I want to be able to listen to music from my favorite artist while on the same page as looking up my favorite NFL team and actor news.
     * As a user, I want to be able to see info on my favorite actors to stay up to date on their latest news.
 

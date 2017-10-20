@@ -1,5 +1,8 @@
 <div class="container"></div>
-  <h1 id="favoriteTeam" class="text-center"></h1><!-- 1st item - show favorite team name -->
+
+  <h1 id="favoriteTeam" class="text-center">
+    <!-- 1st item - show favorite team name -->
+  </h1>
   <hr class="bg-primary">
   <div id="media-container" class="container">
     <div class="row media-row">
@@ -13,15 +16,21 @@
               <div class="row">
                 <div class="col">
                   <h5 class="text-info">Favorite Team</h5>
-                  <div id="favTeamLogo"></div><!-- 2nd item - show favorite team logo -->
-                </div>
+
+                  <div id="favTeamLogo"></div>
+                    <!-- 2nd item - show favorite team logo -->
+                  </div>
                 <div class="col">
                   <h1 style="margin-top:20%;">VS.</h1>
                 </div>
                 <div class="col">
-                    <div id="opponent" class="text-danger"></div> <!-- 3rd item show opponent for this week (week 7) -->
+                    <div id="opponent" class="text-danger">
+                      <!-- 3rd item show opponent for this week (week 7) -->
+                    </div> 
                     
-                      <div id="oppLogo"></div><!-- 4th Item - add opponent team logo based off who fav team is playing -->
+                      <div id="oppLogo">
+                        <!-- 4th Item - add opponent team logo based off who fav team is playing -->
+                      </div>
                 </div>
                 
         
@@ -30,10 +39,14 @@
                 <div class="col">
                   <div id="time" class="text-primary" style="margin-top:15%;">
                     <h2>Game Starts At:</h2>
-                  </div><!-- 5th Item - add the date and time of game -->
+                    <!-- 5th Item - add the date and time of game -->
+                  </div>
                 </div>
                 <div class="col">
-                  <div id="tv" class="text-primary">Watch on:</div><!-- 6th Item - add tv network and add icon of the tv network -->
+                  <div id="tv" class="text-primary">
+                  Watch on: <!-- 6th Item - add tv network and add icon of the tv network -->
+                  </div>
+
                 </div>
               </div>
           </div>
@@ -45,9 +58,9 @@
 </div>
 
 
-
+<!-- The two script tags are for readability on team only. It doesn't really do anything -->
 <script>
-  $('body').on('click', '.btn-block', function(e) {
+  $('body').on('click', '.btn-block', function(e){
     var target = $(this).attr('data-target')
     $('.sports-sections').hide();
     $(`${target}`).slideDown('slow')
@@ -55,25 +68,25 @@
 </script>
 
 <script>
-  function loadTeamStats(teamid) {
+  //a function to use the second sports API to fetch information about a specific game
+  function loadTeamStats(teamid){
+    //with the passed in team ID...
     $.ajax({
+      //Get the stats...
       url: `/sports/stats/${teamid}`,
       method: 'get'
     })
-    .done(res => {
+    .done((res) =>{
       console.log(res)
+      //save the record
       var records = res.record
+      //and build the display for each record
       $statDiv = $('#team-stats')
       $redzone = $(`<div><h3 class="text-danger">Redzone Pct: ${records.efficiency.redzone.pct}%</h3></div><hr class="bg-primary">`)
       $touchdowns = $(`<div><h3 class="text-warning">Touchdowns:<br>Passing: ${records.touchdowns.pass} <br>Rush: ${records.touchdowns.rush}<br>Total: ${records.touchdowns.total}</h3></div><hr class="bg-primary">`)
       $passYards = $(`<div><h3 class="text-light">Pass Yards: ${records.passing.yards}</h3></div><hr class="bg-primary">`)
       $rushYards = $(`<div><h3 class="text-success">Rush Yards: ${records.rushing.yards}</h3></div><hr class="bg-primary">`)
       $statDiv.append($redzone, $touchdowns, $passYards, $rushYards)
-      
-
-
-
-
 
     })
     
@@ -83,7 +96,7 @@ function preloadSports(){
   //console.log('sports script connected') 
 
   //Connect current user's information
-  let user = <%- JSON.stringify(user) %>
+  let user = <%- JSON.stringify(user) %>;
    // console.log(`Favorite team from user model: ${user.topics[0].footballTeam}`) //Test if specific current user info is connected. User is current user > topics[0] is current user topic model. 
     
 //Global variables for sports section
@@ -95,157 +108,78 @@ function preloadSports(){
   var $time = $('#time')
   var $tv = $('#tv')
 
- 
-
 //1st item - show favorite team name
   var favoriteTeam = $('<div>').text(`Favorite Team: ${user.topics[0].footballTeam}`)
   $favoriteTeam.append(favoriteTeam)
  
-//2nd item - show favorite team logo v2    
-  var teamString = favTeam.toLowerCase().replace(" ","")//make a variable of fav team name that makes all letters lower case and combines both words.
-  var logoUrl = $(`<img src="https://logo.clearbit.com/${teamString}.com">`)//interpolate new var team name into clearbit link. Clearbit is free API. 
-  $favTeamLogo.append(logoUrl)//append to screen
+//find the team's logo using the clearbit API
+//2nd item - show favorite team logo v2 (Clearbit doesn't have LA Rams or Chargers logos. Probably because neither team belongs in LA...)
+  if (favTeam === "Los Angeles Chargers"){
+  var logo = $('<img src="pictures/teams/LAC.jpeg">')
+  $favTeamLogo.append(logo)//append to screen
+} else if (favTeam === "Los Angeles Rams"){
+  var logo = $('<img src="pictures/teams/LA.jpeg">')
+  $favTeamLogo.append(logo)//append to screen
+} else if (favTeam === "Kansas City Chiefs"){
+  var logo = $('<img src="pictures/teams/KC.jpeg">')
+  $favTeamLogo.append(logo)//append to screen
+} else {
 
+  var teamString = favTeam.toLowerCase().replace(/ /g, "")//make a variable of fav team name that makes all letters lower case and combines both words.
+  var logo = $(`<img src="https://logo.clearbit.com/${teamString}.com">`)//interpolate new var team name into clearbit link. Clearbit is free API. 
+  $favTeamLogo.append(logo)//append to screen
+}
 
 //3rd item show opponent for this week (week 7)
     //15 games this week (index 0 through 14)
     // try to loop through all week's games to find team name. IF found, embed another IF statement that searches for if they're HOME team - if they are return away team and game details - ELSEIF they're AWAY team return home team and game details - ELSE return "bye week"
    $.ajax({url: '/sports', method: 'get'})
     .done(function(res){
-
       var data = res.week.games
       var myTeam
-      for(var j = 0; j < data.length; j++) {
+      for(var j = 0; j < data.length; j++){
         var away = res.week.games[j].away
         var home = res.week.games[j].home
-        if(favTeam === away.name) {
+        if(favTeam === away.name){
           myTeam = away.id
           break
         }
-        if(favTeam === home.name) {
+        if(favTeam === home.name){
           myTeam = home.id
           break
         }
       }
+  //call the load stats function
   loadTeamStats(myTeam)
   
-      
-
-
+    //looping through all the games in a week
+    ///check the opponent, and append the proper picture
         for (var i = 0; i <= 15; i += 1){
           //Local vars
           var awayTeams = res.week.games[i].away.name
           var homeTeams = res.week.games[i].home.name
           var scheduled = res.week.games[i].scheduled
           var network = res.week.games[i].broadcast.network
-
-  
-      
-
+          
         if (favTeam === awayTeams){
           var opponent = homeTeams
           otherTeam = $('<div>').text(`Opponent: ${opponent}`)
           $opponent.append(otherTeam)
-            //logo
-            if (opponent === "Arizona Cardinals"){
-              var logo = $('<img src="pictures/teams/ARI.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Atlanta Falcons"){
-              var logo = $('<img src="pictures/teams/ATL.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Baltimore Ravens"){
-              var logo = $('<img src="pictures/teams/BAL.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Buffalo Bills"){
-              var logo = $('<img src="pictures/teams/BUF.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Carolina Panthers"){
-              var logo = $('<img src="pictures/teams/CAR.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Chicago Bears"){
-              var logo = $('<img src="pictures/teams/CHI.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Cincinnati Bengals"){
-              var logo = $('<img src="pictures/teams/CIN.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Cleveland Browns"){
-              var logo = $('<img src="pictures/teams/CLE.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Dallas Cowboys"){
-              var logo = $('<img src="pictures/teams/DAL.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Denver Broncos"){
-              var logo = $('<img src="pictures/teams/DEN.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Detroit Lions"){
-              var logo = $('<img src="pictures/teams/DET.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Green Bay Packers"){
-              var logo = $('<img src="pictures/teams/GB.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Houston Texans"){
-              var logo = $('<img src="pictures/teams/HOU.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Indianapolis Colts"){
-              var logo = $('<img src="pictures/teams/IND.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Jacksonville Jaguars"){
-              var logo = $('<img src="pictures/teams/JAC.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Kansas City Chiefs"){
-              var logo = $('<img src="pictures/teams/KC.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Los Angeles Chargers"){
-              var logo = $('<img src="pictures/teams/LAC.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Los Angeles Rams"){
-              var logo = $('<img src="pictures/teams/LA.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Miami Dolphins"){
-              var logo = $('<img src="pictures/teams/MIA.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Minnesota Vikings"){
-              var logo = $('<img src="pictures/teams/MIN.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "New England Patriots"){
-              var logo = $('<img src="pictures/teams/NE.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "New Orleans Saints"){
-              var logo = $('<img src="pictures/teams/NO.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "New York Giants"){
-              var logo = $('<img src="pictures/teams/NYG.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "New York Jets"){
-              var logo = $('<img src="pictures/teams/NYJ.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Oakland Raiders"){
-              var logo = $('<img src="pictures/teams/OAK.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Philadelphia Eagles"){
-              var logo = $('<img src="pictures/teams/PHI.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Pittsburgh Steelers"){
-              var logo = $('<img src="pictures/teams/PIT.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "San Francisco 49ers"){
-              var logo = $('<img src="pictures/teams/SF.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Seattle Seahawks"){
-              var logo = $('<img src="pictures/teams/SEA.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Tampa Bay Buccaneers"){
-              var logo = $('<img src="pictures/teams/TB.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Tennessee Titans"){
-              var logo = $('<img src="pictures/teams/TEN.jpeg">')
-              $oppLogo.append(logo)
-            } else if (opponent === "Washington Redskins"){
-              var logo = $('<img src="pictures/teams/WAS.jpeg">')
-              $oppLogo.append(logo)
-            } 
-            else {
-            };
+          //v2 refactor
+          if (opponent === "Los Angeles Chargers"){
+            var logo = $('<img src="pictures/teams/LAC.jpeg">')
+            $oppLogo.append(logo)//append to screen
+          } else if (opponent === "Los Angeles Rams"){
+            var logo = $('<img src="pictures/teams/LA.jpeg">')
+            $oppLogo.append(logo)//append to screen
+          } else if (opponent === "Kansas City Chiefs"){
+            var logo = $('<img src="pictures/teams/KC.jpeg">')
+            $oppLogo.append(logo)//append to screen
+          } else {
+            var opponent2 = opponent.toLowerCase().replace(/ /g, "")//make a variable of fav team name that makes all letters lower case and combines both words.
+            var logo = $(`<img src="https://logo.clearbit.com/${opponent2}.com">`)//interpolate new var team name into clearbit link. Clearbit is free API. 
+            $oppLogo.append(logo)//append to screen
+          }
           
           // TIME game is at
           if (scheduled === "2017-10-20T00:25:00+00:00"){
@@ -269,27 +203,13 @@ function preloadSports(){
           } else {}
 
           //TV CHANNEL NAME AND LOGO
-          //console.log(res.week.games[i].broadcast.network)
-          if (network === "FOX"){
-            var station = $('<img src="pictures/tv/FOX.jpeg">')
-            $tv.append(station)
-          } else if (network === "CBS"){
-            var station = $('<img src="pictures/tv/CBS.jpeg">')
-            $tv.append(station)
-          } else if (network === "ESPN"){
-            var station = $('<img src="pictures/tv/ESPN.jpeg">')
-            $tv.append(station)
-          } else if (network === "NBC"){
-            var station = $('<img src="pictures/tv/NBC.jpeg">')
-            $tv.append(station)
-          }
-
+          var tvString = network.toLowerCase()//make a variable of network name that makes all letters lower case
+          var tvUrl = $(`<img src="https://logo.clearbit.com/${tvString}.com">`)//interpolate new var tv name into clearbit link. Clearbit is free API. 
+          $tv.append(tvUrl)//append to screen
           return
-          //end of first IF
+          //END OF 1st IF
+          
         } else if (favTeam === homeTeams){
-          
-          
-          
           var opponent = awayTeams
           otherTeam = $('<div>').text(`Opponent: ${opponent}`)
           $opponent.append(otherTeam)
@@ -412,24 +332,16 @@ function preloadSports(){
               var timeAt = $('<div>').text(`MONDAY, OCT 23  5:30 PM PT`)
               $time.append(timeAt)
             } else {}
-          return
+          
           
           //TV CHANNEL NAME AND LOGO
-          if (network === "FOX"){
-            var station = $('<img src="pictures/tv/FOX.jpeg">')
-            $tv.append(station)
-          } else if (network === "CBS"){
-            var station = $('<img src="pictures/tv/CBS.jpeg">')
-            $tv.append(station)
-          } else if (network === "ESPN"){
-            var station = $('<img src="pictures/tv/ESPN.jpeg">')
-            $tv.append(station)
-          } else if (network === "NBC"){
-            var station = $('<img src="pictures/tv/NBC.jpeg">')
-            $tv.append(station)
-          }
+          var tvString = network.toLowerCase()//make a variable of network name that makes all letters lower case
+          var tvUrl = $(`<img src="https://logo.clearbit.com/${tvString}.com">`)//interpolate new var tv name into clearbit link. Clearbit is free API. 
+          $tv.append(tvUrl)//append to screen 
+          
+          return
+          //END OF 2nd IF
 
-          //END of 2nd IF
         } else if (i == 14){
           var opponent = null
           otherTeam = $('<div>').text(`Opponent: None - Bye Week`)
@@ -445,5 +357,6 @@ function preloadSports(){
    
 
   }
+  //run the preload
   preloadSports()
   </script>
